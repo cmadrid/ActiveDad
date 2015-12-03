@@ -35,6 +35,7 @@ La meta de este sprint es poder implementar
 ### Sprint 3 (14 de Enero del 2016 - 28 de Enero del 2016)
 La meta de este sprint es poder implementar 
 
+* Hipótesis 3
 * Hipótesis 5
 
 ## Horarios de Trabajo
@@ -43,5 +44,5 @@ por medio de skype.
 
 Los fines de semana tendremos sesiones grupales de al menos 4 horas de trabajo y acordaremos reuniones con los usuarios.
 
-Nuestros avanaces seran probados los fines de semana con los usuarios.
+Nuestros avances serán probados los fines de semana con los usuarios.
 
