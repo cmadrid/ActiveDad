@@ -39,7 +39,7 @@ La meta de este sprint es poder implementar
 * Hipótesis 5
 
 ## Horarios de Trabajo
-Todos los miembros del equipo dedicaremos 2 horas diarias para los dias entre semana y nos apoyaremos en esas sesiones 
+Todos los miembros del equipo dedicaremos 2 horas diarias para los dias entre semana y nos comunicaremos en esas sesiones 
 por medio de skype.
 
 Los fines de semana tendremos sesiones grupales de al menos 4 horas de trabajo y acordaremos reuniones con los usuarios.
