@@ -3,20 +3,19 @@ Padres no involucrados de manera activa en el crecimiento de sus hijos por mante
 
 ## Hipótesis
 ### Hipótesis 1
-Nosotros creemos que implementando un módulo social donde los padres compartan sus experiencias con sus hijos lograremos 
-que los papás interesados tomen en cuenta dicha experiencia en la relación padre-hijo. Sabremos que es verdad cuando una 
-experiencia tenga una buena o mala aceptación por medio de likes.
+Nosotros creemos que implementando un módulo social donde los padres compartan sus experiencias con sus hijos lograremos que los papás interesados tomen en cuenta dicha experiencia en la relación padre-hijo. Sabremos que es verdad cuando una experiencia tenga una buena o mala aceptación por medio de likes.
 
 ### Hipótesis 2
-Nosotros creemos que implementando un módulo de sugerencias para los padres que carecen de información de actividades que 
-lo involucren con su hijo lograremos que los niños sientan el interés por parte de su padre. Sabremos que es verdad 
-cuando veamos que acepten o cancelen la sugerencia.
+Nosotros creemos que implementando un módulo de sugerencias para los padres que carecen de información de actividades que lo involucren con su hijo lograremos que los niños sientan el interés por parte de su padre. Sabremos que es verdad cuando veamos que acepten o cancelen la sugerencia.
 
 ### Hipótesis 3
-Nosotros creemos que implementando un módulo de actividades a realizar de los padres con sus hijos en sus tiempos libres lograremos que los papás tengan una mayor interacción con los niños. Sabremos que es verdad cuando veamos que acepten este medio para aprender nuevas actividades a realizar con sus hijos.
+Nosotros creemos que implementando un módulo de actividades a realizar entre padres e hijos de acuerdo al perfil de cada papá lograremos que los niños sientan mayor presencia de su papá. Sabremos que es verdad cuando notemos la mejora en cuanto al tiempo que el padre dedica a su hijo mediante gráficos.
 
 ### Hipótesis 4
-Nosotros creemos que implementando un módulo de perfil para los padres para brindar información de acuerdo a su perfil lograremos que el sistema brinda información de a cuerdo a los perfiles. Sabremos que es verdad cuando los padres creen sus propios perfiles.
+Nosotros creemos que implementando un módulo de perfil para los padres lograremos obtener información útil para que el sistema brinde sugerencias enfocadas al perfil ingresado. Sabremos que es verdad cuando los padres escojan las primeras sugerencias con mayor frecuencia dada por el sistema.
+
+### Hipótesis 5
+Nosotros creemos que implementando un módulo de monitoreo del tiempo del padre dedicado a sus hijos lograremos notificar al papá de manera automática de acuerdo a su perfil el progreso o descuido de su tiempo. Sabremos que es verdad cuando el papá acoja la sugerencia dada por la notificación.
 
 ## Sprints
 Nuestro trabajo se realiza con metodología de desarrollo agil, para lo que lo hemos dividivo en 3 sprints.
