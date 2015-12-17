@@ -1,5 +1,13 @@
 package ec.edu.espol.integradora.dadtime;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Activity activity;
+    private Context context;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -40,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.activity = this;
+        this.context = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
 
@@ -82,6 +97,37 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            new AlertDialog.Builder(activity)
+                    .setTitle("DadTime")
+                    .setMessage("Una recomendacion de actividad para realizar con el hijo... aqui el padre puede indicar si la acepta o no")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                            activity.finish();
+
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+
+                            activity.finish();
+                        }
+                    })
+                    .setCancelable(false)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return true;
+        }
+        else if (id == R.id.start_service) {
+            startService(new Intent(getBaseContext(),ServiceBackground.class));
+            //Toast.makeText(this,"inicia",Toast.LENGTH_LONG).show();
+            return true;
+        }
+        else if (id == R.id.stop_service) {
+
+            stopService(new Intent(getBaseContext(),ServiceBackground.class));
+            //Toast.makeText(this,"termina",Toast.LENGTH_LONG).show();
             return true;
         }
 
