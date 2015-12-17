@@ -73,7 +73,7 @@ public class ServiceBackground extends Service {
 
             intent.putExtra("title",title);
             intent.putExtra("content",content);
-
+            //intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
             PendingIntent pIntent = PendingIntent.getActivity(ServiceBackground.super.getApplication(), iUniqueId, intent, 0);
