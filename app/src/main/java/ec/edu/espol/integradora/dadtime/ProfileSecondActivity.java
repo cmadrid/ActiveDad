@@ -1,5 +1,6 @@
 package ec.edu.espol.integradora.dadtime;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -59,16 +62,17 @@ public class ProfileSecondActivity extends AppCompatActivity {
         final TextView tvName = new TextView(this);
         final TextView tvBirthday = new TextView(this);
         final TextView tvAction = new TextView(this);
-
+        final ImageButton btnRemove = new ImageButton(this);
         final EditText etName = (EditText) v.findViewById(R.id.txtName);
         final EditText etBirthday = (EditText) v.findViewById(R.id.txtbirthday);
-        final EditText etAction = (EditText) v.findViewById(R.id.txtAction);
+
+        btnRemove.setImageResource(R.mipmap.remove);
+
         etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if(hasFocus)
-                {
+                if (hasFocus) {
                     Calendar calendar = Calendar.getInstance();
                     int year = calendar.get(Calendar.YEAR);
                     int month = calendar.get(Calendar.MONTH);
@@ -81,7 +85,6 @@ public class ProfileSecondActivity extends AppCompatActivity {
                     }, year, month, day);
                     datePicker.setCancelable(false);
                     datePicker.show();
-                    etAction.requestFocus();
                 }
             }
         });
@@ -91,7 +94,34 @@ public class ProfileSecondActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         tvName.setText(etName.getText());
                         tvBirthday.setText(etBirthday.getText());
-                        tvAction.setText(etAction.getText());
+
+                        final TableRow trChild = new TableRow(activity);
+                        trChild.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+
+                        trChild.addView(tvName);
+                        trChild.addView(tvBirthday);
+                        trChild.addView(btnRemove);
+                        tlChildren.addView(trChild);
+
+                        btnRemove.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new AlertDialog.Builder(activity)
+                                        .setTitle("Eliminar un perfil")
+                                        .setMessage("Esta seguro que desea eliminar ese perfil?")
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                tlChildren.removeView(trChild);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                            }
+                        });
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -103,12 +133,5 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
-        TableRow trChild = new TableRow(this);
-        trChild.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-
-        trChild.addView(tvName);
-        trChild.addView(tvBirthday);
-        trChild.addView(tvAction);
-        tlChildren.addView(trChild);
     }
 }
