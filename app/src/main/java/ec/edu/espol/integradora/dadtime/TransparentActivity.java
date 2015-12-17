@@ -29,7 +29,7 @@ public class TransparentActivity extends Activity {
         String content=intent.getStringExtra("content");
 
         new AlertDialog.Builder(activity)
-                .setTitle("DadTime - "+title)
+                .setTitle("DadTime - " + title)
                 .setMessage(content)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -39,6 +39,13 @@ public class TransparentActivity extends Activity {
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+
+                        activity.finish();
+                    }
+                })
+                .setNeutralButton("Posponer", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
 

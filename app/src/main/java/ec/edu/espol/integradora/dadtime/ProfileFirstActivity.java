@@ -166,6 +166,10 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!stopService(new Intent(getBaseContext(),ServiceBackground.class)))
+                    startService(new Intent(getBaseContext(),ServiceBackground.class));
+
                 Intent intent = new Intent(ProfileFirstActivity.this, ProfileSecondActivity.class);
                 startActivity(intent);
             }

@@ -7,6 +7,8 @@
     <string name="name">Nombre</string>
     <string name="user">Usuario</string>
     <string name="home">Domicilio</string>
+    <string name="birthday">Fecha de Nacimiento</string>
+    <string name="action">Acción</string>
     <string name="entryTime">Hora de ingreso</string>
     <string name="exitTime">Hora de salida</string>
 </resources>
