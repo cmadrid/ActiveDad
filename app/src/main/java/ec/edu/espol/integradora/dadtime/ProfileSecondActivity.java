@@ -34,7 +34,7 @@ public class ProfileSecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_second);
         this.activity=this;
         tlChildren = (TableLayout)findViewById(R.id.tlChildren);
-        btnAdd = (Button)findViewById(R.id.btnAdd);
+        btnAdd = (Button)findViewById(R.id.btnAddSon);
         btnNext = (Button)findViewById(R.id.btnNext);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
