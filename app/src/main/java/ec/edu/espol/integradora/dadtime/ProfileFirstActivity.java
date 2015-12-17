@@ -1,7 +1,14 @@
 package ec.edu.espol.integradora.dadtime;
 
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -19,7 +26,6 @@ public class ProfileFirstActivity extends AppCompatActivity {
 
     private EditText txtName;
     private EditText txtUser;
-    private EditText txtHome;
     private Button btnSunday;
     private Button btnMonday;
     private Button btnTuesday;
@@ -40,7 +46,6 @@ public class ProfileFirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_first);
         txtName = (EditText)findViewById(R.id.textName);
         txtUser = (EditText)findViewById(R.id.txtUser);
-        txtHome = (EditText)findViewById(R.id.txtHome);
         btnSunday = (Button)findViewById(R.id.btnSunday);
         btnMonday = (Button)findViewById(R.id.btnMonday);
         btnTuesday = (Button)findViewById(R.id.btnTuesday);
@@ -52,7 +57,6 @@ public class ProfileFirstActivity extends AppCompatActivity {
         txtExitTime = (EditText)findViewById(R.id.txtExitTime);
         cbFreeDay = (CheckBox)findViewById(R.id.cbFreeDay);
         btnNext = (Button)findViewById(R.id.btnNext);
-        txtHome.setInputType(InputType.TYPE_NULL);
         txtEntryTime.setInputType(InputType.TYPE_NULL);
         txtExitTime.setInputType(InputType.TYPE_NULL);
         workdays = new ArrayList<>();

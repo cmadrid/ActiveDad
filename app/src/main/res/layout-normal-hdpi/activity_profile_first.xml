@@ -25,12 +25,6 @@
         android:hint="@string/user"
         android:id="@+id/txtUser" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/home"
-        android:id="@+id/txtHome" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

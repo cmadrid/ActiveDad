@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ec.edu.espol.integradora.dadtime">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:launchMode="singleTop"
         android:allowBackup="true"

@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceListItem"
             android:text="Hijos"
             android:textColor="#000000"
             android:id="@+id/sons" />
@@ -25,48 +25,55 @@
             android:layout_width="60px"
             android:layout_height="wrap_content"
             android:text="+"
-            android:id="@+id/btnSaturday" />
+            android:id="@+id/btnAdd" />
 
     </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="350dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dip"
             android:id="@+id/tlhead">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceListItem"
                 android:text="Nombre"
-                android:textColor="#000000"
-                android:background="@drawable/border_tablelayout"
+                android:textColor="#ffffff"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:width="125px"
+                android:gravity="center_horizontal"
+                android:background="@drawable/border_head"
                 android:id="@+id/txtName" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceListItem"
                 android:text="Fecha de nacimiento"
-                android:textColor="#000000"
-
-                android:background="@drawable/border_tablelayout"
-                android:id="@+id/txt" />
+                android:textColor="#ffffff"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_marginLeft="1dp"
+                android:background="@drawable/border_head"
+                android:id="@+id/txtBirthday" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceListItem"
                 android:text="Acción"
-                android:textColor="#000000"
-                android:paddingLeft="6dp"
-                android:id="@+id/textView" />
+                android:textColor="#ffffff"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_marginLeft="1dp"
+                android:background="@drawable/border_head"
+                android:id="@+id/txtAction" />
 
         </TableRow>
 
@@ -92,5 +99,11 @@
         </ScrollView>
 
     </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:id="@+id/btnNext" />
 
 </LinearLayout>
