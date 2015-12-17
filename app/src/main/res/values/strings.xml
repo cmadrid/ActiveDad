@@ -2,4 +2,9 @@
     <string name="app_name">DadTime</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$s</string>
+    <string name="name">Nombre</string>
+    <string name="user">Usuario</string>
+    <string name="home">Domicilio</string>
+    <string name="entryTime">Hora de ingreso</string>
+    <string name="exitTime">Hora de salida</string>
 </resources>
