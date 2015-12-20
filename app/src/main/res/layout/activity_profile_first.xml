@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingBottom="50dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context="ec.edu.espol.integradora.dadtime.ProfileFirstActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:inputType="textCapWords"
+        android:imeOptions="actionDone"
+        android:hint="@string/name"
+        android:id="@+id/textName" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="@string/user"
+        android:id="@+id/txtUser" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25px"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:text="Horario de trabajo" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="7">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="D"
+                android:background="@drawable/button_day_selected"
+                android:id="@+id/btnSunday" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="L"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnMonday" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="M"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnTuesday" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="X"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnWednesday" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="J"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnThursday" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="V"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnFriday" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="S"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnSaturday" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="@string/entryTime"
+        android:id="@+id/txtEntryTime" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="@string/exitTime"
+        android:id="@+id/txtExitTime" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Día libre"
+        android:id="@+id/cbFreeDay" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="bottom">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:textAllCaps="false"
+            android:text="Siguiente"
+            android:background="@drawable/table_layout_head"
+            android:id="@+id/btnNext" />
+
+    </LinearLayout>
+
+</LinearLayout>

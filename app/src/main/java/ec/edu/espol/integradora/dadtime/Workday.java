@@ -6,9 +6,9 @@ package ec.edu.espol.integradora.dadtime;
 public class Workday {
 
     private String day;
-    private String entryTime;
-    private String exitTime;
-    private boolean freeDay;
+    private String entryTime = "";
+    private String exitTime = "";
+    private boolean freeDay = false;
 
     public String getDay() {
         return day;
@@ -34,7 +34,7 @@ public class Workday {
         this.exitTime = exitTime;
     }
 
-    public boolean isFreeDay() {
+    public boolean getFreeDay() {
         return freeDay;
     }
 

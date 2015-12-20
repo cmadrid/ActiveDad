@@ -4,8 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="50dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     tools:context="ec.edu.espol.integradora.dadtime.ProfileSecondActivity">
@@ -13,76 +13,80 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:weightSum="2">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.25"
             android:textSize="15sp"
             android:text="Hijos"
             android:textColor="#000000" />
 
         <Button
-            android:layout_width="60px"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.20"
+            android:layout_marginBottom="5dp"
+            android:textColor="#ffffff"
             android:text="+"
+            android:background="@drawable/table_layout_head"
             android:id="@+id/btnAddSon" />
 
     </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="270dp"
         android:id="@+id/tlChildren">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/tlhead">
+            android:weightSum="3">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
+                android:layout_weight="2.70"
                 android:gravity="center_horizontal"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
                 android:text="Nombre"
                 android:width="139px"
-                android:background="@drawable/border_head"
+                android:background="@drawable/table_layout_head"
                 android:id="@+id/txtName" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
+                android:layout_weight="0.15"
                 android:layout_marginLeft="1dp"
+                android:gravity="center_horizontal"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
                 android:text="Fecha de nacimiento"
-                android:background="@drawable/border_head"
+                android:background="@drawable/table_layout_head"
                 android:id="@+id/txtBirthday" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
+                android:layout_weight="0.15"
                 android:layout_marginLeft="1dp"
+                android:gravity="center_horizontal"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
                 android:text="Acción"
-                android:background="@drawable/border_head"
+                android:background="@drawable/table_layout_head"
                 android:id="@+id/txtAction" />
 
         </TableRow>
 
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView" >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -147,7 +151,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:textAllCaps="false"
             android:text="Siguiente"
+            android:background="@drawable/table_layout_head"
             android:id="@+id/btnNext" />
 
     </LinearLayout>
