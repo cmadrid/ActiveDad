@@ -1,125 +1,123 @@
 package ec.edu.espol.integradora.dadtime;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TimePicker;
+import android.widget.Toast;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.Calendar;
 
 public class ProfileSecondActivity extends AppCompatActivity {
 
-    Button btnNext;
-    Button btnAdd;
-    TableLayout tlChildren;
     Activity activity;
+    Button btnAddSon;
+    TableLayout tlBody;
+    Button btnFinalize;
 
+    private static final String LOGTAG = "LogsAndroidDADTIME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
-        this.activity=this;
-        tlChildren = (TableLayout)findViewById(R.id.tlChildren);
-        btnAdd = (Button)findViewById(R.id.btnAddSon);
-        btnNext = (Button)findViewById(R.id.btnNext);
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        this.activity = this;
+        btnAddSon = (Button)findViewById(R.id.btnAddSon);
+        tlBody = (TableLayout)findViewById(R.id.tlBody);
+        btnFinalize = (Button)findViewById(R.id.btnFinalize);
+        btnAddSon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileSecondActivity.this, ProfileThirdActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addRow();
-            }
-        });
-    }
-
-    private void addRow()
-    {
-        final LayoutInflater inflater =activity.getLayoutInflater();
-        final View v = inflater.inflate(R.layout.dialog_add_child, null);
-        final TextView tvName = new TextView(this);
-        final TextView tvBirthday = new TextView(this);
-        final TextView tvAction = new TextView(this);
-        final ImageButton btnRemove = new ImageButton(this);
-        final EditText etName = (EditText) v.findViewById(R.id.txtName);
-        final EditText etBirthday = (EditText) v.findViewById(R.id.txtbirthday);
-
-        btnRemove.setImageResource(R.mipmap.remove);
-
-        etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
-                if (hasFocus) {
-                    Calendar calendar = Calendar.getInstance();
-                    int year = calendar.get(Calendar.YEAR);
-                    int month = calendar.get(Calendar.MONTH);
-                    int day = calendar.get(Calendar.DAY_OF_MONTH);
-                    DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            etBirthday.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
+                LayoutInflater inflater = activity.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_add_son, null);
+                final TableRow row = new TableRow(activity);
+                final TextView tvName = new TextView(activity);
+                final TextView tvBirthday = new TextView(activity);
+                final ImageButton iBtnRemove = new ImageButton(activity);
+                final EditText etName = (EditText) view.findViewById(R.id.etName);
+                final EditText etBirthday = (EditText) view.findViewById(R.id.etBirthday);
+                etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (hasFocus) {
+                            Calendar calendar = Calendar.getInstance();
+                            int year = calendar.get(Calendar.YEAR);
+                            int month = calendar.get(Calendar.MONTH);
+                            int day = calendar.get(Calendar.DAY_OF_MONTH);
+                            DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int month, int day) {
+                                    etBirthday.setText(day + "/" + month + "/" + year);
+                                }
+                            }, year, month, day);
+                            datePicker.setCancelable(false);
+                            datePicker.show();
                         }
-                    }, year, month, day);
-                    datePicker.setCancelable(false);
-                    datePicker.show();
-                }
-            }
-        });
-        new AlertDialog.Builder(activity)
-                .setView(v)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    }
+                });
+                new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+                        row.setWeightSum(4);
+                        row.setBackground(getResources().getDrawable(R.drawable.row_layout_body));
+                        float scale = activity.getResources().getDisplayMetrics().density;
+                        int pixels = (int) (40 * scale + 0.5f);
+                        tvName.setLayoutParams(new TableRow.LayoutParams(0, pixels, 1.75f));
+                        tvName.setGravity(Gravity.CENTER);
+                        tvName.setTextSize(15);
+                        tvName.setTextColor(Color.BLACK);
                         tvName.setText(etName.getText());
+                        tvBirthday.setLayoutParams(new TableRow.LayoutParams(0, pixels, 1.45f));
+                        tvBirthday.setGravity(Gravity.CENTER);
+                        tvBirthday.setTextSize(15);
+                        tvBirthday.setTextColor(Color.BLACK);
                         tvBirthday.setText(etBirthday.getText());
-
-                        final TableRow trChild = new TableRow(activity);
-                        trChild.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-
-                        trChild.addView(tvName);
-                        trChild.addView(tvBirthday);
-                        trChild.addView(btnRemove);
-                        tlChildren.addView(trChild);
-
-                        btnRemove.setOnClickListener(new View.OnClickListener() {
+                        tvBirthday.setBackground(getResources().getDrawable(R.drawable.field_intermediate));
+                        iBtnRemove.setLayoutParams(new TableRow.LayoutParams(0, pixels, 0.8f));
+                        iBtnRemove.setImageResource(R.mipmap.remove);
+                        iBtnRemove.setBackground(getResources().getDrawable(R.drawable.field_last));
+                        row.addView(tvName);
+                        row.addView(tvBirthday);
+                        row.addView(iBtnRemove);
+                        tlBody.addView(row);
+                        iBtnRemove.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 new AlertDialog.Builder(activity)
-                                        .setTitle("Eliminar un perfil")
-                                        .setMessage("Esta seguro que desea eliminar ese perfil?")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                tlChildren.removeView(trChild);
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
+                                    .setTitle("Eliminar un perfil")
+                                    .setMessage("¿Esta seguro que desea eliminar ese perfil?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            tlBody.removeView(row);
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
                             }
                         });
                     }
@@ -132,6 +130,56 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+            }
+        });
+        btnFinalize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent intent = new Intent(ProfileSecondActivity.this, MainActivity.class);
+                startActivity(intent);*/
+                SaveProfile saveProfile = new SaveProfile();
+                saveProfile.execute();
+            }
+        });
+    }
 
+    private class SaveProfile extends AsyncTask<Void, Void, String>
+    {
+        @Override
+        protected String doInBackground(Void ...param)
+        {
+            try
+            {
+                String NAMESPACE = "urn:DadTime";
+                String URL = "http://www.corporacionsmartest.com/DadTimeWebServices/wsDadTime.php";
+                String SOAP_ACTION = "urn:DadTime#InsertProfile";
+                String METHOD_NAME = "InsertProfile";
+                SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+                request.addProperty("name", "Cesar");
+                request.addProperty("user", "cesar");
+                request.addProperty("home", "Aja");
+                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
+                Log.i(LOGTAG, "0");
+                envelope.dotNet = true;
+                envelope.setOutputSoapObject(request);
+                Log.i(LOGTAG, "1");
+                HttpTransportSE httpTransport = new HttpTransportSE(URL);
+                httpTransport.call(SOAP_ACTION, envelope);
+                Log.i(LOGTAG, "2");
+                SoapObject response = (SoapObject) envelope.bodyIn;
+                String wsResponse = (String)response.getProperty(0);
+                return wsResponse;
+            }
+            catch (Exception e)
+            {
+                return e.toString();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String wsResponse)
+        {
+            Log.i(LOGTAG, wsResponse);
+        }
     }
 }

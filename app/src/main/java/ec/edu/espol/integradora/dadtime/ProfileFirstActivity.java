@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,8 +25,8 @@ import java.util.Calendar;
 
 public class ProfileFirstActivity extends AppCompatActivity {
 
-    private EditText txtName;
-    private EditText txtUser;
+    private EditText etName;
+    private EditText etUser;
     private Button btnSunday;
     private Button btnMonday;
     private Button btnTuesday;
@@ -33,8 +34,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
     private Button btnThursday;
     private Button btnFriday;
     private Button btnSaturday;
-    private EditText txtEntryTime;
-    private EditText txtExitTime;
+    private EditText etEntryTime;
+    private EditText etExitTime;
     private CheckBox cbFreeDay;
     private Button btnNext;
     private int index = 0;
@@ -44,8 +45,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
-        txtName = (EditText)findViewById(R.id.textName);
-        txtUser = (EditText)findViewById(R.id.txtUser);
+        etName = (EditText)findViewById(R.id.etName);
+        etUser = (EditText)findViewById(R.id.etUser);
         btnSunday = (Button)findViewById(R.id.btnSunday);
         btnMonday = (Button)findViewById(R.id.btnMonday);
         btnTuesday = (Button)findViewById(R.id.btnTuesday);
@@ -53,12 +54,10 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnThursday = (Button)findViewById(R.id.btnThursday);
         btnFriday = (Button)findViewById(R.id.btnFriday);
         btnSaturday = (Button)findViewById(R.id.btnSaturday);
-        txtEntryTime = (EditText)findViewById(R.id.txtEntryTime);
-        txtExitTime = (EditText)findViewById(R.id.txtExitTime);
+        etEntryTime = (EditText)findViewById(R.id.etEntryTime);
+        etExitTime = (EditText)findViewById(R.id.etExitTime);
         cbFreeDay = (CheckBox)findViewById(R.id.cbFreeDay);
         btnNext = (Button)findViewById(R.id.btnNext);
-        txtEntryTime.setInputType(InputType.TYPE_NULL);
-        txtExitTime.setInputType(InputType.TYPE_NULL);
         workdays = new ArrayList<>();
         Workday sunday = new Workday();
         sunday.setDay("Domingo");
@@ -92,8 +91,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 index = 0;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
@@ -108,8 +107,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 index = 1;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
@@ -124,8 +123,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 index = 2;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
@@ -140,8 +139,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 index = 3;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
@@ -156,8 +155,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 index = 4;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
@@ -172,8 +171,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 index = 5;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
@@ -188,43 +187,49 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 index = 6;
-                txtEntryTime.setText(workdays.get(index).getEntryTime());
-                txtExitTime.setText(workdays.get(index).getExitTime());
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
             }
         });
-        txtEntryTime.setOnClickListener(new View.OnClickListener() {
+        etEntryTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
-                TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hour, int minute) {
-                        txtEntryTime.setText(completeTime(hour) + ":" + completeTime(minute) + ":" + "00");
-                        workdays.get(index).setEntryTime(txtEntryTime.getText().toString());
-                    }
-                }, hour, minute, true);
-                timePicker.setCancelable(false);
-                timePicker.show();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                {
+                    Calendar calendar = Calendar.getInstance();
+                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minute = calendar.get(Calendar.MINUTE);
+                    TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hour, int minute) {
+                            etEntryTime.setText(completeTime(hour) + ":" + completeTime(minute) + ":" + "00");
+                            workdays.get(index).setEntryTime(etEntryTime.getText().toString());
+                        }
+                    }, hour, minute, true);
+                    timePicker.setCancelable(false);
+                    timePicker.show();
+                }
             }
         });
-        txtExitTime.setOnClickListener(new View.OnClickListener() {
+        etExitTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                int minute = calendar.get(Calendar.MINUTE);
-                TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hour, int minute) {
-                        txtExitTime.setText(completeTime(hour) + ":" + completeTime(minute) + ":" + "00");
-                        workdays.get(index).setExitTime(txtExitTime.getText().toString());
-                    }
-                }, hour, minute, true);
-                timePicker.setCancelable(false);
-                timePicker.show();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                {
+                    Calendar calendar = Calendar.getInstance();
+                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                    int minute = calendar.get(Calendar.MINUTE);
+                    TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hour, int minute) {
+                            etExitTime.setText(completeTime(hour) + ":" + completeTime(minute) + ":" + "00");
+                            workdays.get(index).setExitTime(etExitTime.getText().toString());
+                        }
+                    }, hour, minute, true);
+                    timePicker.setCancelable(false);
+                    timePicker.show();
+                }
             }
         });
         cbFreeDay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -232,13 +237,13 @@ public class ProfileFirstActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
                 {
-                    txtEntryTime.setText("");
-                    txtExitTime.setText("");
+                    etEntryTime.setText("");
+                    etExitTime.setText("");
                     workdays.get(index).setEntryTime("");
                     workdays.get(index).setExitTime("");
                 }
-                txtEntryTime.setEnabled(!isChecked);
-                txtExitTime.setEnabled(!isChecked);
+                etEntryTime.setEnabled(!isChecked);
+                etExitTime.setEnabled(!isChecked);
                 workdays.get(index).setFreeDay(isChecked);
             }
         });

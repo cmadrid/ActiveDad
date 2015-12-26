@@ -17,7 +17,7 @@
         android:inputType="textCapWords"
         android:imeOptions="actionDone"
         android:hint="@string/name"
-        android:id="@+id/textName" />
+        android:id="@+id/etName" />
 
     <EditText
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:inputType="text"
         android:imeOptions="actionDone"
         android:hint="@string/user"
-        android:id="@+id/txtUser" />
+        android:id="@+id/etUser" />
 
     <TextView
         android:layout_width="match_parent"
@@ -123,15 +123,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
+        android:inputType="datetime"
         android:hint="@string/entryTime"
-        android:id="@+id/txtEntryTime" />
+        android:id="@+id/etEntryTime" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
+        android:inputType="datetime"
         android:hint="@string/exitTime"
-        android:id="@+id/txtExitTime" />
+        android:id="@+id/etExitTime" />
 
     <CheckBox
         android:layout_width="wrap_content"

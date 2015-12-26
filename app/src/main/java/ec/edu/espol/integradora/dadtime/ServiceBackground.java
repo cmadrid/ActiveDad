@@ -30,7 +30,7 @@ public class ServiceBackground extends Service {
 
         if(timer==null) {
             timer = new Timer();
-            timer.execute();
+            //timer.execute();
             Toast.makeText(ServiceBackground.this,"Service Started",Toast.LENGTH_SHORT).show();
         }
         System.out.println(timer.getStatus());

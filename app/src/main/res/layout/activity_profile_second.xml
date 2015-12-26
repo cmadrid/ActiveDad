@@ -38,49 +38,45 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:id="@+id/tlChildren">
+        android:layout_height="270dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="3">
+            android:layout_height="wrap_content"
+            android:weightSum="4">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.70"
-                android:gravity="center_horizontal"
+                android:layout_height="40dp"
+                android:layout_weight="1.75"
+                android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="Nombre"
-                android:width="139px"
-                android:background="@drawable/table_layout_head"
-                android:id="@+id/txtName" />
+                android:textStyle="bold"
+                android:text="Nombre\n"
+                android:background="@drawable/table_layout_head" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.15"
-                android:layout_marginLeft="1dp"
-                android:gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1.45"
+                android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="Fecha de nacimiento"
-                android:background="@drawable/table_layout_head"
-                android:id="@+id/txtBirthday" />
+                android:textStyle="bold"
+                android:text="Fecha de\nnacimiento"
+                android:background="@drawable/table_layout_head" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.15"
-                android:layout_marginLeft="1dp"
-                android:gravity="center_horizontal"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.8"
+                android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="Acción"
-                android:background="@drawable/table_layout_head"
-                android:id="@+id/txtAction" />
+                android:textStyle="bold"
+                android:text="Acción\n"
+                android:background="@drawable/table_layout_head" />
 
         </TableRow>
 
@@ -96,47 +92,13 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/tlbody">
+                    android:id="@+id/tlBody">
 
                 </TableLayout>
 
             </LinearLayout>
 
         </ScrollView>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
 
     </TableLayout>
 
@@ -153,9 +115,9 @@
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:textAllCaps="false"
-            android:text="Siguiente"
+            android:text="Finalizar"
             android:background="@drawable/table_layout_head"
-            android:id="@+id/btnNext" />
+            android:id="@+id/btnFinalize" />
 
     </LinearLayout>
 
