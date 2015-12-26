@@ -3,19 +3,19 @@ Padres no involucrados de manera activa en el crecimiento de sus hijos por mante
 
 ## Hipótesis
 ### Hipótesis 1
-Nosotros creemos que implementando un módulo social donde los padres compartan sus experiencias con sus hijos lograremos que los papás interesados tomen en cuenta dicha experiencia en la relación padre-hijo. Sabremos que es verdad cuando una experiencia tenga una buena o mala aceptación por medio de likes.
+Nosotros creemos que implementando un módulo de perfil para el padre lograremos obtener información necesaria para la retroalimentación del sistema hacia el papá. Sabremos que es verdad cuando el padre acepte las sugerencias o las actividades del sistema.
 
 ### Hipótesis 2
-Nosotros creemos que implementando un módulo de sugerencias para los padres que carecen de información de actividades que lo involucren con su hijo lograremos que los niños sientan el interés por parte de su padre. Sabremos que es verdad cuando veamos que acepten o cancelen la sugerencia.
+Nosotros creemos que implementando un módulo de sugerencias de actividades en los días laborables del padre con sus hijos lograremos que los niños sientan el interés por parte de su papá. Sabremos que es verdad cuando el padre acepte o cancele la sugerencia.
 
 ### Hipótesis 3
-Nosotros creemos que implementando un módulo de actividades a realizar entre padres e hijos de acuerdo al perfil de cada papá lograremos que los niños sientan mayor presencia de su papá. Sabremos que es verdad cuando notemos la mejora en cuanto al tiempo que el padre dedica a su hijo mediante gráficos.
+Nosotros creemos que implementando un módulo de actividades en los días libres del padre a realizar con sus hijos lograremos que los niños se acerquen más a su papá. Sabremos que es verdad cuando el padre registre las actividades realizadas con sus hijos.
 
 ### Hipótesis 4
-Nosotros creemos que implementando un módulo de perfil para los padres lograremos obtener información útil para que el sistema brinde sugerencias enfocadas al perfil ingresado. Sabremos que es verdad cuando los padres escojan las primeras sugerencias con mayor frecuencia dada por el sistema.
+Nosotros creemos que implementando un módulo de galería de imágenes para el padre lograremos que el papá pueda administrar las imágenes de las actividades realizadas con sus hijos. Sabremos que es verdad cuando el padré administre su galería de imágenes.
 
 ### Hipótesis 5
-Nosotros creemos que implementando un módulo de monitoreo del tiempo del padre dedicado a sus hijos lograremos notificar al papá de manera automática de acuerdo a su perfil el progreso o descuido de su tiempo. Sabremos que es verdad cuando el papá acoja la sugerencia dada por la notificación.
+Nosotros creemos que implementando un módulo de notificaciones de videos o collage con su galería de imágenes para el padre lograremos involucrar más al papá en uso del sistema para mejorar la relación padre-hijos. Sabremos que es verdad cuando el papá comparta sus notificaciones en las redes sociales o las visualice.
 
 ## Sprints
 Nuestro trabajo se realiza con metodología de desarrollo agil, para lo que lo hemos dividivo en 3 sprints.
@@ -23,19 +23,19 @@ Nuestro trabajo se realiza con metodología de desarrollo agil, para lo que lo h
 ### Sprint 1 (3 de Diciembre del 2015 - 17 de Diciembre del 2015)
 La meta de este sprint es poder implementar 
 
-* Hipótesis 4
 * Hipótesis 1
+* Hipótesis 2
 
 ### Sprint 2 (24 de Diciembre del 2015 - 7 de Enero del 2016)
 La meta de este sprint es poder implementar 
 
-* Hipótesis 2
 * Hipótesis 3
+* Hipótesis 4
 
 ### Sprint 3 (14 de Enero del 2016 - 28 de Enero del 2016)
 La meta de este sprint es poder implementar 
 
-* Hipótesis 3
+* Hipótesis 4
 * Hipótesis 5
 
 ## Horarios de Trabajo
