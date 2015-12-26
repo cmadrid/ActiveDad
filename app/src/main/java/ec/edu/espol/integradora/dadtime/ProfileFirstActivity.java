@@ -250,6 +250,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     startService(new Intent(getBaseContext(), ServiceBackground.class));
 
                 Intent intent = new Intent(ProfileFirstActivity.this, ProfileSecondActivity.class);
+                //Intent intent = new Intent(ProfileFirstActivity.this, ProfileSecondActivityv2.class);
                 startActivity(intent);
             }
         });

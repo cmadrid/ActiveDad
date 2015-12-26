@@ -61,10 +61,17 @@ public class ProfileSecondActivity extends AppCompatActivity {
         final View v = inflater.inflate(R.layout.dialog_add_child, null);
         final TextView tvName = new TextView(this);
         final TextView tvBirthday = new TextView(this);
-        final TextView tvAction = new TextView(this);
         final ImageButton btnRemove = new ImageButton(this);
         final EditText etName = (EditText) v.findViewById(R.id.txtName);
         final EditText etBirthday = (EditText) v.findViewById(R.id.txtbirthday);
+
+        TableRow.LayoutParams param1 = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT,0.9f);
+        TableRow.LayoutParams param2 = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT,1.5f);
+        TableRow.LayoutParams param3 = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT,0.6f);
+        tvName.setLayoutParams(param1);
+        tvBirthday.setLayoutParams(param2);
+        btnRemove.setLayoutParams(param3);
+
 
         btnRemove.setImageResource(R.mipmap.remove);
 
