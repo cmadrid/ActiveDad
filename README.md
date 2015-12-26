@@ -12,7 +12,7 @@ Nosotros creemos que implementando un módulo de sugerencias de actividades en l
 Nosotros creemos que implementando un módulo de actividades en los días libres del padre a realizar con sus hijos lograremos que los niños se acerquen más a su papá. Sabremos que es verdad cuando el padre registre las actividades realizadas con sus hijos.
 
 ### Hipótesis 4
-Nosotros creemos que implementando un módulo de galería de imágenes para el padre lograremos que el papá pueda administrar las imágenes de las actividades realizadas con sus hijos. Sabremos que es verdad cuando el padré administre su galería de imágenes.
+Nosotros creemos que implementando un módulo de galería de imágenes para el padre lograremos que el papá pueda administrar las imágenes de las actividades realizadas con sus hijos. Sabremos que es verdad cuando el padre administre su galería de imágenes.
 
 ### Hipótesis 5
 Nosotros creemos que implementando un módulo de notificaciones de videos o collage con su galería de imágenes para el padre lograremos involucrar más al papá en uso del sistema para mejorar la relación padre-hijos. Sabremos que es verdad cuando el papá comparta sus notificaciones en las redes sociales o las visualice.
