@@ -10,7 +10,7 @@
     <string name="action">Acción</string>
     <string name="entryTime">Hora de ingreso</string>
     <string name="exitTime">Hora de salida</string>
-    <string name="accept">Sí, lo haré!</string>
-    <string name="notAccept">No lo haré.</string>
+    <string name="accept">Sí lo haré</string>
+    <string name="notAccept">No lo haré</string>
     <string name="postpone">Posponer</string>
 </resources>
