@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -24,14 +25,18 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ProfileSecondActivity extends AppCompatActivity {
 
-    Activity activity;
-    Button btnAddSon;
-    TableLayout tlBody;
-    Button btnFinalize;
+    private Activity activity;
+    private ProfileGlobalClass profileGlobalClass;
+    private Button btnAddSon;
+    private TableLayout tlBody;
+    private Button btnPrevious;
+    private Button btnFinalize;
+    private ArrayList<Son> sons;
 
     private static final String LOGTAG = "LogsAndroidDADTIME";
 
@@ -40,9 +45,13 @@ public class ProfileSecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
         this.activity = this;
+        profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
+        Log.i(LOGTAG,profileGlobalClass.getName());
         btnAddSon = (Button)findViewById(R.id.btnAddSon);
         tlBody = (TableLayout)findViewById(R.id.tlBody);
+        btnPrevious = (Button)findViewById(R.id.btnPrevious);
         btnFinalize = (Button)findViewById(R.id.btnFinalize);
+        sons = new ArrayList<>();
         btnAddSon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,19 +111,19 @@ public class ProfileSecondActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 new AlertDialog.Builder(activity)
-                                    .setTitle("Eliminar un perfil")
-                                    .setMessage("¿Esta seguro que desea eliminar ese perfil?")
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            tlBody.removeView(row);
-                                        }
-                                    })
-                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
+                                        .setTitle("Eliminar un perfil")
+                                        .setMessage("¿Esta seguro que desea eliminar ese perfil?")
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                tlBody.removeView(row);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
                             }
                         });
                     }
@@ -129,13 +138,24 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 .show();
             }
         });
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btnFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(ProfileSecondActivity.this, MainActivity.class);
-                startActivity(intent);*/
-                SaveProfile saveProfile = new SaveProfile();
-                saveProfile.execute();
+                Son son = new Son();
+                //son.setName(etName.getText().toString());
+                //son.setBirthdate(etBirthday.getText().toString());
+                sons.add(son);
+                profileGlobalClass.setSons(sons);
+                Intent intent = new Intent(ProfileSecondActivity.this, MainActivity.class);
+                startActivity(intent);
+                //SaveProfile saveProfile = new SaveProfile();
+                //saveProfile.execute();
             }
         });
     }
@@ -156,13 +176,10 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 request.addProperty("user", "cesar");
                 request.addProperty("home", "Aja");
                 SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
-                Log.i(LOGTAG, "0");
                 envelope.dotNet = true;
                 envelope.setOutputSoapObject(request);
-                Log.i(LOGTAG, "1");
                 HttpTransportSE httpTransport = new HttpTransportSE(URL);
                 httpTransport.call(SOAP_ACTION, envelope);
-                Log.i(LOGTAG, "2");
                 SoapObject response = (SoapObject) envelope.bodyIn;
                 String wsResponse = (String)response.getProperty(0);
                 return wsResponse;

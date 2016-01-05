@@ -25,6 +25,7 @@ import java.util.Calendar;
 
 public class ProfileFirstActivity extends AppCompatActivity {
 
+    private ProfileGlobalClass profileGlobalClass;
     private EditText etName;
     private EditText etUser;
     private Button btnSunday;
@@ -45,8 +46,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
+        profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         etName = (EditText)findViewById(R.id.etName);
-        etUser = (EditText)findViewById(R.id.etUser);
         btnSunday = (Button)findViewById(R.id.btnSunday);
         btnMonday = (Button)findViewById(R.id.btnMonday);
         btnTuesday = (Button)findViewById(R.id.btnTuesday);
@@ -250,8 +251,8 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!stopService(new Intent(getBaseContext(), ServiceBackground.class)))
-                    startService(new Intent(getBaseContext(), ServiceBackground.class));
+                profileGlobalClass.setName(etName.getText().toString());
+                profileGlobalClass.setWorkdays(workdays);
                 Intent intent = new Intent(ProfileFirstActivity.this, ProfileSecondActivity.class);
                 startActivity(intent);
             }
