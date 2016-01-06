@@ -2,9 +2,6 @@ package ec.edu.espol.integradora.dadtime;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +23,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-import android.widget.Toast;
+
+import layout.FragmentActivities;
+import layout.FragmentExperiences;
+import layout.FragmentStatistics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -182,16 +182,23 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            Fragment fragment;
             switch (position)
             {
                 case 0:
-
+                    fragment = FragmentActivities.newInstance();
+                    break;
                 case 1:
-
+                    fragment = FragmentExperiences.newInstance();
+                    break;
                 case 2:
-
+                    fragment = FragmentStatistics.newInstance();
+                    break;
+                default:
+                    fragment = PlaceholderFragment.newInstance(getPageTitle(position));
+                    break;
             }
-            return PlaceholderFragment.newInstance(getPageTitle(position));
+            return fragment;
         }
 
         @Override
