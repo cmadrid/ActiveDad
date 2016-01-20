@@ -46,7 +46,6 @@ public class ProfileSecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_second);
         this.activity = this;
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
-        Log.i(LOGTAG,profileGlobalClass.getName());
         btnAddSon = (Button)findViewById(R.id.btnAddSon);
         tlBody = (TableLayout)findViewById(R.id.tlBody);
         btnPrevious = (Button)findViewById(R.id.btnPrevious);
@@ -173,8 +172,6 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 String METHOD_NAME = "InsertProfile";
                 SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
                 request.addProperty("name", "Cesar");
-                request.addProperty("user", "cesar");
-                request.addProperty("home", "Aja");
                 SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
                 envelope.dotNet = true;
                 envelope.setOutputSoapObject(request);
