@@ -30,7 +30,7 @@ public class ServiceBackground extends Service {
 
         if(timer==null) {
             timer = new Timer();
-            //timer.execute();
+            timer.execute();
             Toast.makeText(ServiceBackground.this,"Service Started",Toast.LENGTH_SHORT).show();
         }
         System.out.println(timer.getStatus());
@@ -74,7 +74,7 @@ public class ServiceBackground extends Service {
             intent.putExtra("title",title);
             intent.putExtra("content",content);
             //intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             PendingIntent pIntent = PendingIntent.getActivity(ServiceBackground.super.getApplication(), iUniqueId, intent, 0);
             Notification noti = new Notification.Builder(ServiceBackground.super.getApplication())

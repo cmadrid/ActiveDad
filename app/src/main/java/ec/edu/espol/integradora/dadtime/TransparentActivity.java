@@ -33,8 +33,10 @@ public class TransparentActivity extends Activity {
 
 
         if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) !=0)
+        {
             activity.finish();
-
+            startActivity(new Intent(this.context,MainActivity.class));
+        }
         setContentView(R.layout.transparent_activity);
 
 

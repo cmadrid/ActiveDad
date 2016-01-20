@@ -3,6 +3,10 @@
     package="ec.edu.espol.integradora.dadtime">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".ProfileGlobalClass"
@@ -29,6 +33,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".CameraActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:launchMode="singleTop"
+>>>>>>> origin/master
             android:name=".TransparentActivity"
             android:excludeFromRecents="false"
             android:launchMode="singleTop"

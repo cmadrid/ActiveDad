@@ -126,7 +126,8 @@ public class Entertainment implements Parcelable{
         dest.writeString(price);
         dest.writeString(descripcion);
         dest.writeInt(minimumAge);
-        dest.writeParcelable(getImage(), flags);
+        //AQUÍ MIRA
+        //dest.writeParcelable(getImage(), flags);
     }
 
 

@@ -8,13 +8,23 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
-        android:id="@+id/start_service"
+        android:id="@+id/camera_setting"
         android:orderInCategory="200"
+        android:title="@string/menu_camera"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/shortcut_setting"
+        android:orderInCategory="201"
+        android:title="crear acceso directo camara"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/start_service"
+        android:orderInCategory="300"
         android:title="@string/start_service"
         app:showAsAction="never" />
     <item
         android:id="@+id/stop_service"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         android:title="@string/stop_service"
         app:showAsAction="never" />
 </menu>
