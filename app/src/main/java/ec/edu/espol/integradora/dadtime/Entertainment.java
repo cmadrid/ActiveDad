@@ -1,9 +1,12 @@
 package ec.edu.espol.integradora.dadtime;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -33,7 +36,11 @@ public class Entertainment implements Parcelable{
         price = in.readString();
         descripcion = in.readString();
         minimumAge = in.readInt();
-        image = in.readParcelable(Bitmap.class.getClassLoader());
+
+        byte[] imageAsBytes = new byte[in.readInt()];
+        in.readByteArray(imageAsBytes);
+        image = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        //image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static final Creator<Entertainment> CREATOR = new Creator<Entertainment>() {
@@ -128,6 +135,11 @@ public class Entertainment implements Parcelable{
         dest.writeInt(minimumAge);
         //AQUÍ MIRA
         //dest.writeParcelable(getImage(), flags);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        dest.writeInt(byteArray.length);
+        dest.writeByteArray(byteArray);
     }
 
 
