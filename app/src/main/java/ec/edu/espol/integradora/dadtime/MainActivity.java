@@ -25,17 +25,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-<<<<<<< HEAD
+
 import layout.FragmentEntertainments;
 import layout.FragmentMemories;
-=======
-import java.io.File;
-import java.util.Calendar;
-
-import layout.FragmentActivities;
-import layout.FragmentExperiences;
-import layout.FragmentStatistics;
->>>>>>> origin/master
 
 public class MainActivity extends AppCompatActivity {
 
