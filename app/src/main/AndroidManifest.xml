@@ -40,12 +40,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTop"
             android:name=".TransparentActivity"
             android:excludeFromRecents="false"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent"></activity>
 
         <service android:name=".ServiceBackground" />
+
+        <activity android:name=".EntertainmentActivity"></activity>
 
         <activity
             android:name=".CameraImageTag"

@@ -12,24 +12,23 @@ import ec.edu.espol.integradora.dadtime.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentActivities extends Fragment {
+public class FragmentMemories extends Fragment {
 
 
-    public FragmentActivities() {
+    public FragmentMemories() {
         // Required empty public constructor
     }
 
-    public static FragmentActivities newInstance() {
-        FragmentActivities fragment = new FragmentActivities();
+    public static FragmentMemories newInstance() {
+        FragmentMemories fragment = new FragmentMemories();
         return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activities, container, false);
+        return inflater.inflate(R.layout.fragment_memories, container, false);
     }
 
 }

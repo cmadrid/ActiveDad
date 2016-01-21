@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -27,12 +25,17 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+<<<<<<< HEAD
+import layout.FragmentEntertainments;
+import layout.FragmentMemories;
+=======
 import java.io.File;
 import java.util.Calendar;
 
 import layout.FragmentActivities;
 import layout.FragmentExperiences;
 import layout.FragmentStatistics;
+>>>>>>> origin/master
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,33 +60,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.activity = this;
         this.context = getApplicationContext();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-
     }
 
     @Override
@@ -99,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             new AlertDialog.Builder(activity)
@@ -109,13 +96,11 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
                             activity.finish();
-
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing
-
                             activity.finish();
                         }
                     })
@@ -143,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(this,"termina",Toast.LENGTH_LONG).show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -177,10 +161,9 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NAME = "section_name";
-
         public PlaceholderFragment() {
-        }
 
+        }
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -221,13 +204,10 @@ public class MainActivity extends AppCompatActivity {
             switch (position)
             {
                 case 0:
-                    fragment = FragmentActivities.newInstance();
+                    fragment = FragmentEntertainments.newInstance();
                     break;
                 case 1:
-                    fragment = FragmentExperiences.newInstance();
-                    break;
-                case 2:
-                    fragment = FragmentStatistics.newInstance();
+                    fragment = FragmentMemories.newInstance();
                     break;
                 default:
                     fragment = PlaceholderFragment.newInstance(getPageTitle(position));
@@ -239,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -248,9 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return "Actividades";
                 case 1:
-                    return "Experiencias";
-                case 2:
-                    return "Estadísticas";
+                    return "Recuerdos";
             }
             return null;
         }
