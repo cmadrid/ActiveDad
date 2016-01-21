@@ -120,31 +120,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     })
                     .setCancelable(false)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    //.setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
             return true;
         }
         else if (id == R.id.camera_setting)
         {
-
-            //Si no existe se crea el directorio a guardar
-            File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/GamingCoach/Photos");
-            directory.mkdirs();
-
-            int IMAGE_CAPTURE = 102;
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //Se guarda la fecha para ponerla de nombre en la imagen
-            String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-            //se defina guardar en la carpeta destinada con la fecha de nombre
-            File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/GamingCoach/Photos/" + mydate + ".jpg");
-            Uri imgUri = Uri.fromFile(mediaFile);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
-            startActivityForResult(intent, IMAGE_CAPTURE);
-
+            startActivity(new Intent(getApplicationContext(), CameraActivity.class));
             return true;
         }
         else if(id == R.id.shortcut_setting){
-            //addShortcut();
             openCamera();
         }
         else if (id == R.id.start_service) {
@@ -164,23 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void openCamera(){
-/*
-        //Si no existe se crea el directorio a guardar
-        File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/GamingCoach/Photos");
-        directory.mkdirs();
-
-        int IMAGE_CAPTURE = 102;
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //Se guarda la fecha para ponerla de nombre en la imagen
-        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        //se defina guardar en la carpeta destinada con la fecha de nombre
-        File mediaFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/GamingCoach/Photos/" + mydate + ".jpg");
-        Uri imgUri = Uri.fromFile(mediaFile);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
-        startActivityForResult(intent, IMAGE_CAPTURE);
-
-*/
-
         Intent shortcutIntent = new Intent(getApplicationContext(), CameraActivity.class);
         shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -197,25 +165,6 @@ public class MainActivity extends AppCompatActivity {
         getApplicationContext().sendBroadcast(addIntent);
 
 
-    }
-
-    private void addShortcut() {
-        //Adding shortcut for MainActivity
-        //on Home screen
-        Intent shortcutIntent = new Intent(getApplicationContext(),
-                ProfileFirstActivity.class);
-
-        shortcutIntent.setAction(Intent.ACTION_MAIN);
-
-        Intent addIntent = new Intent();
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Camera DadTime");
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                Intent.ShortcutIconResource.fromContext(getApplicationContext(),
-                R.mipmap.ic_launcher));
-        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-
-        getApplicationContext().sendBroadcast(addIntent);
     }
 
 

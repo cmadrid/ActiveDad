@@ -50,13 +50,6 @@ public class TransparentActivity extends Activity {
 
                     }
                 })
-                .setNegativeButton(R.string.notAccept, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-
-                        activity.finish();
-                    }
-                })
                 .setNeutralButton(R.string.postpone, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
@@ -65,7 +58,7 @@ public class TransparentActivity extends Activity {
                     }
                 })
                 .setCancelable(false)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.mipmap.ic_launcher)
                 .show();
 
     }

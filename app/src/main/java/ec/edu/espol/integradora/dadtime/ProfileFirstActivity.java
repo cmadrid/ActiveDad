@@ -1,5 +1,6 @@
 package ec.edu.espol.integradora.dadtime;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,10 +43,13 @@ public class ProfileFirstActivity extends AppCompatActivity {
     private int index = 0;
     private ArrayList<Workday> workdays;
 
+    public static Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
+        this.activity=this;
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         etName = (EditText)findViewById(R.id.etName);
         btnSunday = (Button)findViewById(R.id.btnSunday);

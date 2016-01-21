@@ -44,6 +44,8 @@ public class ProfileSecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
+
+
         this.activity = this;
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         Log.i(LOGTAG,profileGlobalClass.getName());
@@ -156,6 +158,9 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 startActivity(intent);
                 //SaveProfile saveProfile = new SaveProfile();
                 //saveProfile.execute();
+                if(ProfileFirstActivity.activity!=null)
+                    ProfileFirstActivity.activity.finish();
+                finish();
             }
         });
     }

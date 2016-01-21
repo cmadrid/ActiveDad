@@ -11,7 +11,11 @@
     <string name="action">Acción</string>
     <string name="entryTime">Hora de ingreso</string>
     <string name="exitTime">Hora de salida</string>
-    <string name="accept">Sí lo haré</string>
+    <string name="accept">Aceptar</string>
     <string name="notAccept">No lo haré</string>
     <string name="postpone">Posponer</string>
+
+    <string name="title_activity_camera_image_tag">CameraImageTag</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
