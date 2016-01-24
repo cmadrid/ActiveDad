@@ -4,88 +4,167 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:weightSum="5"
+    android:weightSum="4"
     tools:context="ec.edu.espol.integradora.dadtime.EntertainmentActivity">
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="@mipmap/ic_launcher"
+        android:layout_weight="2.13"
         android:id="@+id/ivImage" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:weightSum="3">
+        android:layout_weight="1.87">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:text="Title"
-            android:id="@+id/tvTitle" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="13sp"
-            android:textColor="#8b8b8b"
-            android:text="Company"
-            android:id="@+id/tvCompany" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="13sp"
-            android:textColor="#8b8b8b"
-            android:text="Category"
-            android:id="@+id/tvCategory" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:text="Title"
+                        android:id="@+id/tvTitle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textSize="13sp"
+                        android:textColor="#8b8b8b"
+                        android:text="Company"
+                        android:id="@+id/tvCompany" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textSize="13sp"
+                        android:textColor="#8b8b8b"
+                        android:text="Category"
+                        android:id="@+id/tvCategory" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="right"
+                        android:layout_alignParentRight = "true"
+                        android:textSize="13sp"
+                        android:textColor="#8b8b8b"
+                        android:textStyle="italic"
+                        android:text="Actividad a realizar"
+                        android:id="@+id/cbActividadRealizar" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:text="Horario:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#000000"
+                    android:id="@+id/tvSchedule" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:text="Precio:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#000000"
+                    android:id="@+id/tvPrice" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:text="Descripción:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="13sp"
+                    android:textColor="#000000"
+                    android:id="@+id/tvDescription" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/divider_list"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="13sp"
-        android:textColor="#000000"
-        android:text="Description"
-        android:id="@+id/tvDescription" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/divider_list"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="13sp"
-        android:textColor="#000000"
-        android:text="Description"
-        android:id="@+id/tv" />
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package layout;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -25,6 +27,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.prefs.Preferences;
 
 import ec.edu.espol.integradora.dadtime.CustomAdapterEntertainment;
 import ec.edu.espol.integradora.dadtime.Entertainment;
@@ -36,11 +39,11 @@ import ec.edu.espol.integradora.dadtime.R;
  */
 public class FragmentEntertainments extends Fragment {
 
+    SharedPreferences preferenceSettings;
+    SharedPreferences.Editor preferenceEditor;
     ProgressBar progressBar;
     ListView lvEntertainments;
     ArrayList<Entertainment> entertainments;
-
-    private static final String LOGTAG = "LogsAndroidDADTIME";
 
     public FragmentEntertainments() {
         // Required empty public constructor
@@ -55,6 +58,11 @@ public class FragmentEntertainments extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_entertainments, container, false);
+        preferenceSettings = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        preferenceEditor.putString("email", "modificado@email.com");
+        preferenceEditor.putString("nombre", "Prueba");
+        preferenceEditor.commit();
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
@@ -91,8 +99,9 @@ public class FragmentEntertainments extends Fragment {
                     entertainment.setTitle(respond.getProperty("title").toString());
                     entertainment.setCompany(respond.getProperty("company").toString());
                     entertainment.setCategory(respond.getProperty("category").toString());
+                    entertainment.setSchedule(respond.getProperty("schedule").toString());
                     entertainment.setPrice(respond.getProperty("price").toString());
-                    entertainment.setDescripcion(respond.getProperty("descripcion").toString());
+                    entertainment.setDescription(respond.getProperty("description").toString());
                     entertainment.setMinimumAge(Integer.parseInt(respond.getProperty("minimumAge").toString()));
                     entertainment.setImage(BitmapFactory.decodeStream((InputStream) new URL(respond.getProperty("image").toString()).getContent()));
                     entertainments.add(entertainment);
@@ -113,7 +122,6 @@ public class FragmentEntertainments extends Fragment {
                 lvEntertainments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //Toast.makeText(getActivity(), "Click", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), EntertainmentActivity.class);
                         intent.putExtra("Entertainment", entertainments.get(position));
                         startActivity(intent);

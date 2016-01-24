@@ -49,7 +49,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
-        this.activity=this;
+        this.activity = this;
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         etName = (EditText)findViewById(R.id.etName);
         btnSunday = (Button)findViewById(R.id.btnSunday);

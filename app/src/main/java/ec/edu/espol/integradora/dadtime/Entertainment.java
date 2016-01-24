@@ -18,8 +18,9 @@ public class Entertainment implements Parcelable{
     private String title;
     private String company;
     private String category;
+    private String schedule;
     private String price;
-    private String descripcion;
+    private String description;
     private int minimumAge;
     private Bitmap image;
 
@@ -33,14 +34,13 @@ public class Entertainment implements Parcelable{
         title = in.readString();
         company = in.readString();
         category = in.readString();
+        schedule = in.readString();
         price = in.readString();
-        descripcion = in.readString();
+        description = in.readString();
         minimumAge = in.readInt();
-
         byte[] imageAsBytes = new byte[in.readInt()];
         in.readByteArray(imageAsBytes);
         image = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-        //image = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static final Creator<Entertainment> CREATOR = new Creator<Entertainment>() {
@@ -54,6 +54,28 @@ public class Entertainment implements Parcelable{
             return new Entertainment[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idActivity);
+        dest.writeString(title);
+        dest.writeString(company);
+        dest.writeString(category);
+        dest.writeString(schedule);
+        dest.writeString(price);
+        dest.writeString(description);
+        dest.writeInt(minimumAge);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        dest.writeInt(byteArray.length);
+        dest.writeByteArray(byteArray);
+    }
 
     public int getIdActivity() {
         return idActivity;
@@ -87,6 +109,14 @@ public class Entertainment implements Parcelable{
         this.category = category;
     }
 
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
     public String getPrice() {
         return price;
     }
@@ -95,12 +125,12 @@ public class Entertainment implements Parcelable{
         this.price = price;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String descripcion) {
+        this.description = descripcion;
     }
 
     public int getMinimumAge() {
@@ -118,29 +148,5 @@ public class Entertainment implements Parcelable{
     public void setImage(Bitmap image) {
         this.image = image;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(idActivity);
-        dest.writeString(title);
-        dest.writeString(company);
-        dest.writeString(category);
-        dest.writeString(price);
-        dest.writeString(descripcion);
-        dest.writeInt(minimumAge);
-        //AQUÍ MIRA
-        //dest.writeParcelable(getImage(), flags);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        dest.writeInt(byteArray.length);
-        dest.writeByteArray(byteArray);
-    }
-
 
 }
