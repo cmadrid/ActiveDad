@@ -120,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(this,"termina",Toast.LENGTH_LONG).show();
             return true;
         }
+        else if (id == R.id.collage_setting) {
+
+            startActivity(new Intent(getApplicationContext(), Collage.class));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -14,6 +14,7 @@
     <string name="accept">Aceptar</string>
     <string name="notAccept">No lo haré</string>
     <string name="postpone">Posponer</string>
+    <string name="restart">Reestablecer</string>
 
     <string name="title_activity_camera_image_tag">CameraImageTag</string>
     <string name="dummy_button">Dummy Button</string>

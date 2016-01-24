@@ -1,54 +1,49 @@
 package ec.edu.espol.integradora.dadtime;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
- * Created by ces_m on 1/5/2016.
+ * Created by ces_m
+ * on 1/5/2016.
  */
 public class CameraActivity extends AppCompatActivity {
-    Uri imageUri;
     FrameLayout frame;
     Button button;
-    private View mContentView;
-    private View mControlsView;
     String CurrentPhotoPath;
     Uri CapturedImageURI;
-    int REQUEST_TAKE_PHOTO=102;
+    int REQUEST_TAKE_PHOTO = 102;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,28 +51,27 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_image_tag);
 
 
-        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) !=0)
-        {
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) {
             this.finish();
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
 
         //getSupportActionBar().hide();
 
 
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+        View mControlsView = findViewById(R.id.fullscreen_content_controls);
+        View mContentView = findViewById(R.id.fullscreen_content);
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | (Build.VERSION.SDK_INT > 15 ? SYSTEM_UI_FLAG_IMMERSIVE_STICKY() : 0)
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         mControlsView.setVisibility(View.VISIBLE);
 
 
-        frame = (FrameLayout)findViewById(R.id.frame);
-        button = (Button)findViewById(R.id.dummy_button);
+        frame = (FrameLayout) findViewById(R.id.frame);
+        button = (Button) findViewById(R.id.dummy_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,8 +82,15 @@ public class CameraActivity extends AppCompatActivity {
         dispatchTakePictureIntent();
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public int SYSTEM_UI_FLAG_IMMERSIVE_STICKY() {
+        return View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+    }
 
 
     protected void dispatchTakePictureIntent() {
@@ -97,7 +98,7 @@ public class CameraActivity extends AppCompatActivity {
         // Check if there is a camera.
         Context context = this;
         PackageManager packageManager = context.getPackageManager();
-        if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false){
+        if (!packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             Toast.makeText(context, "Este dispositivo no dispone de cámara.", Toast.LENGTH_SHORT)
                     .show();
             finish();
@@ -106,7 +107,7 @@ public class CameraActivity extends AppCompatActivity {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        CameraActivity activity = (CameraActivity)context;
+        CameraActivity activity = (CameraActivity) context;
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
 
             File photoFile = null;
@@ -114,27 +115,30 @@ public class CameraActivity extends AppCompatActivity {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
+                ex.printStackTrace();
                 Toast toast = Toast.makeText(activity, "Error guardando la foto.", Toast.LENGTH_SHORT);
                 toast.show();
                 finish();
+
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri fileUri = Uri.fromFile(photoFile);
-                CapturedImageURI=fileUri;
-                CurrentPhotoPath=fileUri.getPath();
+                CapturedImageURI = fileUri;
+                CurrentPhotoPath = fileUri.getPath();
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         CapturedImageURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }
+
     protected File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         String imageFileName = "DadTime/JPEG_" + timeStamp + "_";
         new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES)+"/DadTime").mkdirs();
+                Environment.DIRECTORY_PICTURES) + "/DadTime").mkdirs();
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
@@ -142,7 +146,7 @@ public class CameraActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-        CurrentPhotoPath="file:" + image.getAbsolutePath();
+        CurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
@@ -155,7 +159,7 @@ public class CameraActivity extends AppCompatActivity {
             setBackground(CurrentPhotoPath);
         } else {
             File tmp = new File(CurrentPhotoPath);
-            if(tmp.exists())tmp.delete();
+            if (tmp.exists()) tmp.delete();
             Toast.makeText(this, "Image Capture Failed", Toast.LENGTH_SHORT)
                     .show();
             finish();
@@ -175,8 +179,47 @@ public class CameraActivity extends AppCompatActivity {
     private void setBackground(String imagePath) {
 
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        BitmapDrawable dr=new BitmapDrawable(bitmap);
+        BitmapDrawable dr = new BitmapDrawable(bitmap);
         frame.setBackground(dr);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Camera Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://ec.edu.espol.integradora.dadtime/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Camera Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://ec.edu.espol.integradora.dadtime/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }

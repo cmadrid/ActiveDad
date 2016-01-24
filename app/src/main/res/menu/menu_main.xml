@@ -17,6 +17,12 @@
         android:orderInCategory="201"
         android:title="crear acceso directo camara"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/collage_setting"
+        android:orderInCategory="209"
+        android:title="Probar Collage"
+        app:showAsAction="never" />
     <item
         android:id="@+id/start_service"
         android:orderInCategory="300"

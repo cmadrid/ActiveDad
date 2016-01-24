@@ -6,7 +6,10 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".ProfileGlobalClass"
@@ -31,7 +34,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="portrait">
@@ -40,21 +43,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:launchMode="singleTop"
             android:name=".TransparentActivity"
             android:excludeFromRecents="false"
-            android:theme="@style/AppTheme.Transparent"></activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent" />
 
         <service android:name=".ServiceBackground" />
 
-        <activity android:name=".EntertainmentActivity"></activity>
-
+        <activity android:name=".EntertainmentActivity" />
         <activity
             android:name=".CameraImageTag"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_camera_image_tag"
-            android:theme="@style/FullscreenTheme"></activity>
-
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".Collage"/>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
