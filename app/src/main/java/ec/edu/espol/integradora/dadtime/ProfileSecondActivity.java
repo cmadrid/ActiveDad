@@ -3,8 +3,10 @@ package ec.edu.espol.integradora.dadtime;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -31,6 +34,8 @@ import java.util.Calendar;
 public class ProfileSecondActivity extends AppCompatActivity {
 
     private Activity activity;
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
     private ProfileGlobalClass profileGlobalClass;
     private Button btnAddSon;
     private TableLayout tlBody;
@@ -38,14 +43,10 @@ public class ProfileSecondActivity extends AppCompatActivity {
     private Button btnFinalize;
     private ArrayList<Son> sons;
 
-    private static final String LOGTAG = "LogsAndroidDADTIME";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
-
-
         this.activity = this;
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         btnAddSon = (Button)findViewById(R.id.btnAddSon);
@@ -148,26 +149,32 @@ public class ProfileSecondActivity extends AppCompatActivity {
         btnFinalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Son son = new Son();
-                //son.setName(etName.getText().toString());
-                //son.setBirthdate(etBirthday.getText().toString());
+                /*Son son = new Son();
+                son.setName(etName.getText().toString());
+                son.setBirthdate(etBirthday.getText().toString());
                 sons.add(son);
                 profileGlobalClass.setSons(sons);
+                SaveProfile saveProfile = new SaveProfile();
+                saveProfile.execute();*/
+                preferenceSettings = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+                preferenceEditor = preferenceSettings.edit();
+                preferenceEditor.putBoolean("profile", true);
+                preferenceEditor.commit();
                 Intent intent = new Intent(ProfileSecondActivity.this, MainActivity.class);
                 startActivity(intent);
-                //SaveProfile saveProfile = new SaveProfile();
-                //saveProfile.execute();
-                if(ProfileFirstActivity.activity!=null)
+                if(ProfileFirstActivity.activity != null)
+                {
                     ProfileFirstActivity.activity.finish();
+                }
                 finish();
             }
         });
     }
 
-    private class SaveProfile extends AsyncTask<Void, Void, String>
+    private class SaveProfile extends AsyncTask<Void, Void, Boolean>
     {
         @Override
-        protected String doInBackground(Void ...param)
+        protected Boolean doInBackground(Void ...param)
         {
             try
             {
@@ -184,18 +191,25 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 httpTransport.call(SOAP_ACTION, envelope);
                 SoapObject response = (SoapObject) envelope.bodyIn;
                 String wsResponse = (String)response.getProperty(0);
-                return wsResponse;
+                return true;
             }
             catch (Exception e)
             {
-                return e.toString();
+                return false;
             }
         }
 
         @Override
-        protected void onPostExecute(String wsResponse)
+        protected void onPostExecute(Boolean response)
         {
-            Log.i(LOGTAG, wsResponse);
+            if (response)
+            {
+
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Ocurrió un error", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

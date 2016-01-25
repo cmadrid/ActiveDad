@@ -76,7 +76,7 @@
                         android:textColor="#8b8b8b"
                         android:textStyle="italic"
                         android:text="Actividad a realizar"
-                        android:id="@+id/cbActividadRealizar" />
+                        android:id="@+id/cbEntertainmentPerformed" />
 
                 </LinearLayout>
 

@@ -2,8 +2,10 @@ package ec.edu.espol.integradora.dadtime;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
@@ -20,12 +22,16 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ProfileFirstActivity extends AppCompatActivity {
 
+    public static Activity activity;
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
     private ProfileGlobalClass profileGlobalClass;
     private EditText etName;
     private EditText etUser;
@@ -43,13 +49,23 @@ public class ProfileFirstActivity extends AppCompatActivity {
     private int index = 0;
     private ArrayList<Workday> workdays;
 
-    public static Activity activity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
         this.activity = this;
+        preferenceSettings = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        if (preferenceSettings.getBoolean("profile", false))
+        {
+            Intent intent = new Intent(ProfileFirstActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            preferenceEditor.putBoolean("profile", false);
+            preferenceEditor.commit();
+        }
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         etName = (EditText)findViewById(R.id.etName);
         btnSunday = (Button)findViewById(R.id.btnSunday);

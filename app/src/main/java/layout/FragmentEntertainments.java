@@ -39,8 +39,6 @@ import ec.edu.espol.integradora.dadtime.R;
  */
 public class FragmentEntertainments extends Fragment {
 
-    SharedPreferences preferenceSettings;
-    SharedPreferences.Editor preferenceEditor;
     ProgressBar progressBar;
     ListView lvEntertainments;
     ArrayList<Entertainment> entertainments;
@@ -58,11 +56,6 @@ public class FragmentEntertainments extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_entertainments, container, false);
-        preferenceSettings = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
-        preferenceEditor = preferenceSettings.edit();
-        preferenceEditor.putString("email", "modificado@email.com");
-        preferenceEditor.putString("nombre", "Prueba");
-        preferenceEditor.commit();
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
