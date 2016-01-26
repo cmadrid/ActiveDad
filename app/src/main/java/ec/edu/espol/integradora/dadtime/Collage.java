@@ -88,34 +88,44 @@ public class Collage extends AppCompatActivity {
             }
         });
 
+        try {
 
-        if(files.size()>4){
-            try {
-
-                cv1.setImageBitmap(getSmallBitmap(files.get(0).getAbsolutePath()));
-                cv2.setImageBitmap(getSmallBitmap(files.get(1).getAbsolutePath()));
-                cv3.setImageBitmap(getSmallBitmap(files.get(2).getAbsolutePath()));
-                cv4.setImageBitmap(getSmallBitmap(files.get(3).getAbsolutePath()));
-                cv5.setImageBitmap(getSmallBitmap(files.get(4).getAbsolutePath()));
-
-            }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Error cargando las imagenes.", Toast.LENGTH_SHORT)
+            switch(files.size()){
+                case 0:Toast.makeText(getApplicationContext(), "No tiene fotos en su galería.", Toast.LENGTH_SHORT)
                         .show();
-                finish();
+                    finish();
+                    break;
+                case 1:
+                    setEvents(cv5, files.get(0).getAbsolutePath());
+                    break;
+                case 2:
+                    setEvents(cv2, files.get(0).getAbsolutePath());
+                    setEvents(cv4, files.get(1).getAbsolutePath());
+                    break;
+                case 3:
+                    setEvents(cv2, files.get(0).getAbsolutePath());
+                    setEvents(cv4, files.get(1).getAbsolutePath());
+                    setEvents(cv5, files.get(2).getAbsolutePath());
+                    break;
+                case 4:
+                    setEvents(cv1, files.get(0).getAbsolutePath());
+                    setEvents(cv2, files.get(1).getAbsolutePath());
+                    setEvents(cv3, files.get(2).getAbsolutePath());
+                    setEvents(cv4, files.get(3).getAbsolutePath());
+                    break;
+                default:
+                    setEvents(cv1, files.get(0).getAbsolutePath());
+                    setEvents(cv2, files.get(1).getAbsolutePath());
+                    setEvents(cv3, files.get(2).getAbsolutePath());
+                    setEvents(cv4, files.get(3).getAbsolutePath());
+                    setEvents(cv5, files.get(4).getAbsolutePath());
             }
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(), "Necesita al menos 5 fotos.", Toast.LENGTH_SHORT)
+
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Error cargando las imagenes.", Toast.LENGTH_SHORT)
                     .show();
             finish();
         }
-
-        setEvents(cv1);
-        setEvents(cv2);
-        setEvents(cv3);
-        setEvents(cv4);
-        setEvents(cv5);
 
         System.out.println(files);
     }
@@ -137,7 +147,9 @@ public class Collage extends AppCompatActivity {
         return inFiles;
     }
 
-    public void setEvents(CollageView cv){
+    public void setEvents(CollageView cv,String path){
+        cv.setVisibility(View.VISIBLE);
+        cv.setImageBitmap(getSmallBitmap(path));
         cv.setOnTouchListener(new MultiTouchListener());
         cv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,5 +286,6 @@ public class Collage extends AppCompatActivity {
         values.put(MediaStore.MediaColumns.DATA, filePath);
 
         context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
     }
 }
