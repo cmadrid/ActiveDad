@@ -4,20 +4,123 @@
     android:layout_height="match_parent"
     tools:context="layout.FragmentEntertainments">
 
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/divider_list"
-        android:dividerHeight="0.2dp"
-        android:scrollbars="vertical"
-        android:id="@+id/lvEntertainments" />
+        android:layout_height="match_parent">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:id="@+id/progressBar" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/tlDays">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="7">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="L"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnMonday" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="M"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnTuesday" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="X"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnWednesday" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="J"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnThursday" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="V"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnFriday" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="S"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnSaturday" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="#ffffff"
+                    android:text="D"
+                    android:background="@drawable/button_days"
+                    android:id="@+id/btnSunday" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#337AB7"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="FECHA"
+            android:visibility="gone"
+            android:id="@+id/tvDate" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider_list"
+            android:dividerHeight="0.2dp"
+            android:scrollbars="vertical"
+            android:id="@+id/lvEntertainments" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/progressBar" />
+
+    </LinearLayout>
 
 </FrameLayout>
