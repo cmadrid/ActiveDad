@@ -34,6 +34,14 @@
         android:fitsSystemWindows="true"
         android:id="@+id/frame">
 
+        <CheckBox
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/checkBox"
+            android:layout_gravity="right"
+            android:button="@drawable/btn_star_selector"
+            android:checked="false"/>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

@@ -125,6 +125,16 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), Collage.class));
             return true;
         }
+        else if (id == R.id.collage2_setting) {
+
+            startActivity(new Intent(getApplicationContext(), Collage2.class));
+            return true;
+        }
+        else if (id == R.id.collage3_setting) {
+
+            startActivity(new Intent(getApplicationContext(), Collage3.class));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

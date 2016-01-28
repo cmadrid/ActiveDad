@@ -26,6 +26,11 @@ public class MultiTouchListener implements OnTouchListener {
         mScaleGestureDetector = new ScaleGestureDetector(new ScaleGestureListener());
     }
 
+    public MultiTouchListener setRotateEnable(boolean enable){
+        this.isRotateEnabled=enable;
+        return this;
+    }
+
     private static float adjustAngle(float degrees) {
         if (degrees > 180.0f) {
             degrees -= 360.0f;

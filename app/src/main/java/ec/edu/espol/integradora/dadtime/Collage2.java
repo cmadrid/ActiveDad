@@ -5,106 +5,67 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
-import android.graphics.Rect;
-import android.net.Uri;
+import android.media.Image;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import ec.edu.espol.integradora.dadtime.collage.CollageView;
 import ec.edu.espol.integradora.dadtime.collage.MultiTouchListener;
 import ec.edu.espol.integradora.dadtime.collage2.QuiltView;
 
-public class Collage extends AppCompatActivity {
-    CollageView cv1;
-    CollageView cv2;
-    CollageView cv3;
-    CollageView cv4;
-    CollageView cv5;
-    View screen;
+public class Collage2 extends AppCompatActivity {
     Bitmap bmScreen;
+    public QuiltView quiltView;
 
 
     public void initData(){
-        screen = findViewById(R.id.screen);
-        cv1 = (CollageView) findViewById(R.id.collageView1);
-        cv2 = (CollageView) findViewById(R.id.collageView2);
-        cv3 = (CollageView) findViewById(R.id.collageView3);
-        cv4 = (CollageView) findViewById(R.id.collageView4);
-        cv5 = (CollageView) findViewById(R.id.collageView5);
+        quiltView = (QuiltView) findViewById(R.id.quilt);
+        quiltView.setChildPadding(5);
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collage);
+        setContentView(R.layout.activity_collage2);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         initData();
-
-        findViewById(R.id.collageBgView).setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                return true;
-            }
-        });
         List<File> files = getListFiles(new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES)+"/DadTime"));
 
         try {
+            ArrayList<ImageView> images = new ArrayList<>();
+            for(File file:files){
+                /*
+                CollageView cv = new CollageView(getApplicationContext());
+                cv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                setEvents(cv,file.getAbsolutePath());
+                images.add(cv);
+                */
 
-            switch(files.size()){
-                case 0:Toast.makeText(getApplicationContext(), "No tiene fotos en su galería.", Toast.LENGTH_SHORT)
-                        .show();
-                    finish();
-                    break;
-                case 1:
-                    setEvents(cv5, files.get(0).getAbsolutePath());
-                    break;
-                case 2:
-                    setEvents(cv2, files.get(0).getAbsolutePath());
-                    setEvents(cv4, files.get(1).getAbsolutePath());
-                    break;
-                case 3:
-                    setEvents(cv2, files.get(0).getAbsolutePath());
-                    setEvents(cv4, files.get(1).getAbsolutePath());
-                    setEvents(cv5, files.get(2).getAbsolutePath());
-                    break;
-                case 4:
-                    setEvents(cv1, files.get(0).getAbsolutePath());
-                    setEvents(cv2, files.get(1).getAbsolutePath());
-                    setEvents(cv3, files.get(2).getAbsolutePath());
-                    setEvents(cv4, files.get(3).getAbsolutePath());
-                    break;
-                default:
-                    setEvents(cv1, files.get(0).getAbsolutePath());
-                    setEvents(cv2, files.get(1).getAbsolutePath());
-                    setEvents(cv3, files.get(2).getAbsolutePath());
-                    setEvents(cv4, files.get(3).getAbsolutePath());
-                    setEvents(cv5, files.get(4).getAbsolutePath());
+                ImageView image = new ImageView(getApplicationContext());
+                image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                image.setImageBitmap(getSmallBitmap(file.getAbsolutePath()));
+                images.add(image);
             }
+            quiltView.addPatchImages(images);
 
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Error cargando las imagenes.", Toast.LENGTH_SHORT)
@@ -135,13 +96,7 @@ public class Collage extends AppCompatActivity {
     public void setEvents(CollageView cv,String path){
         cv.setVisibility(View.VISIBLE);
         cv.setImageBitmap(getSmallBitmap(path));
-        cv.setOnTouchListener(new MultiTouchListener());
-        cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.bringToFront();
-            }
-        });
+        cv.setOnTouchListener(new MultiTouchListener().setRotateEnable(false));
     }
 
     @Override
@@ -160,16 +115,16 @@ public class Collage extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.refresh) {
-            startActivity(new Intent(getApplicationContext(), Collage.class));
+            startActivity(new Intent(getApplicationContext(), Collage2.class));
             finish();
             return true;
         }
         else if(id == R.id.save_collage){
 
-            screen.setDrawingCacheEnabled(true);
-            bmScreen = screen.getDrawingCache();
+            quiltView.setDrawingCacheEnabled(true);
+            bmScreen = quiltView.getDrawingCache();
             saveImage(bmScreen);
-            screen.setDrawingCacheEnabled(false);
+            quiltView.setDrawingCacheEnabled(false);
             Toast.makeText(getApplicationContext(), "Collage Guardado Correctamente", Toast.LENGTH_SHORT)
                     .show();
             finish();
@@ -236,7 +191,7 @@ public class Collage extends AppCompatActivity {
         BitmapFactory.decodeFile(filePath, options);
 
         // Calculate inSampleSize based on a preset ratio
-        options.inSampleSize = calculateInSampleSize(options, 360);
+        options.inSampleSize = calculateInSampleSize(options, 480);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;

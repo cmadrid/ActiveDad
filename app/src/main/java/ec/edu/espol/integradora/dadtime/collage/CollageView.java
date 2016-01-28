@@ -14,6 +14,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import ec.edu.espol.integradora.dadtime.collage2.QuiltView;
+
 public class CollageView extends ImageView {
 
     private static final int PADDING = 8;

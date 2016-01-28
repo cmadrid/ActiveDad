@@ -24,6 +24,16 @@
         android:title="Probar Collage"
         app:showAsAction="never" />
     <item
+        android:id="@+id/collage2_setting"
+        android:orderInCategory="220"
+        android:title="Probar Collage 2"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/collage3_setting"
+        android:orderInCategory="230"
+        android:title="Probar Collage 3"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/start_service"
         android:orderInCategory="300"
         android:title="@string/start_service"

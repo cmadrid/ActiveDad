@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:splitMotionEvents="true">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,6 +19,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="#FFD4B081" />
+
+
 
         <ec.edu.espol.integradora.dadtime.collage.CollageView
             android:id="@+id/collageView1"
@@ -69,25 +70,4 @@
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Guardar"
-        android:id="@+id/save_collage"
-        android:background="#66052f11"
-        android:elevation="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="80dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descartar"
-        android:id="@+id/discard_collage"
-        android:background="#66052f11"
-        android:elevation="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="80dp"/>
 </RelativeLayout>
