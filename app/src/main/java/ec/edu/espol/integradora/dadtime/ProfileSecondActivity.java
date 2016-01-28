@@ -42,6 +42,7 @@ public class ProfileSecondActivity extends AppCompatActivity {
     private Button btnPrevious;
     private Button btnFinalize;
     private ArrayList<Son> sons;
+    private boolean showDatePicker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +73,22 @@ public class ProfileSecondActivity extends AppCompatActivity {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
                         if (hasFocus) {
-                            Calendar calendar = Calendar.getInstance();
-                            int year = calendar.get(Calendar.YEAR);
-                            int month = calendar.get(Calendar.MONTH);
-                            int day = calendar.get(Calendar.DAY_OF_MONTH);
-                            DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int year, int month, int day) {
-                                    etBirthday.setText(day + "/" + month + "/" + year);
-                                }
-                            }, year, month, day);
-                            datePicker.setCancelable(false);
-                            datePicker.show();
+                            if (!showDatePicker)
+                            {
+                                showDatePicker = true;
+                                Calendar calendar = Calendar.getInstance();
+                                int year = calendar.get(Calendar.YEAR);
+                                int month = calendar.get(Calendar.MONTH);
+                                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                                DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                                    @Override
+                                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                                        etBirthday.setText(day + "/" + month + "/" + year);
+                                    }
+                                }, year, month, day);
+                                datePicker.setCancelable(false);
+                                datePicker.show();
+                            }
                         }
                     }
                 });
