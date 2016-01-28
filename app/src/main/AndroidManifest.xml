@@ -54,14 +54,6 @@
             android:excludeFromRecents="false"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />
-        <activity
-            android:name=".CameraImageTag"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_camera_image_tag"
-            android:theme="@style/FullscreenTheme" />
-        <activity android:name=".Collage"/>
-        <activity android:name=".Collage2"/>
-        <activity android:name=".Collage3"/>
         <service android:name=".ServiceBackground" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for

@@ -5,11 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -127,16 +123,6 @@ public class MainActivity extends AppCompatActivity {
         else if (id == R.id.collage_setting) {
 
             startActivity(new Intent(getApplicationContext(), Collage.class));
-            return true;
-        }
-        else if (id == R.id.collage2_setting) {
-
-            startActivity(new Intent(getApplicationContext(), Collage2.class));
-            return true;
-        }
-        else if (id == R.id.collage3_setting) {
-
-            startActivity(new Intent(getApplicationContext(), Collage3.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
