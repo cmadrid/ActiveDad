@@ -35,13 +35,13 @@ public class ProfileFirstActivity extends AppCompatActivity {
     private ProfileGlobalClass profileGlobalClass;
     private EditText etName;
     private EditText etUser;
-    private Button btnSunday;
     private Button btnMonday;
     private Button btnTuesday;
     private Button btnWednesday;
     private Button btnThursday;
     private Button btnFriday;
     private Button btnSaturday;
+    private Button btnSunday;
     private EditText etEntryTime;
     private EditText etExitTime;
     private CheckBox cbFreeDay;
@@ -53,6 +53,9 @@ public class ProfileFirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         this.activity = this;
         preferenceSettings = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         preferenceEditor = preferenceSettings.edit();
@@ -68,21 +71,18 @@ public class ProfileFirstActivity extends AppCompatActivity {
         }
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         etName = (EditText)findViewById(R.id.etName);
-        btnSunday = (Button)findViewById(R.id.btnSunday);
         btnMonday = (Button)findViewById(R.id.btnMonday);
         btnTuesday = (Button)findViewById(R.id.btnTuesday);
         btnWednesday = (Button)findViewById(R.id.btnWednesday);
         btnThursday = (Button)findViewById(R.id.btnThursday);
         btnFriday = (Button)findViewById(R.id.btnFriday);
         btnSaturday = (Button)findViewById(R.id.btnSaturday);
+        btnSunday = (Button)findViewById(R.id.btnSunday);
         etEntryTime = (EditText)findViewById(R.id.etEntryTime);
         etExitTime = (EditText)findViewById(R.id.etExitTime);
         cbFreeDay = (CheckBox)findViewById(R.id.cbFreeDay);
         btnNext = (Button)findViewById(R.id.btnNext);
         workdays = new ArrayList<>();
-        Workday sunday = new Workday();
-        sunday.setDay("Domingo");
-        workdays.add(sunday);
         Workday monday = new Workday();
         monday.setDay("Lunes");
         workdays.add(monday);
@@ -101,33 +101,20 @@ public class ProfileFirstActivity extends AppCompatActivity {
         Workday saturday = new Workday();
         saturday.setDay("Sábado");
         workdays.add(saturday);
-        btnSunday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                index = 0;
-                etEntryTime.setText(workdays.get(index).getEntryTime());
-                etExitTime.setText(workdays.get(index).getExitTime());
-                cbFreeDay.setChecked(workdays.get(index).getFreeDay());
-            }
-        });
+        Workday sunday = new Workday();
+        sunday.setDay("Domingo");
+        workdays.add(sunday);
         btnMonday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnMonday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                index = 1;
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                index = 0;
                 etEntryTime.setText(workdays.get(index).getEntryTime());
                 etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
@@ -136,14 +123,14 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnTuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                index = 2;
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                index = 1;
                 etEntryTime.setText(workdays.get(index).getEntryTime());
                 etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
@@ -152,14 +139,14 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnWednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                index = 3;
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                index = 2;
                 etEntryTime.setText(workdays.get(index).getEntryTime());
                 etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
@@ -168,14 +155,14 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnThursday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnThursday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                index = 4;
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                index = 3;
                 etEntryTime.setText(workdays.get(index).getEntryTime());
                 etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
@@ -184,14 +171,14 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnFriday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                index = 5;
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                index = 4;
                 etEntryTime.setText(workdays.get(index).getEntryTime());
                 etExitTime.setText(workdays.get(index).getExitTime());
                 cbFreeDay.setChecked(workdays.get(index).getFreeDay());
@@ -200,13 +187,29 @@ public class ProfileFirstActivity extends AppCompatActivity {
         btnSaturday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
                 btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                index = 5;
+                etEntryTime.setText(workdays.get(index).getEntryTime());
+                etExitTime.setText(workdays.get(index).getExitTime());
+                cbFreeDay.setChecked(workdays.get(index).getFreeDay());
+            }
+        });
+        btnSunday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                btnSunday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
                 index = 6;
                 etEntryTime.setText(workdays.get(index).getEntryTime());
                 etExitTime.setText(workdays.get(index).getExitTime());

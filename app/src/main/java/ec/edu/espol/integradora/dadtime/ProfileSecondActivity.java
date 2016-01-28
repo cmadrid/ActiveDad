@@ -47,6 +47,9 @@ public class ProfileSecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         this.activity = this;
         profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         btnAddSon = (Button)findViewById(R.id.btnAddSon);
@@ -113,8 +116,8 @@ public class ProfileSecondActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 new AlertDialog.Builder(activity)
-                                        .setTitle("Eliminar un perfil")
-                                        .setMessage("¿Esta seguro que desea eliminar ese perfil?")
+                                        .setTitle("Eliminar un registro")
+                                        .setMessage("¿Está seguro que desea eliminar el registro?")
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 tlBody.removeView(row);
@@ -169,47 +172,5 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private class SaveProfile extends AsyncTask<Void, Void, Boolean>
-    {
-        @Override
-        protected Boolean doInBackground(Void ...param)
-        {
-            try
-            {
-                String NAMESPACE = "urn:DadTime";
-                String URL = "http://www.corporacionsmartest.com/DadTimeWebServices/wsDadTime.php";
-                String SOAP_ACTION = "urn:DadTime#InsertProfile";
-                String METHOD_NAME = "InsertProfile";
-                SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-                request.addProperty("name", "Cesar");
-                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
-                envelope.dotNet = true;
-                envelope.setOutputSoapObject(request);
-                HttpTransportSE httpTransport = new HttpTransportSE(URL);
-                httpTransport.call(SOAP_ACTION, envelope);
-                SoapObject response = (SoapObject) envelope.bodyIn;
-                String wsResponse = (String)response.getProperty(0);
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response)
-        {
-            if (response)
-            {
-
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(), "Ocurrió un error", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 }

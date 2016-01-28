@@ -14,12 +14,12 @@
     <application
         android:name=".ProfileGlobalClass"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_dadtime"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ProfileFirstActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ProfileFirstActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ProfileSecondActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -35,6 +38,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EntertainmentActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Collage" />
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="portrait">
@@ -47,18 +54,16 @@
             android:excludeFromRecents="false"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />
-
-        <service android:name=".ServiceBackground" />
-
-        <activity android:name=".EntertainmentActivity" />
         <activity
             android:name=".CameraImageTag"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_camera_image_tag"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".Collage"/>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <service android:name=".ServiceBackground" />
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

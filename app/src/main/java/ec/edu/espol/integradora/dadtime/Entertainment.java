@@ -8,6 +8,7 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by user on 16/01/2016.
@@ -18,6 +19,7 @@ public class Entertainment implements Parcelable{
     private String title;
     private String company;
     private String category;
+    private String day;
     private String schedule;
     private String price;
     private String description;
@@ -34,6 +36,7 @@ public class Entertainment implements Parcelable{
         title = in.readString();
         company = in.readString();
         category = in.readString();
+        day = in.readString();
         schedule = in.readString();
         price = in.readString();
         description = in.readString();
@@ -66,6 +69,7 @@ public class Entertainment implements Parcelable{
         dest.writeString(title);
         dest.writeString(company);
         dest.writeString(category);
+        dest.writeString(day);
         dest.writeString(schedule);
         dest.writeString(price);
         dest.writeString(description);
@@ -107,6 +111,14 @@ public class Entertainment implements Parcelable{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public String getSchedule() {

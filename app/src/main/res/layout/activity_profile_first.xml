@@ -42,18 +42,8 @@
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="D"
-                android:background="@drawable/button_day_selected"
-                android:id="@+id/btnSunday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
                 android:text="L"
-                android:background="@drawable/button_days"
+                android:background="@drawable/button_day_selected"
                 android:id="@+id/btnMonday" />
 
             <Button
@@ -106,9 +96,26 @@
                 android:background="@drawable/button_days"
                 android:id="@+id/btnSaturday" />
 
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:text="D"
+                android:background="@drawable/button_days"
+                android:id="@+id/btnSunday" />
+
         </TableRow>
 
     </TableLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Día libre"
+        android:id="@+id/cbFreeDay" />
 
     <EditText
         android:layout_width="match_parent"
@@ -125,13 +132,6 @@
         android:inputType="datetime"
         android:hint="@string/exitTime"
         android:id="@+id/etExitTime" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="Día libre"
-        android:id="@+id/cbFreeDay" />
 
     <LinearLayout
         android:orientation="horizontal"
