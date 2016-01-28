@@ -123,6 +123,7 @@
         android:textSize="15sp"
         android:inputType="datetime"
         android:hint="@string/entryTime"
+        android:focusable="false"
         android:id="@+id/etEntryTime" />
 
     <EditText
@@ -131,6 +132,7 @@
         android:textSize="15sp"
         android:inputType="datetime"
         android:hint="@string/exitTime"
+        android:focusable="false"
         android:id="@+id/etExitTime" />
 
     <LinearLayout

@@ -257,44 +257,39 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
-        etEntryTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etEntryTime.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                {
-                    Calendar calendar = Calendar.getInstance();
-                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                    int minute = calendar.get(Calendar.MINUTE);
-                    TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hour, int minute) {
-                            etEntryTime.setText(completeTime(hour) + ":" + completeTime(minute));
-                            workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                        }
-                    }, hour, minute, true);
-                    timePicker.setCancelable(false);
-                    timePicker.show();
-                }
+            public void onClick(View v) {
+
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hour, int minute) {
+                        etEntryTime.setText(completeTime(hour) + ":" + completeTime(minute));
+                        workdays.get(index).setEntryTime(etEntryTime.getText().toString());
+                    }
+                }, hour, minute, true);
+                timePicker.setCancelable(false);
+                timePicker.show();
             }
         });
-        etExitTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etExitTime.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                {
-                    Calendar calendar = Calendar.getInstance();
-                    int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                    int minute = calendar.get(Calendar.MINUTE);
-                    TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hour, int minute) {
-                            etExitTime.setText(completeTime(hour) + ":" + completeTime(minute));
-                            workdays.get(index).setExitTime(etExitTime.getText().toString());
-                        }
-                    }, hour, minute, true);
-                    timePicker.setCancelable(false);
-                    timePicker.show();
-                }
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePicker = new TimePickerDialog(ProfileFirstActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hour, int minute) {
+                        etExitTime.setText(completeTime(hour) + ":" + completeTime(minute));
+                        workdays.get(index).setExitTime(etExitTime.getText().toString());
+                    }
+                }, hour, minute, true);
+                timePicker.setCancelable(false);
+                timePicker.show();
             }
         });
         cbFreeDay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

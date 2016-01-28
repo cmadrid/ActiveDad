@@ -3,6 +3,7 @@ package ec.edu.espol.integradora.dadtime;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
@@ -42,7 +44,6 @@ public class ProfileSecondActivity extends AppCompatActivity {
     private Button btnPrevious;
     private Button btnFinalize;
     private ArrayList<Son> sons;
-    private boolean showDatePicker = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,27 +70,21 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 final ImageButton iBtnRemove = new ImageButton(activity);
                 final EditText etName = (EditText) view.findViewById(R.id.etName);
                 final EditText etBirthday = (EditText) view.findViewById(R.id.etBirthday);
-                etBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                etBirthday.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if (hasFocus) {
-                            if (!showDatePicker)
-                            {
-                                showDatePicker = true;
-                                Calendar calendar = Calendar.getInstance();
-                                int year = calendar.get(Calendar.YEAR);
-                                int month = calendar.get(Calendar.MONTH);
-                                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                                DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                                        etBirthday.setText(day + "/" + month + "/" + year);
-                                    }
-                                }, year, month, day);
-                                datePicker.setCancelable(false);
-                                datePicker.show();
+                    public void onClick(View v) {
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+                        DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int day) {
+                                etBirthday.setText(day + "/" + month + "/" + year);
                             }
-                        }
+                        }, year, month, day);
+                        datePicker.setCancelable(false);
+                        datePicker.show();
                     }
                 });
                 new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
