@@ -63,7 +63,7 @@ public class CustomAdapterEntertainment extends BaseAdapter {
         tvTitle.setText(entertainments.get(position).getTitle());
         tvCompany.setText(entertainments.get(position).getCompany());
         tvCategory.setText(entertainments.get(position).getCategory());
-        //tvPrice.setText(entertainments.get(position).getPrice());
+        //tvPrice.setText(memories.get(position).getPrice());
         return rowView;
     }
 }

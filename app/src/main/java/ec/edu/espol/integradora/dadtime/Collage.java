@@ -80,7 +80,7 @@ public class Collage extends AppCompatActivity {
         System.out.println(files);
     }
 
-    private List<File> getListFiles(File parentDir) {
+    public static List<File> getListFiles(File parentDir) {
         ArrayList<File> inFiles = new ArrayList<>();
         if(!parentDir.exists())
             return inFiles;
