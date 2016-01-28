@@ -61,8 +61,7 @@ public class FragmentMemories extends Fragment {
         //Memory memory = new Memory("memoria 1", Collage.getSmallBitmap())
         memories = new ArrayList<>();
         for(File file:files){
-            memories.add(new Memory("Memoria 1", Collage.getSmallBitmap(file.getAbsolutePath())));
-            memories.add(new Memory("Memoria 2", Collage.getSmallBitmap(file.getAbsolutePath())));
+            memories.add(new Memory("JUEVES, 28 DE ENERO DE 2016", Collage.getSmallBitmap(file.getAbsolutePath())));
         }
         lvMemories.setAdapter(new CustomAdapterMemory(getActivity(), memories));
 

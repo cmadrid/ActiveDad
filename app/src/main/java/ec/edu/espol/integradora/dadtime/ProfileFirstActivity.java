@@ -122,7 +122,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
@@ -144,7 +144,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
@@ -166,7 +166,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
@@ -188,7 +188,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
@@ -209,7 +209,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
@@ -231,7 +231,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
@@ -253,7 +253,7 @@ public class ProfileFirstActivity extends AppCompatActivity {
                     cbFreeDay.setChecked(workdays.get(index).getFreeDay());
                 }
                 workdays.get(index).setEntryTime(etEntryTime.getText().toString());
-                workdays.get(index).setExitTime(etEntryTime.getText().toString());
+                workdays.get(index).setExitTime(etExitTime.getText().toString());
                 workdays.get(index).setFreeDay(cbFreeDay.isChecked());
             }
         });
