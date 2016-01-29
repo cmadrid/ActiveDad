@@ -29,13 +29,13 @@ import ec.edu.espol.integradora.dadtime.R;
  * Created by ces_m
  * on 1/29/2016.
  */
-public class addImageActivity1 {
+public class AddImageDialog {
 
     Context ctx;
     Bitmap bitmap;
     String CurrentPhotoPath;
 
-    public addImageActivity1(final Context ctx, final Bitmap bitmap, final String CurrentPhotoPath){
+    public AddImageDialog(final Context ctx, final Bitmap bitmap, final String CurrentPhotoPath){
         this.ctx=ctx;
         this.bitmap=bitmap;
         this.CurrentPhotoPath=CurrentPhotoPath;
@@ -91,7 +91,7 @@ public class addImageActivity1 {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
-        s.setOnItemSelectedListener(addImageActivity1.spinnerListener(alert));
+        s.setOnItemSelectedListener(AddImageDialog.spinnerListener(alert));
 
 
     }

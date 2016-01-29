@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import layout.addImageActivity1;
+import layout.AddImageDialog;
 
 /**
  * Created by ces_m
@@ -26,8 +26,7 @@ import layout.addImageActivity1;
 public class CameraActivity extends Activity {
     private String CurrentPhotoPath;
     private Uri CapturedImageURI;
-
-    private int REQUEST_TAKE_PHOTO = 102;
+    private int REQUEST_TAKE_PHOTO = 593;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class CameraActivity extends Activity {
             Uri uri = (Uri) getIntent().getExtras().get(Intent.EXTRA_STREAM);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                new addImageActivity1(this,bitmap,null);
+                new AddImageDialog(this,bitmap,null);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -118,7 +117,7 @@ public class CameraActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println("request: " + requestCode);
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-            new addImageActivity1(this,null,CurrentPhotoPath);
+            new AddImageDialog(this,null,CurrentPhotoPath);
         } else {
             File tmp = new File(CurrentPhotoPath);
             if (tmp.exists()) tmp.delete();
