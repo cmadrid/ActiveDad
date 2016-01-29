@@ -22,6 +22,7 @@ import java.util.List;
 
 import ec.edu.espol.integradora.dadtime.Collage;
 import ec.edu.espol.integradora.dadtime.CustomAdapterMemory;
+import ec.edu.espol.integradora.dadtime.ImageHandler;
 import ec.edu.espol.integradora.dadtime.Memory;
 import ec.edu.espol.integradora.dadtime.R;
 
@@ -61,7 +62,7 @@ public class FragmentMemories extends Fragment {
         //Memory memory = new Memory("memoria 1", Collage.getSmallBitmap())
         memories = new ArrayList<>();
         for(File file:files){
-            memories.add(new Memory("JUEVES, 28 DE ENERO DE 2016", Collage.getSmallBitmap(file.getAbsolutePath())));
+            memories.add(new Memory("JUEVES, 28 DE ENERO DE 2016", ImageHandler.getSmallBitmap(file.getAbsolutePath(), 1080)));
         }
         lvMemories.setAdapter(new CustomAdapterMemory(getActivity(), memories));
 

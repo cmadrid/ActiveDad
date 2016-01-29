@@ -59,7 +59,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/fav"
                     android:checked="false"
                     android:button="@drawable/star"
                     android:layout_weight="1"
