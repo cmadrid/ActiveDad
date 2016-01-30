@@ -53,7 +53,9 @@ public class ProfileFirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_first);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.activity = this;
+        btnNext = (Button)findViewById(R.id.btnNext);
+        /*getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         this.activity = this;
@@ -306,12 +308,12 @@ public class ProfileFirstActivity extends AppCompatActivity {
                 etExitTime.setEnabled(!isChecked);
                 workdays.get(index).setFreeDay(isChecked);
             }
-        });
+        });*/
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileGlobalClass.setName(etName.getText().toString());
-                profileGlobalClass.setWorkdays(workdays);
+                //profileGlobalClass.setName(etName.getText().toString());
+                //profileGlobalClass.setWorkdays(workdays);
                 Intent intent = new Intent(ProfileFirstActivity.this, ProfileSecondActivity.class);
                 startActivity(intent);
             }
