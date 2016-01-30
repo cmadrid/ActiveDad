@@ -4,154 +4,49 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="20dp"
-    android:paddingBottom="50dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:gravity="center"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
     tools:context="ec.edu.espol.integradora.dadtime.ProfileFirstActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="¿Cuál es tu nombre?" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="13sp"
+        android:textColor="#8b8b8b"
+        android:textAlignment="center"
+        android:text="Tu nombre será utilizado para las notificaciones de la aplicación." />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:textSize="15sp"
         android:inputType="textCapWords"
         android:imeOptions="actionDone"
         android:hint="@string/name"
         android:id="@+id/etName" />
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:textSize="15sp"
-        android:textColor="#000000"
-        android:text="Horario de trabajo" />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="7">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="L"
-                android:background="@drawable/button_day_selected"
-                android:id="@+id/btnMonday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="M"
-                android:background="@drawable/button_days"
-                android:id="@+id/btnTuesday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="X"
-                android:background="@drawable/button_days"
-                android:id="@+id/btnWednesday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="J"
-                android:background="@drawable/button_days"
-                android:id="@+id/btnThursday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="V"
-                android:background="@drawable/button_days"
-                android:id="@+id/btnFriday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="S"
-                android:background="@drawable/button_days"
-                android:id="@+id/btnSaturday" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:textColor="#ffffff"
-                android:text="D"
-                android:background="@drawable/button_days"
-                android:id="@+id/btnSunday" />
-
-        </TableRow>
-
-    </TableLayout>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="Día libre"
-        android:id="@+id/cbFreeDay" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:inputType="datetime"
-        android:hint="@string/entryTime"
-        android:focusable="false"
-        android:id="@+id/etEntryTime" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:inputType="datetime"
-        android:hint="@string/exitTime"
-        android:focusable="false"
-        android:id="@+id/etExitTime" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:gravity="bottom">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="#ffffff"
-            android:textAllCaps="false"
-            android:text="Siguiente"
-            android:background="@drawable/table_layout_head"
-            android:id="@+id/btnNext" />
-
-    </LinearLayout>
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        android:text="Siguiente"
+        android:background="@drawable/button"
+        android:id="@+id/btnNext" />
 
 </LinearLayout>

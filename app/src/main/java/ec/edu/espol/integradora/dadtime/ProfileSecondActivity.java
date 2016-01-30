@@ -35,21 +35,23 @@ import java.util.Calendar;
 
 public class ProfileSecondActivity extends AppCompatActivity {
 
-    private Activity activity;
+    public static Activity activity;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     private ProfileGlobalClass profileGlobalClass;
     private Button btnAddSon;
     private TableLayout tlBody;
-    private Button btnPrevious;
     private Button btnFinalize;
     private ArrayList<Son> sons;
+    private Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.activity = this;
+        btnNext = (Button)findViewById(R.id.btnNext);
+        /*getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         this.activity = this;
@@ -158,7 +160,7 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 sons.add(son);
                 profileGlobalClass.setSons(sons);
                 SaveProfile saveProfile = new SaveProfile();
-                saveProfile.execute();*/
+                saveProfile.execute();
                 preferenceSettings = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
                 preferenceEditor = preferenceSettings.edit();
                 preferenceEditor.putBoolean("profile", true);
@@ -170,6 +172,15 @@ public class ProfileSecondActivity extends AppCompatActivity {
                     ProfileFirstActivity.activity.finish();
                 }
                 finish();
+            }
+        });*/
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //profileGlobalClass.setName(etName.getText().toString());
+                //profileGlobalClass.setWorkdays(workdays);
+                Intent intent = new Intent(ProfileSecondActivity.this, ProfileThirdActivity.class);
+                startActivity(intent);
             }
         });
     }

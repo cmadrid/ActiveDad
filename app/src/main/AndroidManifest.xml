@@ -54,6 +54,7 @@
             android:excludeFromRecents="false"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Transparent" />
+
         <service android:name=".ServiceBackground" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -62,6 +63,8 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".ProfileThirdActivity"></activity>
     </application>
 
 </manifest>

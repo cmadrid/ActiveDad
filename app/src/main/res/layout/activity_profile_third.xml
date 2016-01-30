@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="5"
-    tools:context="ec.edu.espol.integradora.dadtime.ProfileSecondActivity">
+    tools:context="ec.edu.espol.integradora.dadtime.ProfileThirdActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:text="¿Cuál es tu horario de trabajo?" />
+        android:text="¿Cuántos hijos tienes?" />
 
     <TextView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:textSize="13sp"
         android:textColor="#8b8b8b"
         android:textAlignment="center"
-        android:text="Tu horario de trabajo ayudará a la aplicación a sugerirte actividades en tus días laborables y libres." />
+        android:text="Las sugerencias y actividades que te brindará la aplicación será basado en tus hijos." />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -40,19 +40,19 @@
             android:divider="@drawable/divider_list"
             android:dividerHeight="0.2dp"
             android:scrollbars="vertical"
-            android:id="@+id/lvWorkdays" />
+            android:id="@+id/lvSons" />
 
         <com.shamanland.fab.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/lvWorkdays"
+            android:layout_alignBottom="@id/lvSons"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:src="@mipmap/ic_add"
             app:floatingActionButtonColor="@color/colorPrimary"
-            android:id="@+id/fabAddWorkdays" />
+            android:id="@+id/fabAddSons" />
 
     </RelativeLayout>
 
@@ -70,9 +70,9 @@
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:textAllCaps="false"
-            android:text="Siguiente"
+            android:text="Finalizar"
             android:background="@drawable/button"
-            android:id="@+id/btnNext" />
+            android:id="@+id/btnFinalize" />
 
     </RelativeLayout>
 
