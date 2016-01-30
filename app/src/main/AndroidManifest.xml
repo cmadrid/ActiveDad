@@ -44,8 +44,14 @@
         <activity android:name=".Collage" />
         <activity
             android:name=".CameraActivity"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Transparent"
             android:screenOrientation="portrait">
             <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
                 <action android:name="android.intent.action.RUN" />
             </intent-filter>
         </activity>
@@ -53,8 +59,8 @@
             android:name=".TransparentActivity"
             android:excludeFromRecents="false"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.Transparent" />
-
+            android:theme="@style/AppTheme.Transparent"
+            android:screenOrientation="portrait" />
         <service android:name=".ServiceBackground" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
