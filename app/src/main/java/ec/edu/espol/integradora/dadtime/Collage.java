@@ -6,6 +6,7 @@ import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +16,19 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+import layout.AddImageDialog;
 
 public class Collage extends AppCompatActivity {
 
     View screen;
     Bitmap bmScreen;
+
 
 
     public void initData(){
@@ -36,23 +44,25 @@ public class Collage extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         initData();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -7);
 
-        List<File> files = getListFiles(new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES) + "/DadTime"));
+        //first Fav, second NoFav
+        Pair<List<File>,List<File>> filesPair = getListFilesTagDate(new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES) + "/DadTime"),null,null);
+        List<File> favs=filesPair.first;
+        List<File> noFavs=filesPair.second;
 
-        for(File file:files) {
-            try {
-                ExifInterface exif = new ExifInterface(file.getAbsolutePath());
-                System.out.println(exif.getAttribute(ExifInterface.TAG_MAKE));
-                System.out.println(exif.getAttribute(ExifInterface.TAG_MODEL));
+        int imgNum=6;
+        shuffleFiles(favs);
+        shuffleFiles(noFavs);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        List<File> files=new ArrayList<>(favs);
+        files.addAll(noFavs);
+
 
         try {
-            if(files.size()>5){
+            if(files.size()>=imgNum){
                 ImageView iv;
                 iv=((ImageView) findViewById(R.id.image1));
                 iv.setImageBitmap(ImageHandler.getSmallBitmap(files.get(0).getAbsolutePath(),1080));
@@ -77,6 +87,10 @@ public class Collage extends AppCompatActivity {
                 //cv1.setImageBitmap(getSmallBitmap(files.get(0).getAbsolutePath()));
 
             }
+            else{
+                Toast.makeText(getApplicationContext(), "No cuenta con un minimo de fotos para un Collage.", Toast.LENGTH_SHORT)
+                        .show();
+            }
 
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Error cargando las imagenes.", Toast.LENGTH_SHORT)
@@ -84,8 +98,6 @@ public class Collage extends AppCompatActivity {
             e.printStackTrace();
             finish();
         }
-
-        System.out.println(files);
     }
 
     public static List<File> getListFiles(File parentDir) {
@@ -99,6 +111,51 @@ public class Collage extends AppCompatActivity {
             }
         }
         return inFiles;
+    }
+
+
+    static void shuffleFiles(List<File> ar)
+    {
+        Random rnd;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            rnd = ThreadLocalRandom.current();
+        }
+        else
+            rnd = new Random();
+        for (int i = ar.size() - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            File a = ar.get(index);
+            ar.set(index, ar.get(i));
+            ar.set(i, a);
+        }
+    }
+
+
+    public static Pair<List<File>,List<File>> getListFilesTagDate(File parentDir,String tag,Date date) {
+        ArrayList<File> filesFav = new ArrayList<>();
+        ArrayList<File> filesNoFav = new ArrayList<>();
+        if(!parentDir.exists())
+            return new Pair(filesFav,filesNoFav);
+        File[] files = parentDir.listFiles();
+        for (File file : files) {
+            if (!file.isDirectory() && file.getName().endsWith(".jpg") && file.lastModified()>(date==null?0:date.getTime())) {
+                try {
+                    ExifInterface exif = new ExifInterface(file.getAbsolutePath());
+                    if(tag!=null && !exif.getAttribute(ExifInterface.TAG_MODEL).equals(tag))
+                        continue;
+
+                    if (exif.getAttribute(ExifInterface.TAG_MAKE)!=null && exif.getAttribute(ExifInterface.TAG_MAKE).equals(AddImageDialog.FAV))
+                        filesFav.add(file);
+                    else if (exif.getAttribute(ExifInterface.TAG_MAKE)!=null && exif.getAttribute(ExifInterface.TAG_MAKE).equals(AddImageDialog.NO_FAV))
+                        filesNoFav.add(file);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return new Pair(filesFav,filesNoFav);
     }
 
     @Override

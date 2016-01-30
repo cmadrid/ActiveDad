@@ -11,7 +11,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by ces_m
@@ -29,9 +32,8 @@ public class ImageHandler {
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         String imageFileName = "/DadTime/"+relativePath+"/"+prefix+ timeStamp + ".jpg";
-        //String imageFileName = "/DadTime/////SHARED_" + timeStamp + ".jpg";
         new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES)+"/DadTime/").mkdirs();
+                Environment.DIRECTORY_PICTURES)+"/DadTime/"+relativePath+"/").mkdirs();
 
         // String fname = "Upload.png";
         File saved_image_file = new File(
@@ -63,7 +65,6 @@ public class ImageHandler {
 
         context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
-
 
 
     //http://stackoverflow.com/questions/20599834/android-scale-and-compress-a-bitmap

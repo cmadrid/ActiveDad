@@ -34,6 +34,8 @@ public class AddImageDialog {
     Context ctx;
     Bitmap bitmap;
     String CurrentPhotoPath;
+    public static String FAV = "DadTime*";
+    public static String NO_FAV = "DadTime";
 
     public AddImageDialog(final Context ctx, final Bitmap bitmap, final String CurrentPhotoPath){
         this.ctx=ctx;
@@ -98,7 +100,7 @@ public class AddImageDialog {
 
     public  void writeTag(String path,boolean fav,String activity){
         try {
-            String title = fav?"DadTime*":"DadTime";
+            String title = fav?FAV:NO_FAV;
 
             ExifInterface exif = new ExifInterface(path);
             System.out.println(path);
@@ -146,7 +148,7 @@ public class AddImageDialog {
         if (getSetTitleEntertainments != null)
         {
             //En este array estan los títulos de actividades seleccionadas, es decir debes ponerlas en donde tenías los checks después de tomar la foto...
-            ArrayList<String> titleEntertainments = new ArrayList<String>(getSetTitleEntertainments);
+            ArrayList<String> titleEntertainments = new ArrayList<>(getSetTitleEntertainments);
             titleEntertainments.add(0,"------------------------------");
             String[] titleEntertainmentsArray = new String[titleEntertainments.size()];
             titleEntertainmentsArray = titleEntertainments.toArray(titleEntertainmentsArray);
