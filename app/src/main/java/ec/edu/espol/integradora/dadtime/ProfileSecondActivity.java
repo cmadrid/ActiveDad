@@ -2,48 +2,37 @@ package ec.edu.espol.integradora.dadtime;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ProfileSecondActivity extends AppCompatActivity {
 
     public static Activity activity;
-    private SharedPreferences preferenceSettings;
-    private SharedPreferences.Editor preferenceEditor;
     private ProfileGlobalClass profileGlobalClass;
-    private Button btnAddSon;
-    private TableLayout tlBody;
-    private Button btnFinalize;
-    private ArrayList<Son> sons;
+    private ListView lvWorkday;
+    private FloatingActionButton fabAddWorkday;
     private Button btnNext;
+    private boolean clickedBtnMonday;
+    private boolean clickedBtnTuesday;
+    private boolean clickedBtnWednesday;
+    private boolean clickedBtnThursday;
+    private boolean clickedBtnFriday;
+    private boolean clickedBtnSaturday;
+    private boolean clickedBtnSunday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +40,179 @@ public class ProfileSecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_second);
         getSupportActionBar().setTitle("Horario Laboral");
         this.activity = this;
+        profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
+        lvWorkday = (ListView)findViewById(R.id.lvWorkday);
+        lvWorkday.setFocusable(true);
+        fabAddWorkday = (FloatingActionButton)findViewById(R.id.fabAddWorkday);
         btnNext = (Button)findViewById(R.id.btnNext);
+        String[] values = new String[] { "08:00 - 17:00", "20:00 - 05:00" };
+        lvWorkday.setAdapter(new CustomAdapterWorkday(activity, values));
+        lvWorkday.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), "aqui", Toast.LENGTH_LONG).show();
+            }
+        });
+        fabAddWorkday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = activity.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_add_workday, null);
+                final EditText etEntryTime = (EditText) view.findViewById(R.id.etEntryTime);
+                final EditText etExitTime = (EditText) view.findViewById(R.id.etExitTime);
+                final Button btnMonday = (Button) view.findViewById(R.id.btnMonday);
+                final Button btnTuesday = (Button) view.findViewById(R.id.btnTuesday);
+                final Button btnWednesday = (Button) view.findViewById(R.id.btnWednesday);
+                final Button btnThursday = (Button) view.findViewById(R.id.btnThursday);
+                final Button btnFriday = (Button) view.findViewById(R.id.btnFriday);
+                final Button btnSaturday = (Button) view.findViewById(R.id.btnSaturday);
+                final Button btnSunday = (Button) view.findViewById(R.id.btnSunday);
+                clickedBtnMonday = false;
+                clickedBtnTuesday = false;
+                clickedBtnWednesday = false;
+                clickedBtnThursday = false;
+                clickedBtnFriday = false;
+                clickedBtnSaturday = false;
+                clickedBtnSunday = false;
+                etEntryTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar calendar = Calendar.getInstance();
+                        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                        int minute = calendar.get(Calendar.MINUTE);
+                        TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hour, int minute) {
+                                etEntryTime.setText(completeTime(hour) + ":" + completeTime(minute));
+                            }
+                        }, hour, minute, true);
+                        timePicker.setCancelable(false);
+                        timePicker.show();
+                    }
+                });
+                etExitTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar calendar = Calendar.getInstance();
+                        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                        int minute = calendar.get(Calendar.MINUTE);
+                        TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hour, int minute) {
+                                etExitTime.setText(completeTime(hour) + ":" + completeTime(minute));
+                            }
+                        }, hour, minute, true);
+                        timePicker.setCancelable(false);
+                        timePicker.show();
+                    }
+                });
+                btnMonday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnMonday) {
+                            btnMonday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnMonday = true;
+                        } else {
+                            btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnMonday = false;
+                        }
+                    }
+                });
+                btnTuesday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnTuesday) {
+                            btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnTuesday = true;
+                        } else {
+                            btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnTuesday = false;
+                        }
+                    }
+                });
+                btnWednesday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnWednesday) {
+                            btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnWednesday = true;
+                        } else {
+                            btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnWednesday = false;
+                        }
+                    }
+                });
+                btnThursday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnThursday) {
+                            btnThursday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnThursday = true;
+                        } else {
+                            btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnThursday = false;
+                        }
+                    }
+                });
+                btnFriday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnFriday) {
+                            btnFriday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnFriday = true;
+                        } else {
+                            btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnFriday = false;
+                        }
+                    }
+                });
+                btnSaturday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnSaturday) {
+                            btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnSaturday = true;
+                        } else {
+                            btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnSaturday = false;
+                        }
+                    }
+                });
+                btnSunday.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!clickedBtnSunday) {
+                            btnSunday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
+                            clickedBtnSunday = true;
+                        } else {
+                            btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
+                            clickedBtnSunday = false;
+                        }
+                    }
+                });
+                new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setCancelable(false)
+                        .show();
+            }
+        });
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //profileGlobalClass.setName(etName.getText().toString());
+                //profileGlobalClass.setWorkdays(workdays);
+                Intent intent = new Intent(ProfileSecondActivity.this, ProfileThirdActivity.class);
+                startActivity(intent);
+            }
+        });
         /*getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -175,14 +336,17 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 finish();
             }
         });*/
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //profileGlobalClass.setName(etName.getText().toString());
-                //profileGlobalClass.setWorkdays(workdays);
-                Intent intent = new Intent(ProfileSecondActivity.this, ProfileThirdActivity.class);
-                startActivity(intent);
-            }
-        });
+
+    }
+
+    private static String completeTime(int t) {
+        if (t >= 10)
+        {
+            return String.valueOf(t);
+        }
+        else
+        {
+            return "0" + String.valueOf(t);
+        }
     }
 }
