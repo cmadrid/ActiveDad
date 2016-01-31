@@ -161,4 +161,20 @@ public class Entertainment implements Parcelable{
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        String str = "Entertaiment{\n";
+        str +="\tid: "+idActivity+"\n";
+        str +="\ttitle: "+title+"\n";
+        str +="\tcompany: "+company+"\n";
+        str +="\tcategory: "+category+"\n";
+        str +="\tday: "+day+"\n";
+        str +="\tschedule: "+schedule+"\n";
+        str +="\tprice: "+price+"\n";
+        str +="\tdescription: "+description+"\n";
+        str +="\tminimumAge: "+minimumAge+"\n";
+        str +="\timage: "+image+"\n";
+        str +="}";
+        return str;
+    }
 }

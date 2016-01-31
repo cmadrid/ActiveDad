@@ -337,6 +337,7 @@ public class FragmentEntertainments extends Fragment {
                     entertainment.setMinimumAge(Integer.parseInt(respond.getProperty("minimumAge").toString()));
                     entertainment.setImage(BitmapFactory.decodeStream((InputStream) new URL(respond.getProperty("image").toString()).getContent()));
                     entertainments.add(entertainment);
+                    System.out.println(entertainment);
                 }
                 return true;
             } catch (Exception e)

@@ -34,25 +34,33 @@
         android:layout_height="0dp"
         android:layout_weight="3.40">
 
-        <ListView
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@drawable/divider_list"
-            android:dividerHeight="0.2dp"
-            android:scrollbars="vertical"
-            android:id="@+id/lvSons" />
+            android:layout_height="match_parent">
 
-        <com.shamanland.fab.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/lvSons"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_add"
-            app:floatingActionButtonColor="@color/colorPrimary"
-            android:id="@+id/fabAddSons" />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/divider_list"
+                android:dividerHeight="0.2dp"
+                android:scrollbars="vertical"
+                android:id="@+id/lvSons" />
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddSons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@mipmap/ic_add"
+                android:scaleType="center"
+                app:backgroundTint="@color/colorPrimary"
+                />
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
 
     </RelativeLayout>
 
