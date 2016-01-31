@@ -1,16 +1,12 @@
 package layout;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +27,9 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Vector;
-import java.util.prefs.Preferences;
 
+import database.DBActivity;
 import ec.edu.espol.integradora.dadtime.CustomAdapterEntertainment;
 import ec.edu.espol.integradora.dadtime.Entertainment;
 import ec.edu.espol.integradora.dadtime.EntertainmentActivity;
@@ -65,8 +60,7 @@ public class FragmentEntertainments extends Fragment {
     }
 
     public static FragmentEntertainments newInstance() {
-        FragmentEntertainments fragment = new FragmentEntertainments();
-        return fragment;
+        return new FragmentEntertainments();
     }
 
     @Override
@@ -307,6 +301,8 @@ public class FragmentEntertainments extends Fragment {
 
         @Override
         protected Boolean doInBackground(Void... param) {
+
+            DBActivity dbActivity = new DBActivity(getContext());
             try {
                 String NAMESPACE = "urn:DadTime";
                 String URL = "http://www.corporacionsmartest.com/DadTimeWebServices/wsDadTime.php";
@@ -321,28 +317,60 @@ public class FragmentEntertainments extends Fragment {
                 httpTransport.call(SOAP_ACTION, envelope);
                 SoapObject response = (SoapObject) envelope.bodyIn;
                 Vector<?> responseVector = (Vector<?>) response.getProperty(0);
-                entertainments = new ArrayList<Entertainment>();
+                entertainments = new ArrayList<>();
+
+                Cursor almacenadas = dbActivity.consultar(null);
+                //System.out.println("almacenadas: ");
+                if(almacenadas.moveToFirst())
+                {
+                    do{
+                        Entertainment entertainment = new Entertainment();
+                        entertainment.setIdActivity(almacenadas.getInt(0));
+                        entertainment.setTitle(almacenadas.getString(1));
+                        entertainment.setCompany(almacenadas.getString(2));
+                        entertainment.setCategory(almacenadas.getString(3));
+                        entertainment.setDay(almacenadas.getString(4));
+                        entertainment.setSchedule(almacenadas.getString(5));
+                        entertainment.setPrice(almacenadas.getString(6));
+                        entertainment.setDescription(almacenadas.getString(7));
+                        entertainment.setMinimumAge(almacenadas.getInt(8));
+                        byte[] blob = almacenadas.getBlob(9);
+                        entertainment.setImage(BitmapFactory.decodeByteArray(blob, 0, blob.length));
+                        entertainments.add(entertainment);
+                        //System.out.println(entertainment);
+                    }while(almacenadas.moveToNext());
+                }
+                //System.out.println("nuevas: ");
                 for (int i = 0; i < responseVector.size(); i++)
                 {
                     SoapObject respond = (SoapObject) responseVector.get(i);
-                    Entertainment entertainment = new Entertainment();
-                    entertainment.setIdActivity(Integer.parseInt(respond.getProperty("idActivity").toString()));
-                    entertainment.setTitle(respond.getProperty("title").toString());
-                    entertainment.setCompany(respond.getProperty("company").toString());
-                    entertainment.setCategory(respond.getProperty("category").toString());
-                    entertainment.setDay(respond.getProperty("day").toString());
-                    entertainment.setSchedule(respond.getProperty("schedule").toString());
-                    entertainment.setPrice(respond.getProperty("price").toString());
-                    entertainment.setDescription(respond.getProperty("description").toString());
-                    entertainment.setMinimumAge(Integer.parseInt(respond.getProperty("minimumAge").toString()));
-                    entertainment.setImage(BitmapFactory.decodeStream((InputStream) new URL(respond.getProperty("image").toString()).getContent()));
-                    entertainments.add(entertainment);
-                    System.out.println(entertainment);
+
+                    if(!dbActivity.consultar(Integer.parseInt(respond.getProperty("idActivity").toString())).moveToFirst()) {
+                        Entertainment entertainment = new Entertainment();
+                        entertainment.setIdActivity(Integer.parseInt(respond.getProperty("idActivity").toString()));
+                        entertainment.setTitle(respond.getProperty("title").toString());
+                        entertainment.setCompany(respond.getProperty("company").toString());
+                        entertainment.setCategory(respond.getProperty("category").toString());
+                        entertainment.setDay(respond.getProperty("day").toString());
+                        entertainment.setSchedule(respond.getProperty("schedule").toString());
+                        entertainment.setPrice(respond.getProperty("price").toString());
+                        entertainment.setDescription(respond.getProperty("description").toString());
+                        entertainment.setMinimumAge(Integer.parseInt(respond.getProperty("minimumAge").toString()));
+                        entertainment.setImage(BitmapFactory.decodeStream((InputStream) new URL(respond.getProperty("image").toString()).getContent()));
+                        entertainments.add(entertainment);
+                        //System.out.println(entertainment);
+                        dbActivity.insertaroActualizar(entertainment.getIdActivity(), entertainment.getTitle(), entertainment.getCompany(),
+                                entertainment.getCategory(), entertainment.getDay(), entertainment.getSchedule(), entertainment.getPrice(),
+                                entertainment.getDescription(), entertainment.getMinimumAge(), entertainment.getImage());
+                    }
                 }
                 return true;
             } catch (Exception e)
             {
                 return false;
+            }
+            finally {
+                dbActivity.close();
             }
         }
 
@@ -364,7 +392,7 @@ public class FragmentEntertainments extends Fragment {
 
     private void AdapterEntertainments()
     {
-        entertainmentsSpecificDay = new ArrayList<Entertainment>();
+        entertainmentsSpecificDay = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < entertainments.size(); i++)
         {

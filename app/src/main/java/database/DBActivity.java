@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 public class DBActivity {
@@ -35,7 +37,7 @@ public class DBActivity {
             + PRICE + " text not null,"
             + DESCRPTION + " text,"
             + MINIMUM_AGE + " integer,"
-            + IMAGE + " integer"
+            + IMAGE + " blob"
             +");";
 
     public DBActivity(Context contexto) {
@@ -43,67 +45,71 @@ public class DBActivity {
         helper = new DbHelper(contexto);
         db = helper.getWritableDatabase();
     }
-    /*
-    public ContentValues generarContentValues(String id,String nombre,String logo,int minutos){
-        ContentValues valores = new ContentValues();
-        valores.put(ID,id);
-        valores.put(NOMBRE,nombre);
-        valores.put(LOGO,logo);
-        valores.put(MINUTOS, minutos);
 
+    public ContentValues generarContentValues(Integer id,String title,String company,String category,String day,String schedule,String price,String description,Integer minAge,byte[] image){
+        ContentValues valores = new ContentValues();
+        if(id!=null)
+            valores.put(ID,id);
+        if(title!=null)
+            valores.put(TITLE,title);
+        if(company!=null)
+            valores.put(COMPANY,company);
+        if(category!=null)
+            valores.put(CATEGORY, category);
+        if(day!=null)
+            valores.put(DAY,day);
+        if(schedule!=null)
+            valores.put(SCHEDULE,schedule);
+        if(price!=null)
+            valores.put(PRICE, price);
+        if(description!=null)
+            valores.put(DESCRPTION,description);
+        if(minAge!=null)
+            valores.put(MINIMUM_AGE,minAge);
+        if(image!=null)
+            valores.put(IMAGE, image);
         return valores;
     }
-    /*
-    public void insertar(String id,String nombre,String logo,int minutos){
-        //insert  into contactos
-        db.insert(NOMBRE_TABLA, null, generarContentValues(id, nombre, logo, minutos));
-    }
-    public void insertaroActualizar(String id,String nombre,String logo,int minutos){
 
+    public void insertar(Integer id,String title,String company,String category,String day,String schedule,String price,String description,int minAge,Bitmap imageBitmap)
+    {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] image = stream.toByteArray();
+        db.insert(TABLE_NAME, null, generarContentValues(id, title, company, category, day, schedule, price, description, minAge, image));
+    }
+
+    public boolean insertaroActualizar(Integer id,String title,String company,String category,String day,String schedule,String price,String description,int minAge,Bitmap imageBitmap)
+    {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        byte[] image = stream.toByteArray();
         Cursor c = consultar(id);
-        if(c.moveToFirst()) {
-            String[] args = new String[] {id};
-            int minutos_antes = consultarMinutos(id);
-            if(minutos_antes!=minutos) {
-                DBSesiones dbSesiones=new DBSesiones(ctx);
-                dbSesiones.insertaroActualizar(id, (minutos - minutos_antes) + "", new Date());
-                dbSesiones.close();
-
-            }
-            db.update(NOMBRE_TABLA, generarContentValues(id, nombre, logo, minutos), ID + "=?", args);
-
-        }else
-            db.insert(NOMBRE_TABLA,null,generarContentValues(id,nombre,logo,minutos));
-    }
-
-    public int consultarMinutos(String id){
-        String[] campos = new String[] {MINUTOS};
-        String[] args = new String[] {id};
-        int minutos=0;
-        Cursor c = db.query(NOMBRE_TABLA, campos, ID+"=?", args, null, null, null);
         if(c.moveToFirst())
-            minutos=c.getInt(0);
-        c.close();
-        return minutos;
+        {
+            String[] args = new String[] {id+""};
+            db.update(TABLE_NAME, generarContentValues(id, title, company, category,day,schedule,price,description,minAge,null), ID + "=?", args);
+            return true;
+        }else
+            db.insert(TABLE_NAME,null,generarContentValues(id, title, company, category,day,schedule,price,description,minAge,image));
+        return false;
     }
+    public Cursor consultar(Integer id){
 
-
-    public Cursor consultar(String id){
-
-        String[] campos = new String[] {ID, NOMBRE , MINUTOS,LOGO};
+        String[] campos = new String[] {ID,TITLE,COMPANY,CATEGORY,DAY,SCHEDULE,PRICE,DESCRPTION,MINIMUM_AGE,IMAGE};
         //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
 
-        String[] args = new String[] {id};
+        String[] args = new String[] {id+""};
 
-        if(id==null)return db.query(NOMBRE_TABLA, campos, null, null, null, null,null);
-        return db.query(NOMBRE_TABLA, campos, ID+"=?", args, null, null, null);
+        if(id==null)return db.query(TABLE_NAME, campos, null, null, null, null,null);
+        return db.query(TABLE_NAME, campos, ID+"=?", args, null, null, null);
     }
 
 
     public void vaciar(){
-        db.delete(NOMBRE_TABLA,null,null);
+        db.delete(TABLE_NAME,null,null);
     }
-*/
+
     public void close(){
         try {
             if(helper!=null){
