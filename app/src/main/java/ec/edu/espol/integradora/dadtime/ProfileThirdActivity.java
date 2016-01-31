@@ -17,7 +17,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 import java.util.Calendar;
 
 public class ProfileThirdActivity extends AppCompatActivity {
@@ -25,7 +24,8 @@ public class ProfileThirdActivity extends AppCompatActivity {
     private static Activity activity;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
-    FloatingActionButton fabAddSons;
+    private ProfileGlobalClass profileGlobalClass;
+    private FloatingActionButton fabAddSons;
     private Button btnFinalize;
 
     @Override
@@ -34,6 +34,9 @@ public class ProfileThirdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_third);
         getSupportActionBar().setTitle("Hijos");
         this.activity = this;
+        preferenceSettings = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        preferenceEditor = preferenceSettings.edit();
+        profileGlobalClass = (ProfileGlobalClass) getApplicationContext();
         fabAddSons = (FloatingActionButton)findViewById(R.id.fabAddSons);
         btnFinalize = (Button)findViewById(R.id.btnFinalize);
         fabAddSons.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +82,6 @@ public class ProfileThirdActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileThirdActivity.this, MainActivity.class);
                 startActivity(intent);
-                preferenceSettings = getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
-                preferenceEditor = preferenceSettings.edit();
                 preferenceEditor.putBoolean("profile", true);
                 preferenceEditor.commit();
                 if(ProfileFirstActivity.activity != null)
