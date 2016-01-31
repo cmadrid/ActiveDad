@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
@@ -26,13 +27,6 @@ public class ProfileSecondActivity extends AppCompatActivity {
     private ListView lvWorkday;
     private FloatingActionButton fabAddWorkday;
     private Button btnNext;
-    private boolean clickedBtnMonday;
-    private boolean clickedBtnTuesday;
-    private boolean clickedBtnWednesday;
-    private boolean clickedBtnThursday;
-    private boolean clickedBtnFriday;
-    private boolean clickedBtnSaturday;
-    private boolean clickedBtnSunday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +54,13 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 View view = inflater.inflate(R.layout.dialog_add_workday, null);
                 final EditText etEntryTime = (EditText) view.findViewById(R.id.etEntryTime);
                 final EditText etExitTime = (EditText) view.findViewById(R.id.etExitTime);
-                final Button btnMonday = (Button) view.findViewById(R.id.btnMonday);
-                final Button btnTuesday = (Button) view.findViewById(R.id.btnTuesday);
-                final Button btnWednesday = (Button) view.findViewById(R.id.btnWednesday);
-                final Button btnThursday = (Button) view.findViewById(R.id.btnThursday);
-                final Button btnFriday = (Button) view.findViewById(R.id.btnFriday);
-                final Button btnSaturday = (Button) view.findViewById(R.id.btnSaturday);
-                final Button btnSunday = (Button) view.findViewById(R.id.btnSunday);
-                clickedBtnMonday = false;
-                clickedBtnTuesday = false;
-                clickedBtnWednesday = false;
-                clickedBtnThursday = false;
-                clickedBtnFriday = false;
-                clickedBtnSaturday = false;
-                clickedBtnSunday = false;
+                final ToggleButton btnMonday = (ToggleButton) view.findViewById(R.id.btnMonday);
+                final ToggleButton btnTuesday = (ToggleButton) view.findViewById(R.id.btnTuesday);
+                final ToggleButton btnWednesday = (ToggleButton) view.findViewById(R.id.btnWednesday);
+                final ToggleButton btnThursday = (ToggleButton) view.findViewById(R.id.btnThursday);
+                final ToggleButton btnFriday = (ToggleButton) view.findViewById(R.id.btnFriday);
+                final ToggleButton btnSaturday = (ToggleButton) view.findViewById(R.id.btnSaturday);
+                final ToggleButton btnSunday = (ToggleButton) view.findViewById(R.id.btnSunday);
                 etEntryTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -104,90 +91,6 @@ public class ProfileSecondActivity extends AppCompatActivity {
                         }, hour, minute, true);
                         timePicker.setCancelable(false);
                         timePicker.show();
-                    }
-                });
-                btnMonday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnMonday) {
-                            btnMonday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnMonday = true;
-                        } else {
-                            btnMonday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnMonday = false;
-                        }
-                    }
-                });
-                btnTuesday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnTuesday) {
-                            btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnTuesday = true;
-                        } else {
-                            btnTuesday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnTuesday = false;
-                        }
-                    }
-                });
-                btnWednesday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnWednesday) {
-                            btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnWednesday = true;
-                        } else {
-                            btnWednesday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnWednesday = false;
-                        }
-                    }
-                });
-                btnThursday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnThursday) {
-                            btnThursday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnThursday = true;
-                        } else {
-                            btnThursday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnThursday = false;
-                        }
-                    }
-                });
-                btnFriday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnFriday) {
-                            btnFriday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnFriday = true;
-                        } else {
-                            btnFriday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnFriday = false;
-                        }
-                    }
-                });
-                btnSaturday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnSaturday) {
-                            btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnSaturday = true;
-                        } else {
-                            btnSaturday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnSaturday = false;
-                        }
-                    }
-                });
-                btnSunday.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!clickedBtnSunday) {
-                            btnSunday.setBackground(getResources().getDrawable(R.drawable.button_day_selected));
-                            clickedBtnSunday = true;
-                        } else {
-                            btnSunday.setBackground(getResources().getDrawable(R.drawable.button_days));
-                            clickedBtnSunday = false;
-                        }
                     }
                 });
                 new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

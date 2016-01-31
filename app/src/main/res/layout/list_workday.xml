@@ -34,73 +34,94 @@
             android:layout_height="wrap_content"
             android:weightSum="7">
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="L"
+                android:textOn="L"
+                android:textOff="L"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnMonday" />
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="M"
+                android:textOn="M"
+                android:textOff="M"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnTuesday" />
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="X"
+                android:textOn="X"
+                android:textOff="X"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnWednesday" />
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="J"
+                android:textOn="J"
+                android:textOff="J"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnThursday" />
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="V"
+                android:textOn="V"
+                android:textOff="V"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnFriday" />
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="S"
+                android:textOn="S"
+                android:textOff="S"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnSaturday" />
 
-            <Button
+            <ToggleButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="15sp"
                 android:textColor="#ffffff"
-                android:text="D"
+                android:textOn="D"
+                android:textOff="D"
+                android:focusable="false"
+                android:clickable="false"
                 android:background="@drawable/button_days"
                 android:id="@+id/btnSunday" />
 
