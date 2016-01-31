@@ -13,15 +13,15 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textColor="#ffffff"
-        android:text="@string/app_name"
+        android:text="Añadir Hijo"
         android:background="@color/colorPrimary" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="15sp"
         android:inputType="textCapWords"
         android:imeOptions="actionDone"
@@ -31,8 +31,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="15sp"
         android:inputType="date"
         android:imeOptions="actionDone"

@@ -49,6 +49,7 @@ public class ProfileSecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_second);
+        getSupportActionBar().setTitle("Horario Laboral");
         this.activity = this;
         btnNext = (Button)findViewById(R.id.btnNext);
         /*getSupportActionBar().setDisplayShowHomeEnabled(true);

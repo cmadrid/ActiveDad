@@ -17,7 +17,7 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:text="¿Cuál es tu horario de trabajo?" />
+        android:text="¿Cuál es tu horario laboral?" />
 
     <TextView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
         android:textSize="13sp"
         android:textColor="#8b8b8b"
         android:textAlignment="center"
-        android:text="Tu horario de trabajo ayudará a la aplicación a sugerirte actividades en tus días laborables y libres." />
+        android:text="Tu horario laboral ayudará a la aplicación a sugerirte actividades en tus días laborables y libres." />
 
     <RelativeLayout
         android:layout_width="wrap_content"
