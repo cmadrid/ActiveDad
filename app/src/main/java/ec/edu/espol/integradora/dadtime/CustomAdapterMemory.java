@@ -45,4 +45,5 @@ public class CustomAdapterMemory extends BaseAdapter {
         tvTitle.setText(memories.get(position).getTitle());
         return rowView;
     }
+
 }

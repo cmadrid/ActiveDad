@@ -1,15 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="layout.FragmentMemories">
+    android:layout_height="match_parent" >
 
-    <ListView
-        android:layout_width="match_parent"
+    <GridView
+        android:id="@+id/gvMemories"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@drawable/divider_list"
-        android:dividerHeight="0.2dp"
-        android:scrollbars="vertical"
-        android:id="@+id/lvMemories" />
+        android:numColumns="2">
 
-</FrameLayout>
+    </GridView>
+
+</RelativeLayout>

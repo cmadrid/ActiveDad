@@ -1,20 +1,17 @@
 package layout;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ import ec.edu.espol.integradora.dadtime.R;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentMemories extends Fragment {
-    private ListView lvMemories;
+    private GridView gvMemories;
     ArrayList<Memory> memories;
 
 
@@ -39,8 +36,7 @@ public class FragmentMemories extends Fragment {
     }
 
     public static FragmentMemories newInstance() {
-        FragmentMemories fragment = new FragmentMemories();
-        return fragment;
+        return new FragmentMemories();
     }
 
     @Override
@@ -49,7 +45,7 @@ public class FragmentMemories extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_memories, container, false);
 
-        lvMemories = (ListView) view.findViewById(R.id.lvMemories);
+        gvMemories = (GridView) view.findViewById(R.id.gvMemories);
         loadMemories();
         // Inflate the layout for this fragment
         return view;
@@ -59,14 +55,21 @@ public class FragmentMemories extends Fragment {
 
         List<File> files = Collage.getListFiles(new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES) + "/DadTime/Collage-DT"));
-        //Memory memory = new Memory("memoria 1", Collage.getSmallBitmap())
         memories = new ArrayList<>();
         for(File file:files){
-            memories.add(new Memory("JUEVES, 28 DE ENERO DE 2016", ImageHandler.getSmallBitmap(file.getAbsolutePath(), 1080)));
+            memories.add(new Memory("JUEVES, 28 DE ENERO DE 2016", file.getAbsolutePath()));
         }
-        lvMemories.setAdapter(new CustomAdapterMemory(getActivity(), memories));
-
-
+        gvMemories.setAdapter(new CustomAdapterMemory(getActivity(), memories));
+        gvMemories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Uri imgUri = Uri.parse("file://" + memories.get(position).getPath());
+                intent.setDataAndType(imgUri, "image/*");
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
 }
