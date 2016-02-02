@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -105,27 +106,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        final Menu finalMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         mSearchView = menu.findItem(R.id.search_menu);
-        searchView = (SearchView) mSearchView.getActionView();
+        searchView = (SearchView) MenuItemCompat.getActionView(mSearchView);
         searchView.setSubmitButtonEnabled(false);
+        MenuItemCompat.setOnActionExpandListener(mSearchView, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                finalMenu.findItem(R.id.camera_menu).setVisible(false);
+                return true;
+            }
 
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                finalMenu.findItem(R.id.camera_menu).setVisible(true);
+                return true;
+            }
+        });
         //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //System.out.println("Se envio: "+query);
-                //fragmentEntertainments.setTextFilter(query);
-                //fragmentEntertainments.AdapterEntertainments();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //System.out.println(newText);
-                //System.out.println(" asd ");
                 fragmentEntertainments.setTextFilter(newText);
                 fragmentEntertainments.AdapterEntertainments();
                 return false;
@@ -163,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     .show();
             return true;
         }
-        else if (id == R.id.camera_setting)
+        else if (id == R.id.camera_menu)
         {
             startActivity(new Intent(getApplicationContext(), CameraActivity.class));
             return true;
@@ -178,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.stop_service) {
 
+            //startService(new Intent(getBaseContext(),ServiceCollageBackground.class));
             stopService(new Intent(getBaseContext(),ServiceBackground.class));
             //Toast.makeText(this,"termina",Toast.LENGTH_LONG).show();
             return true;

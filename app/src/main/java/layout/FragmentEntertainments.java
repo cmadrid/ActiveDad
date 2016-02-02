@@ -428,6 +428,8 @@ public class FragmentEntertainments extends Fragment {
 
     public void AdapterEntertainments()
     {
+        if(entertainments==null)
+            return;
         entertainmentsSpecificDay = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < entertainments.size(); i++)

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,6 +24,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import layout.AddImageDialog;
+import layout.FragmentMemories;
 
 public class Collage extends AppCompatActivity {
 
@@ -32,7 +34,7 @@ public class Collage extends AppCompatActivity {
 
 
     public void initData(){
-        screen = (findViewById(R.id.screen_collage));
+        screen = findViewById(R.id.screen_collage);
     }
 
 
@@ -181,8 +183,16 @@ public class Collage extends AppCompatActivity {
         else if(id == R.id.save_collage){
             screen.setDrawingCacheEnabled(true);
             bmScreen = screen.getDrawingCache();
-            ImageHandler.saveImage(bmScreen,"Collage-DT","JPEG_",getApplicationContext());
+            String path = ImageHandler.saveImage(bmScreen,"Collage-DT","JPEG_",getApplicationContext());
             screen.setDrawingCacheEnabled(false);
+            if(FragmentMemories.fragmentMemories!=null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(new File(path).lastModified());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                dateFormat.setTimeZone(cal.getTimeZone());
+                FragmentMemories.fragmentMemories.getMemories().add(0,new Memory(dateFormat.format(cal.getTime()), path));
+                FragmentMemories.fragmentMemories.setAdapterGvMemories(null);
+            }
             Toast.makeText(getApplicationContext(), "Collage Guardado Correctamente", Toast.LENGTH_SHORT)
                     .show();
             finish();
