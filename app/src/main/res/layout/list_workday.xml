@@ -18,8 +18,8 @@
             android:textColor="#000000"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:text="08:00 - 24:00"
-            android:id="@+id/tvTitle" />
+            android:text="Horario"
+            android:id="@+id/tvSchedule" />
 
     </RelativeLayout>
 
@@ -45,7 +45,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnMonday" />
+                android:id="@+id/tbMonday" />
 
             <ToggleButton
                 android:layout_width="0dp"
@@ -58,7 +58,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnTuesday" />
+                android:id="@+id/tbTuesday" />
 
             <ToggleButton
                 android:layout_width="0dp"
@@ -71,7 +71,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnWednesday" />
+                android:id="@+id/tbWednesday" />
 
             <ToggleButton
                 android:layout_width="0dp"
@@ -84,7 +84,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnThursday" />
+                android:id="@+id/tbThursday" />
 
             <ToggleButton
                 android:layout_width="0dp"
@@ -97,7 +97,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnFriday" />
+                android:id="@+id/tbFriday" />
 
             <ToggleButton
                 android:layout_width="0dp"
@@ -110,7 +110,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnSaturday" />
+                android:id="@+id/tbSaturday" />
 
             <ToggleButton
                 android:layout_width="0dp"
@@ -123,7 +123,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:background="@drawable/button_days"
-                android:id="@+id/btnSunday" />
+                android:id="@+id/tbSunday" />
 
         </TableRow>
 

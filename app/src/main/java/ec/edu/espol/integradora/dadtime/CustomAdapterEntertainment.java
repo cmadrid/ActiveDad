@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class CustomAdapterEntertainment extends BaseAdapter {
 
-    Activity activity;
-    ArrayList<Entertainment> entertainments;
+    private Activity activity;
+    private ArrayList<Entertainment> entertainments;
 
     public CustomAdapterEntertainment(Activity activity, ArrayList<Entertainment> entertainments) {
         this.activity = activity;
