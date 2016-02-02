@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 public class SplashActivity extends Activity {
 
     ProgressBar progressBar;
-    private int DURACION_SPLASH = 5000;
+    private int DURACION_SPLASH = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
