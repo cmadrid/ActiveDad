@@ -6,17 +6,19 @@
     <item android:id="@+id/search_menu"
         android:title="@string/search_menu"
         android:icon="@android:drawable/ic_menu_search"
+        android:orderInCategory="50"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/camera_menu"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/camera_setting"
-        android:orderInCategory="200"
         android:title="@string/menu_camera"
+        android:icon="@android:drawable/ic_menu_camera"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="200"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/shortcut_setting"
