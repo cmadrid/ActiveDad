@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
+import java.util.ArrayList;
 
 public class DBActivity {
     public static final String TABLE_NAME = "activity";
@@ -94,6 +94,23 @@ public class DBActivity {
             db.insert(TABLE_NAME,null,generarContentValues(id, title, company, category,day,schedule,price,description,minAge,image));
         return false;
     }
+
+    public String[] consultarCategorias(){
+        String[] campos = new String[] {CATEGORY};
+        //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
+        ArrayList<String> categories = new ArrayList<>();
+        Cursor c = db.query(TABLE_NAME, campos, null, null, "1", null, null);
+        if(c.moveToFirst()){
+            do{
+                categories.add(c.getString(0));
+            }while(c.moveToNext());
+        }
+        String[] categoriesArray = new String[categories.size()];
+        categoriesArray = categories.toArray(categoriesArray);
+        return categoriesArray;
+
+    }
+
     public Cursor consultar(Integer id){
 
         String[] campos = new String[] {ID,TITLE,COMPANY,CATEGORY,DAY,SCHEDULE,PRICE,DESCRPTION,MINIMUM_AGE,IMAGE};

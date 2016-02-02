@@ -4,14 +4,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Created by user on 16/01/2016.
+ * Created by user
+ * on 16/01/2016.
  */
 public class Entertainment implements Parcelable{
 
@@ -25,6 +23,15 @@ public class Entertainment implements Parcelable{
     private String description;
     private int minimumAge;
     private Bitmap image;
+    private boolean checked=false;
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public Entertainment()
     {
@@ -41,6 +48,7 @@ public class Entertainment implements Parcelable{
         price = in.readString();
         description = in.readString();
         minimumAge = in.readInt();
+        checked = in.readInt()==1;//CM
         byte[] imageAsBytes = new byte[in.readInt()];
         in.readByteArray(imageAsBytes);
         image = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
@@ -74,6 +82,7 @@ public class Entertainment implements Parcelable{
         dest.writeString(price);
         dest.writeString(description);
         dest.writeInt(minimumAge);
+        dest.writeInt(checked?1:0);//CM
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
@@ -173,6 +182,7 @@ public class Entertainment implements Parcelable{
         str +="\tprice: "+price+"\n";
         str +="\tdescription: "+description+"\n";
         str +="\tminimumAge: "+minimumAge+"\n";
+        str +="\tchecked: "+checked+"\n";
         str +="\timage: "+image+"\n";
         str +="}";
         return str;

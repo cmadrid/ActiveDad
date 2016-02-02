@@ -1,11 +1,11 @@
 package ec.edu.espol.integradora.dadtime;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.widget.BaseAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,10 +44,14 @@ public class CustomAdapterEntertainment extends BaseAdapter {
         TextView tvTitle = (TextView) rowView.findViewById(R.id.tvTitle);
         TextView tvCompany = (TextView) rowView.findViewById(R.id.tvCompany);
         TextView tvCategory = (TextView) rowView.findViewById(R.id.tvCategory);
+        CheckBox cbSelected = (CheckBox) rowView.findViewById(R.id.cbEntertainmentPerformed);
         ivImage.setImageBitmap(entertainments.get(position).getImage());
         tvTitle.setText(entertainments.get(position).getTitle());
         tvCompany.setText(entertainments.get(position).getCompany());
         tvCategory.setText(entertainments.get(position).getCategory());
+        cbSelected.setChecked(entertainments.get(position).isChecked());
+        cbSelected.setFocusable(false);
+        cbSelected.setClickable(false);
         return rowView;
     }
 }

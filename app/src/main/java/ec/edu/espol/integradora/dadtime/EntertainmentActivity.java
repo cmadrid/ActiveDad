@@ -1,21 +1,19 @@
 package ec.edu.espol.integradora.dadtime;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+import layout.FragmentEntertainments;
 
 public class EntertainmentActivity extends AppCompatActivity {
 
@@ -55,7 +53,7 @@ public class EntertainmentActivity extends AppCompatActivity {
         Set<String> getSetIdEntertainments = preferenceSettings.getStringSet("idEntertainments", null);
         if (getSetIdEntertainments != null)
         {
-            ArrayList<String> idEntertainments = new ArrayList<String>(getSetIdEntertainments);
+            ArrayList<String> idEntertainments = new ArrayList<>(getSetIdEntertainments);
             if (ArrayContains(idEntertainments, Integer.toString(entertainment.getIdActivity())) != -1)
             {
                 cbEntertainmentPerformed.setChecked(true);
@@ -66,20 +64,22 @@ public class EntertainmentActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
                 {
+                    FragmentEntertainments.actual.selectedEntertaiment.setChecked(true);//CM
+                    FragmentEntertainments.actual.AdapterEntertainments();//CM
                     Set<String> getSetIdEntertainments = preferenceSettings.getStringSet("idEntertainments", null);
                     Set<String> getSetTitleEntertainments = preferenceSettings.getStringSet("titleEntertainments", null);
-                    if (getSetIdEntertainments != null)
+                    if (getSetIdEntertainments != null && getSetTitleEntertainments != null )
                     {
-                        ArrayList<String> idEntertainments = new ArrayList<String>(getSetIdEntertainments);
-                        ArrayList<String> titleEntertainments = new ArrayList<String>(getSetTitleEntertainments);
+                        ArrayList<String> idEntertainments = new ArrayList<>(getSetIdEntertainments);
+                        ArrayList<String> titleEntertainments = new ArrayList<>(getSetTitleEntertainments);
                         if (ArrayContains(idEntertainments, Integer.toString(entertainment.getIdActivity())) == -1)
                         {
-                            Set<String> setIdEntertainments = new HashSet<String>();
+                            Set<String> setIdEntertainments = new HashSet<>();
                             idEntertainments.add(Integer.toString(entertainment.getIdActivity()));
                             setIdEntertainments.addAll(idEntertainments);
                             preferenceEditor.putStringSet("idEntertainments", setIdEntertainments);
                             preferenceEditor.commit();
-                            Set<String> setTitleEntertainments = new HashSet<String>();
+                            Set<String> setTitleEntertainments = new HashSet<>();
                             titleEntertainments.add(entertainment.getTitle());
                             setTitleEntertainments.addAll(titleEntertainments);
                             preferenceEditor.putStringSet("titleEntertainments", setTitleEntertainments);
@@ -88,14 +88,14 @@ public class EntertainmentActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Set<String> setIdEntertainments = new HashSet<String>();
-                        ArrayList<String> idEntertainments = new ArrayList<String>();
+                        Set<String> setIdEntertainments = new HashSet<>();
+                        ArrayList<String> idEntertainments = new ArrayList<>();
                         idEntertainments.add(Integer.toString(entertainment.getIdActivity()));
                         setIdEntertainments.addAll(idEntertainments);
                         preferenceEditor.putStringSet("idEntertainments", setIdEntertainments);
                         preferenceEditor.commit();
-                        Set<String> setTitleEntertainments = new HashSet<String>();
-                        ArrayList<String> titleEntertainments = new ArrayList<String>();
+                        Set<String> setTitleEntertainments = new HashSet<>();
+                        ArrayList<String> titleEntertainments = new ArrayList<>();
                         titleEntertainments.add(entertainment.getTitle());
                         setTitleEntertainments.addAll(titleEntertainments);
                         preferenceEditor.putStringSet("titleEntertainments", setTitleEntertainments);
@@ -104,18 +104,21 @@ public class EntertainmentActivity extends AppCompatActivity {
                 }
                 else
                 {
+
+                    FragmentEntertainments.actual.selectedEntertaiment.setChecked(false);//CM
+                    FragmentEntertainments.actual.AdapterEntertainments();//CM
                     Set<String> getSetIdEntertainments = preferenceSettings.getStringSet("idEntertainments", null);
                     Set<String> getSetTitleEntertainments = preferenceSettings.getStringSet("titleEntertainments", null);
-                    if (getSetIdEntertainments != null)
+                    if (getSetIdEntertainments != null && getSetTitleEntertainments != null)
                     {
-                        ArrayList<String> idEntertainments = new ArrayList<String>(getSetIdEntertainments);
-                        Set<String> setIdEntertainments = new HashSet<String>();
+                        ArrayList<String> idEntertainments = new ArrayList<>(getSetIdEntertainments);
+                        Set<String> setIdEntertainments = new HashSet<>();
                         idEntertainments.remove(Integer.toString(entertainment.getIdActivity()));
                         setIdEntertainments.addAll(idEntertainments);
                         preferenceEditor.putStringSet("idEntertainments", setIdEntertainments);
                         preferenceEditor.commit();
-                        ArrayList<String> titleEntertainments = new ArrayList<String>(getSetTitleEntertainments);
-                        Set<String> setTitleEntertainments = new HashSet<String>();
+                        ArrayList<String> titleEntertainments = new ArrayList<>(getSetTitleEntertainments);
+                        Set<String> setTitleEntertainments = new HashSet<>();
                         titleEntertainments.remove(entertainment.getTitle());
                         setTitleEntertainments.addAll(titleEntertainments);
                         preferenceEditor.putStringSet("titleEntertainments", setTitleEntertainments);

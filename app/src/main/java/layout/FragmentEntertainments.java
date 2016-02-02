@@ -1,17 +1,23 @@
 package layout;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
@@ -27,10 +33,13 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 import database.DBActivity;
 import ec.edu.espol.integradora.dadtime.CustomAdapterEntertainment;
+import ec.edu.espol.integradora.dadtime.CustomAdapterFilter;
 import ec.edu.espol.integradora.dadtime.Entertainment;
 import ec.edu.espol.integradora.dadtime.EntertainmentActivity;
 import ec.edu.espol.integradora.dadtime.R;
@@ -52,9 +61,17 @@ public class FragmentEntertainments extends Fragment {
     ListView lvEntertainments;
     ArrayList<Entertainment> entertainments;
     ArrayList<Entertainment> entertainmentsSpecificDay;
+    public Entertainment selectedEntertaiment;//CM
+    public static FragmentEntertainments actual;//CM
     ProgressBar progressBar;
     Calendar calendar;
+    FloatingActionButton filter;
+    TabLayout.Tab tab;
 
+    ArrayList<String> filters_array;
+    boolean filter_my_activities=false;
+    private SharedPreferences preferenceSettings;
+    private SharedPreferences.Editor preferenceEditor;
     public FragmentEntertainments() {
         // Required empty public constructor
     }
@@ -66,6 +83,15 @@ public class FragmentEntertainments extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        actual=this;//CM
+        //container=viewPager
+        //container.getParent()=CoordinatorLayout
+        preferenceSettings = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);//CM
+        preferenceEditor = preferenceSettings.edit();//CM
+        filter = (FloatingActionButton)((View) container.getParent()).findViewById(R.id.fabFilterActivity);//CM
+        tab = ((TabLayout)((View) container.getParent()).findViewById(R.id.tabs)).getTabAt(0);
+        setFilter();//CM
+
         View view = inflater.inflate(R.layout.fragment_entertainments, container, false);
         tlDays = (TableLayout) view.findViewById(R.id.tlDays);
         btnMonday = (Button) view.findViewById(R.id.btnMonday);
@@ -319,8 +345,9 @@ public class FragmentEntertainments extends Fragment {
                 Vector<?> responseVector = (Vector<?>) response.getProperty(0);
                 entertainments = new ArrayList<>();
 
+
+                Set<String> getSetIdEntertainments = preferenceSettings.getStringSet("idEntertainments", new HashSet<String>());
                 Cursor almacenadas = dbActivity.consultar(null);
-                //System.out.println("almacenadas: ");
                 if(almacenadas.moveToFirst())
                 {
                     do{
@@ -336,6 +363,10 @@ public class FragmentEntertainments extends Fragment {
                         entertainment.setMinimumAge(almacenadas.getInt(8));
                         byte[] blob = almacenadas.getBlob(9);
                         entertainment.setImage(BitmapFactory.decodeByteArray(blob, 0, blob.length));
+                        if(getSetIdEntertainments.contains(entertainment.getIdActivity()+""))
+                        {
+                            entertainment.setChecked(true);
+                        }
                         entertainments.add(entertainment);
                         //System.out.println(entertainment);
                     }while(almacenadas.moveToNext());
@@ -357,6 +388,10 @@ public class FragmentEntertainments extends Fragment {
                         entertainment.setDescription(respond.getProperty("description").toString());
                         entertainment.setMinimumAge(Integer.parseInt(respond.getProperty("minimumAge").toString()));
                         entertainment.setImage(BitmapFactory.decodeStream((InputStream) new URL(respond.getProperty("image").toString()).getContent()));
+                        if(getSetIdEntertainments.contains(entertainment.getIdActivity()+""))
+                        {
+                            entertainment.setChecked(true);
+                        }
                         entertainments.add(entertainment);
                         //System.out.println(entertainment);
                         dbActivity.insertaroActualizar(entertainment.getIdActivity(), entertainment.getTitle(), entertainment.getCompany(),
@@ -368,8 +403,7 @@ public class FragmentEntertainments extends Fragment {
             } catch (Exception e)
             {
                 return false;
-            }
-            finally {
+            } finally {
                 dbActivity.close();
             }
         }
@@ -390,7 +424,7 @@ public class FragmentEntertainments extends Fragment {
         }
     }
 
-    private void AdapterEntertainments()
+    public void AdapterEntertainments()
     {
         entertainmentsSpecificDay = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -398,7 +432,10 @@ public class FragmentEntertainments extends Fragment {
         {
             if (entertainments.get(i).getDay().equalsIgnoreCase(simpleDateFormat.format(calendar.getTime())))
             {
-                entertainmentsSpecificDay.add(entertainments.get(i));
+                if((filters_array==null || filters_array.contains(entertainments.get(i).getCategory().toLowerCase()))/*CM*/
+                        && (!filter_my_activities || entertainments.get(i).isChecked())/*CM*/
+                        )
+                    entertainmentsSpecificDay.add(entertainments.get(i));
             }
         }
         lvEntertainments.setAdapter(new CustomAdapterEntertainment(getActivity(), entertainmentsSpecificDay));
@@ -407,7 +444,91 @@ public class FragmentEntertainments extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), EntertainmentActivity.class);
                 intent.putExtra("Entertainment", entertainmentsSpecificDay.get(position));
+                selectedEntertaiment = entertainmentsSpecificDay.get(position);
                 startActivity(intent);
+            }
+        });
+    }
+
+    public void setFilter(){
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                View view = inflater.inflate(R.layout.filter_popup, null);
+
+                ListView lv_filter = (ListView) view.findViewById(R.id.lv_filter);
+                lv_filter.setAdapter(new CustomAdapterFilter(getActivity(), new String[]{"Todas las actividades", "A realizar", "Filtrar por categoria"}));
+                lv_filter.setItemsCanFocus(false);
+
+
+                final AlertDialog ad = new AlertDialog.Builder(getActivity()).setView(view)
+                        .show();
+                lv_filter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        switch (position) {
+                            case 0:
+                                filters_array = null;
+                                filter_my_activities = false;
+                                AdapterEntertainments();
+                                if (tab != null)
+                                    tab.setText("ACTIVIDADES");
+                                ad.dismiss();
+                                break;
+                            case 1:
+                                filters_array = null;
+                                filter_my_activities = true;
+                                AdapterEntertainments();
+                                if (tab != null)
+                                    tab.setText("MIS ACTIVIDADES");
+                                ad.dismiss();
+                                break;
+                            case 2:
+                                filter_my_activities = false;
+                                categoryPopUp();
+                                ad.dismiss();
+                                break;
+                        }
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void categoryPopUp(){
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.filter_category, null);
+        String[] categories={"SIN ACTIVIDADES!"};
+        DBActivity dbActivity=null;
+        try {
+            dbActivity = new DBActivity(getActivity());
+            categories = dbActivity.consultarCategorias();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if(dbActivity!=null)
+                dbActivity.close();
+        }
+        GridView gv_filter = (GridView)view.findViewById(R.id.gvCategory);
+        gv_filter.setAdapter(new CustomAdapterFilter(getActivity(), categories));
+
+        final AlertDialog ad = new AlertDialog.Builder(getActivity()).setView(view)
+                .show();
+
+        gv_filter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String category = ((TextView)view.findViewById(R.id.item_filter)).getText().toString();
+                filters_array = new ArrayList<>();
+                filters_array.add(category.toLowerCase());
+                AdapterEntertainments();
+                if (tab != null)
+                    tab.setText("CATEGORIA: "+category.toUpperCase());
+                ad.dismiss();
             }
         });
     }

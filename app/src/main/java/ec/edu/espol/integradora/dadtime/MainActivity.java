@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,13 +15,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 
 import layout.FragmentEntertainments;
@@ -39,6 +38,24 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Activity activity;
     private Context context;
+    private FloatingActionButton fab;
+
+    private ViewPager.OnPageChangeListener onPageChangeListener= new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+        @Override
+        public void onPageSelected(int position)
+        {
+            if(position==0)//fab.show();
+                fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
+            else //fab.hide();
+                fab.animate().translationY(fab.getHeight() + 64).setInterpolator(new AccelerateInterpolator(2)).start();
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {}
+    };
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -49,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fab = (FloatingActionButton)findViewById(R.id.fabFilterActivity);
         /*getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
         getSupportActionBar().setDisplayUseLogoEnabled(true);*/
@@ -64,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setOnPageChangeListener(onPageChangeListener);
     }
 
     @Override
@@ -150,40 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NAME = "section_name";
-        public PlaceholderFragment() {
-
-        }
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(CharSequence name) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putCharSequence(ARG_SECTION_NAME,name);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getCharSequence(ARG_SECTION_NAME)));
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -207,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = FragmentMemories.newInstance();
                     break;
                 default:
-                    fragment = PlaceholderFragment.newInstance(getPageTitle(position));
+                    fragment = FragmentMemories.newInstance();
                     break;
             }
             return fragment;
@@ -215,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 2;
         }
 
