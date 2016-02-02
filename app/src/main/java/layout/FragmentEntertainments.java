@@ -70,6 +70,8 @@ public class FragmentEntertainments extends Fragment {
 
     ArrayList<String> filters_array;
     boolean filter_my_activities=false;
+    private String textFilter = "";
+
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     public FragmentEntertainments() {
@@ -434,6 +436,9 @@ public class FragmentEntertainments extends Fragment {
             {
                 if((filters_array==null || filters_array.contains(entertainments.get(i).getCategory().toLowerCase()))/*CM*/
                         && (!filter_my_activities || entertainments.get(i).isChecked())/*CM*/
+                        && (textFilter.equalsIgnoreCase("")
+                            || entertainments.get(i).getCategory().toLowerCase().contains(textFilter)
+                            || entertainments.get(i).getTitle().toLowerCase().contains(textFilter))
                         )
                     entertainmentsSpecificDay.add(entertainments.get(i));
             }
@@ -533,4 +538,7 @@ public class FragmentEntertainments extends Fragment {
         });
     }
 
+    public void setTextFilter(String textFilter) {
+        this.textFilter = textFilter;
+    }
 }

@@ -2,12 +2,14 @@ package ec.edu.espol.integradora.dadtime;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -39,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private Activity activity;
     private Context context;
     private FloatingActionButton fab;
+    MenuItem mSearchView;
+    SearchView searchView;
+    FragmentEntertainments fragmentEntertainments = FragmentEntertainments.newInstance();
+    FragmentMemories fragmentMemories = FragmentMemories.newInstance();
 
     private ViewPager.OnPageChangeListener onPageChangeListener= new ViewPager.OnPageChangeListener() {
         @Override
@@ -47,10 +54,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPageSelected(int position)
         {
-            if(position==0)//fab.show();
+            if(position==0) {//fab.show();
                 fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
-            else //fab.hide();
-                fab.animate().translationY(fab.getHeight() + 64).setInterpolator(new AccelerateInterpolator(2)).start();
+                if(searchView!=null)
+                    mSearchView.collapseActionView();
+                if(mSearchView!=null)
+                    mSearchView.setVisible(true);
+            }
+            else {//fab.hide();
+                fab.animate().translationY(fab.getHeight() + 640).setInterpolator(new AccelerateInterpolator(2)).start();
+                if(searchView!=null)
+                    mSearchView.collapseActionView();
+                if(mSearchView!=null)
+                    mSearchView.setVisible(false);
+            }
         }
 
         @Override
@@ -89,6 +106,32 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        mSearchView = menu.findItem(R.id.search_menu);
+        searchView = (SearchView) mSearchView.getActionView();
+        searchView.setSubmitButtonEnabled(false);
+
+        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //System.out.println("Se envio: "+query);
+                //fragmentEntertainments.setTextFilter(query);
+                //fragmentEntertainments.AdapterEntertainments();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //System.out.println(newText);
+                //System.out.println(" asd ");
+                fragmentEntertainments.setTextFilter(newText);
+                fragmentEntertainments.AdapterEntertainments();
+                return false;
+            }
+        });
+
         return true;
     }
 
@@ -186,13 +229,13 @@ public class MainActivity extends AppCompatActivity {
             switch (position)
             {
                 case 0:
-                    fragment = FragmentEntertainments.newInstance();
+                    fragment = fragmentEntertainments;
                     break;
                 case 1:
-                    fragment = FragmentMemories.newInstance();
+                    fragment = fragmentMemories;
                     break;
                 default:
-                    fragment = FragmentMemories.newInstance();
+                    fragment = fragmentMemories;
                     break;
             }
             return fragment;
