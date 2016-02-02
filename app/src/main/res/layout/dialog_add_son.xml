@@ -15,29 +15,59 @@
         android:text="Añadir Hijo"
         android:background="@color/colorPrimary" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="15sp"
-        android:inputType="textCapWords"
-        android:imeOptions="actionDone"
-        android:hint="@string/name"
-        android:id="@+id/etName" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:weightSum="3">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="15sp"
-        android:inputType="date"
-        android:imeOptions="actionDone"
-        android:hint="@string/birthday"
-        android:focusable="false"
-        android:id="@+id/etBirthday" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.25"
+            android:scaleType="centerCrop"
+            android:background="@drawable/female"
+            android:id="@+id/ivImage" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.75"
+            android:paddingLeft="2dp"
+            android:weightSum="4">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.75"
+                android:textSize="15sp"
+                android:inputType="textCapWords"
+                android:imeOptions="actionDone"
+                android:hint="@string/name"
+                android:id="@+id/etName" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:inputType="date"
+                android:imeOptions="actionDone"
+                android:hint="@string/birthday"
+                android:focusable="false"
+                android:id="@+id/etBirthday" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:entries="@array/sex"
+                android:id="@+id/spinner" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

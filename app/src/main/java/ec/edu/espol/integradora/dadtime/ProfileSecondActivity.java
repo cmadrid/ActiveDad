@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ProfileSecondActivity extends AppCompatActivity {
@@ -27,6 +28,10 @@ public class ProfileSecondActivity extends AppCompatActivity {
     private ListView lvWorkday;
     private FloatingActionButton fabAddWorkday;
     private Button btnNext;
+    private ArrayList<String> entryTime;
+    private ArrayList<String> exitTime;
+    private ArrayList<Boolean[]> days;
+    private CustomAdapterWorkday adapterWorkday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +44,119 @@ public class ProfileSecondActivity extends AppCompatActivity {
         lvWorkday.setFocusable(true);
         fabAddWorkday = (FloatingActionButton)findViewById(R.id.fabAddWorkday);
         btnNext = (Button)findViewById(R.id.btnNext);
-        String[] values = new String[] { "08:00 - 17:00", "20:00 - 05:00" };
-        lvWorkday.setAdapter(new CustomAdapterWorkday(activity, values));
-        lvWorkday.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        entryTime = new ArrayList<String>();
+        exitTime = new ArrayList<String>();
+        days = new ArrayList<Boolean[]>();
+        adapterWorkday = new CustomAdapterWorkday(activity, entryTime, exitTime, days);
+        lvWorkday.setAdapter(adapterWorkday);
+        lvWorkday.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "aqui", Toast.LENGTH_LONG).show();
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                final int positionWorkday = position;
+                final CharSequence[] items = {"Editar", "Eliminar"};
+                new AlertDialog.Builder(activity).setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0)
+                        {
+                            LayoutInflater inflater = activity.getLayoutInflater();
+                            View view = inflater.inflate(R.layout.dialog_add_workday, null);
+                            final EditText etEntryTime = (EditText) view.findViewById(R.id.etEntryTime);
+                            final EditText etExitTime = (EditText) view.findViewById(R.id.etExitTime);
+                            final ToggleButton tbMonday = (ToggleButton) view.findViewById(R.id.tbMonday);
+                            final ToggleButton tbTuesday = (ToggleButton) view.findViewById(R.id.tbTuesday);
+                            final ToggleButton tbWednesday = (ToggleButton) view.findViewById(R.id.tbWednesday);
+                            final ToggleButton tbThursday = (ToggleButton) view.findViewById(R.id.tbThursday);
+                            final ToggleButton tbFriday = (ToggleButton) view.findViewById(R.id.tbFriday);
+                            final ToggleButton tbSaturday = (ToggleButton) view.findViewById(R.id.tbSaturday);
+                            final ToggleButton tbSunday = (ToggleButton) view.findViewById(R.id.tbSunday);
+                            etEntryTime.setText(entryTime.get(positionWorkday));
+                            etExitTime.setText(exitTime.get(positionWorkday));
+                            tbMonday.setChecked(days.get(positionWorkday)[0]);
+                            tbTuesday.setChecked(days.get(positionWorkday)[1]);
+                            tbWednesday.setChecked(days.get(positionWorkday)[2]);
+                            tbThursday.setChecked(days.get(positionWorkday)[3]);
+                            tbFriday.setChecked(days.get(positionWorkday)[4]);
+                            tbSaturday.setChecked(days.get(positionWorkday)[5]);
+                            tbSunday.setChecked(days.get(positionWorkday)[6]);
+                            etEntryTime.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    int hour, minute;
+                                    if (etEntryTime.getText().toString().trim().length() > 0)
+                                    {
+                                        hour = Integer.parseInt(etEntryTime.getText().toString().split(":")[0]);
+                                        minute = Integer.parseInt(etEntryTime.getText().toString().split(":")[1]);
+                                    }
+                                    else
+                                    {
+                                        Calendar calendar = Calendar.getInstance();
+                                        hour = calendar.get(Calendar.HOUR_OF_DAY);
+                                        minute = calendar.get(Calendar.MINUTE);
+                                    }
+                                    TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+                                        @Override
+                                        public void onTimeSet(TimePicker view, int hour, int minute) {
+                                            etEntryTime.setText(completeTime(hour) + ":" + completeTime(minute));
+                                        }
+                                    }, hour, minute, true);
+                                    timePicker.setCancelable(false);
+                                    timePicker.show();
+                                }
+                            });
+                            etExitTime.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    int hour, minute;
+                                    if (etExitTime.getText().toString().trim().length() > 0)
+                                    {
+                                        hour = Integer.parseInt(etExitTime.getText().toString().split(":")[0]);
+                                        minute = Integer.parseInt(etExitTime.getText().toString().split(":")[1]);
+                                    }
+                                    else
+                                    {
+                                        Calendar calendar = Calendar.getInstance();
+                                        hour = calendar.get(Calendar.HOUR_OF_DAY);
+                                        minute = calendar.get(Calendar.MINUTE);
+                                    }
+                                    TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+                                        @Override
+                                        public void onTimeSet(TimePicker view, int hour, int minute) {
+                                            etExitTime.setText(completeTime(hour) + ":" + completeTime(minute));
+                                        }
+                                    }, hour, minute, true);
+                                    timePicker.setCancelable(false);
+                                    timePicker.show();
+                                }
+                            });
+                            new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    entryTime.set(positionWorkday, etEntryTime.getText().toString());
+                                    exitTime.set(positionWorkday, etExitTime.getText().toString());
+                                    Boolean[] tbdays = {tbMonday.isChecked(), tbTuesday.isChecked(), tbWednesday.isChecked(), tbThursday.isChecked(), tbFriday.isChecked(), tbSaturday.isChecked(), tbSunday.isChecked()};
+                                    days.set(positionWorkday, tbdays);
+                                    adapterWorkday.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setCancelable(false)
+                            .show();
+                        }
+                        else
+                        {
+                            entryTime.remove(positionWorkday);
+                            exitTime.remove(positionWorkday);
+                            days.remove(positionWorkday);
+                            adapterWorkday.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .show();
+                return false;
             }
         });
         fabAddWorkday.setOnClickListener(new View.OnClickListener() {
@@ -54,19 +166,28 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 View view = inflater.inflate(R.layout.dialog_add_workday, null);
                 final EditText etEntryTime = (EditText) view.findViewById(R.id.etEntryTime);
                 final EditText etExitTime = (EditText) view.findViewById(R.id.etExitTime);
-                final ToggleButton btnMonday = (ToggleButton) view.findViewById(R.id.btnMonday);
-                final ToggleButton btnTuesday = (ToggleButton) view.findViewById(R.id.btnTuesday);
-                final ToggleButton btnWednesday = (ToggleButton) view.findViewById(R.id.btnWednesday);
-                final ToggleButton btnThursday = (ToggleButton) view.findViewById(R.id.btnThursday);
-                final ToggleButton btnFriday = (ToggleButton) view.findViewById(R.id.btnFriday);
-                final ToggleButton btnSaturday = (ToggleButton) view.findViewById(R.id.btnSaturday);
-                final ToggleButton btnSunday = (ToggleButton) view.findViewById(R.id.btnSunday);
+                final ToggleButton tbMonday = (ToggleButton) view.findViewById(R.id.tbMonday);
+                final ToggleButton tbTuesday = (ToggleButton) view.findViewById(R.id.tbTuesday);
+                final ToggleButton tbWednesday = (ToggleButton) view.findViewById(R.id.tbWednesday);
+                final ToggleButton tbThursday = (ToggleButton) view.findViewById(R.id.tbThursday);
+                final ToggleButton tbFriday = (ToggleButton) view.findViewById(R.id.tbFriday);
+                final ToggleButton tbSaturday = (ToggleButton) view.findViewById(R.id.tbSaturday);
+                final ToggleButton tbSunday = (ToggleButton) view.findViewById(R.id.tbSunday);
                 etEntryTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Calendar calendar = Calendar.getInstance();
-                        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                        int minute = calendar.get(Calendar.MINUTE);
+                        int hour, minute;
+                        if (etEntryTime.getText().toString().trim().length() > 0)
+                        {
+                            hour = Integer.parseInt(etEntryTime.getText().toString().split(":")[0]);
+                            minute = Integer.parseInt(etEntryTime.getText().toString().split(":")[1]);
+                        }
+                        else
+                        {
+                            Calendar calendar = Calendar.getInstance();
+                            hour = calendar.get(Calendar.HOUR_OF_DAY);
+                            minute = calendar.get(Calendar.MINUTE);
+                        }
                         TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hour, int minute) {
@@ -80,9 +201,18 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 etExitTime.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Calendar calendar = Calendar.getInstance();
-                        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                        int minute = calendar.get(Calendar.MINUTE);
+                        int hour, minute;
+                        if (etExitTime.getText().toString().trim().length() > 0)
+                        {
+                            hour = Integer.parseInt(etExitTime.getText().toString().split(":")[0]);
+                            minute = Integer.parseInt(etExitTime.getText().toString().split(":")[1]);
+                        }
+                        else
+                        {
+                            Calendar calendar = Calendar.getInstance();
+                            hour = calendar.get(Calendar.HOUR_OF_DAY);
+                            minute = calendar.get(Calendar.MINUTE);
+                        }
                         TimePickerDialog timePicker = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hour, int minute) {
@@ -95,16 +225,20 @@ public class ProfileSecondActivity extends AppCompatActivity {
                 });
                 new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        entryTime.add(etEntryTime.getText().toString());
+                        exitTime.add(etExitTime.getText().toString());
+                        Boolean[] tbdays = {tbMonday.isChecked(), tbTuesday.isChecked(), tbWednesday.isChecked(), tbThursday.isChecked(), tbFriday.isChecked(), tbSaturday.isChecked(), tbSunday.isChecked()};
+                        days.add(tbdays);
+                        adapterWorkday.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setCancelable(false)
-                        .show();
+                .setCancelable(false)
+                .show();
             }
         });
         btnNext.setOnClickListener(new View.OnClickListener() {

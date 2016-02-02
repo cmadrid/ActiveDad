@@ -44,6 +44,7 @@
                 android:divider="@drawable/divider_list"
                 android:dividerHeight="0.2dp"
                 android:scrollbars="vertical"
+                android:footerDividersEnabled="false"
                 android:id="@+id/lvWorkday" />
 
             <android.support.design.widget.FloatingActionButton

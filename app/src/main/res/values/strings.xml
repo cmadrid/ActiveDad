@@ -16,8 +16,11 @@
     <string name="postpone">Posponer</string>
     <string name="restart">Reestablecer</string>
     <string name="save">Guardar</string>
-
     <string name="title_activity_camera_image_tag">CameraImageTag</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string-array name="sex">
+        <item>Femenino</item>
+        <item>Masculino</item>
+    </string-array>
 </resources>

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class CustomAdapterMemory extends BaseAdapter {
 
-    Activity activity;
-    ArrayList<Memory> memories;
+    private Activity activity;
+    private ArrayList<Memory> memories;
 
     public CustomAdapterMemory(Activity activity, ArrayList<Memory> memories) {
         this.activity = activity;
