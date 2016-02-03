@@ -17,31 +17,24 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:weightSum="3">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_little_boy"
             android:scaleType="centerCrop"
-            android:background="@drawable/female"
             android:id="@+id/ivImage" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.75"
-            android:paddingLeft="2dp"
-            android:weightSum="4">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.75"
+                android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:inputType="textCapWords"
                 android:imeOptions="actionDone"
@@ -50,8 +43,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:inputType="date"
                 android:imeOptions="actionDone"
@@ -61,8 +53,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
                 android:entries="@array/sex"
                 android:id="@+id/spinner" />
 
