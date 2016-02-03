@@ -3,23 +3,17 @@ package ec.edu.espol.integradora.dadtime;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,25 +22,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.ToggleButton;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 
 public class ProfileThirdActivity extends AppCompatActivity {
 
@@ -122,7 +108,7 @@ public class ProfileThirdActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             switch (which) {
                                                 case 0:getFromGallery();break;
-                                                case 1:System.out.println("Abrir Camara");break;
+                                                case 1:dispatchTakePictureIntent();break;
                                                 case 2:
                                                     ivSon.setImageResource(spSex.getSelectedItemPosition() == 1 ? R.drawable.male : R.drawable.female);
                                                     photoPath.setText(null);
@@ -215,7 +201,7 @@ public class ProfileThirdActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:getFromGallery();break;
-                                    case 1:System.out.println("Abrir Camara");break;
+                                    case 1:dispatchTakePictureIntent();break;
                                     case 2:
                                         ivSon.setImageResource(spSex.getSelectedItemPosition() == 1 ? R.drawable.male : R.drawable.female);
                                         photoPath.setText(null);
@@ -297,6 +283,48 @@ public class ProfileThirdActivity extends AppCompatActivity {
         startActivityForResult(i, SELECT_PICTURE);
     }
 
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        String imageFileName = "perfil_" + timeStamp + "_";
+        String outputPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DadTime/Perfil/";
+        File storageDir = new File(outputPath);
+        if(!storageDir.exists())storageDir.mkdirs();
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_TAKE_PHOTO = 555;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -316,11 +344,18 @@ public class ProfileThirdActivity extends AppCompatActivity {
             ImageHandler.copyFile(inputPath, inputFile, outputPath, outputFile);
             String selectedImagePath = outputPath+outputFile;
             ivSon.setImageBitmap(ImageHandler.getSmallBitmap(selectedImagePath, 360));
-            if(photoPath.getText()!=null && !picturePath.equals(""))
+            if(photoPath.getText()!=null && !photoPath.equals(""))
                 ;//ImageHandler.deleteFile("",photoPath.getText().toString());
             photoPath.setText(selectedImagePath);
             //ImageView imageView = (ImageView) findViewById(R.id.imgView);
             //imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        }else if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK ){
+            System.out.println(mCurrentPhotoPath);
+            String selectedImagePath = mCurrentPhotoPath.substring(5);
+            ivSon.setImageBitmap(ImageHandler.getSmallBitmap(selectedImagePath, 360));
+            if(photoPath.getText()!=null && !photoPath.equals(""))
+                ;//ImageHandler.deleteFile("",photoPath.getText().toString());
+            photoPath.setText(selectedImagePath);
         }
     }
 
