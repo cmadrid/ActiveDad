@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position)
-        {
+        {/*
             if(position==0) {//fab.show();
                 fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
                 if(searchView!=null)
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 if(mSearchView!=null)
                     mSearchView.setVisible(false);
             }
-        }
+*/        }
 
         @Override
         public void onPageScrollStateChanged(int state) {}
@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fab = (FloatingActionButton)findViewById(R.id.fabFilterActivity);
+        fab.hide();
         /*getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.mipmap.ic_dadtime);
         getSupportActionBar().setDisplayUseLogoEnabled(true);*/
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchView = menu.findItem(R.id.search_menu);
         searchView = (SearchView) MenuItemCompat.getActionView(mSearchView);
         searchView.setSubmitButtonEnabled(false);
+        //mSearchView.setVisible(false);
         MenuItemCompat.setOnActionExpandListener(mSearchView, new MenuItemCompat.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {

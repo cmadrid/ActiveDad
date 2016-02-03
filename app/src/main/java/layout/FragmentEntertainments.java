@@ -1,7 +1,10 @@
 package layout;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -13,13 +16,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +53,8 @@ import ec.edu.espol.integradora.dadtime.CustomAdapterEntertainment;
 import ec.edu.espol.integradora.dadtime.CustomAdapterFilter;
 import ec.edu.espol.integradora.dadtime.Entertainment;
 import ec.edu.espol.integradora.dadtime.EntertainmentActivity;
+import ec.edu.espol.integradora.dadtime.ImageHandler;
+import ec.edu.espol.integradora.dadtime.MainActivity;
 import ec.edu.espol.integradora.dadtime.R;
 
 /**
@@ -83,6 +96,12 @@ public class FragmentEntertainments extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         actual=this;//CM
@@ -92,6 +111,8 @@ public class FragmentEntertainments extends Fragment {
         preferenceEditor = preferenceSettings.edit();//CM
         filter = (FloatingActionButton)((View) container.getParent()).findViewById(R.id.fabFilterActivity);//CM
         tab = ((TabLayout)((View) container.getParent()).findViewById(R.id.tabs)).getTabAt(0);
+        System.out.println("padre");
+        System.out.println(((View) container.getParent()).getParent());
         setFilter();//CM
 
         View view = inflater.inflate(R.layout.fragment_entertainments, container, false);
@@ -413,6 +434,7 @@ public class FragmentEntertainments extends Fragment {
         @Override
         protected void onPostExecute(Boolean response) {
             progressBar.setVisibility(View.GONE);
+            filter.show();
             if (response)
             {
                 tlDays.setVisibility(View.VISIBLE);
@@ -462,27 +484,17 @@ public class FragmentEntertainments extends Fragment {
             @Override
             public void onClick(View v) {
 
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View view = inflater.inflate(R.layout.filter_popup, null);
-
-                ListView lv_filter = (ListView) view.findViewById(R.id.lv_filter);
-                lv_filter.setAdapter(new CustomAdapterFilter(getActivity(), new String[]{"Todas las actividades", "A realizar", "Filtrar por categoria"}));
-                lv_filter.setItemsCanFocus(false);
-
-
-                final AlertDialog ad = new AlertDialog.Builder(getActivity()).setView(view)
-                        .show();
-                lv_filter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                final CharSequence[] items = {"Todas las actividades", "A realizar", "Filtrar por categoria"};
+                new AlertDialog.Builder(getContext()).setItems(items, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        switch (position) {
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
                             case 0:
                                 filters_array = null;
                                 filter_my_activities = false;
                                 AdapterEntertainments();
                                 if (tab != null)
                                     tab.setText("ACTIVIDADES");
-                                ad.dismiss();
                                 break;
                             case 1:
                                 filters_array = null;
@@ -490,17 +502,15 @@ public class FragmentEntertainments extends Fragment {
                                 AdapterEntertainments();
                                 if (tab != null)
                                     tab.setText("MIS ACTIVIDADES");
-                                ad.dismiss();
                                 break;
                             case 2:
                                 filter_my_activities = false;
                                 categoryPopUp();
-                                ad.dismiss();
                                 break;
                         }
                     }
-                });
-
+                })
+                        .show();
             }
         });
     }
@@ -543,4 +553,5 @@ public class FragmentEntertainments extends Fragment {
     public void setTextFilter(String textFilter) {
         this.textFilter = textFilter;
     }
+
 }
