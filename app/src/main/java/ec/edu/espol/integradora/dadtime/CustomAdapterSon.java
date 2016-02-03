@@ -51,9 +51,11 @@ public class CustomAdapterSon extends BaseAdapter {
         TextView tvName = (TextView) rowView.findViewById(R.id.tvName);
         TextView tvYearOld = (TextView) rowView.findViewById(R.id.tvYearOld);
         TextView tvSex = (TextView) rowView.findViewById(R.id.tvSex);
+        TextView photoPath = (TextView) rowView.findViewById(R.id.photoPath);
+        photoPath.setText(photo.get(position));
         tvName.setText(name.get(position));
         tvSex.setText(sex.get(position));
-        if(photo.get(position)==null)
+        if(photo.get(position)==null || photo.get(position).equals(""))
             ivPhoto.setImageResource(sex.get(position).equalsIgnoreCase("masculino")?R.drawable.male:R.drawable.female);
         else
             ivPhoto.setImageBitmap(ImageHandler.getSmallBitmap(photo.get(position),360));

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -18,15 +19,36 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <ImageView
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/photoSon"
             android:layout_width="0dp"
             android:layout_height="120dp"
             android:layout_weight="1"
-            android:src="@drawable/female"
-            android:scaleType="centerCrop"
-            android:id="@+id/ivImage" />
+            android:layout_margin="5dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/female"
+                android:scaleType="centerCrop"
+                android:id="@+id/ivImage" />
+            <TextView
+                android:id="@+id/photoPath"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone"/>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/changePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:layout_gravity="end|bottom"
+                android:src="@mipmap/ic_mode_edit_white_36dp"
+                app:fabSize="mini"
+                />
+        </android.support.design.widget.CoordinatorLayout>
 
         <LinearLayout
             android:orientation="vertical"

@@ -11,6 +11,11 @@
         android:layout_height="fill_parent"
         android:layout_weight="1.25"
         android:id="@+id/ivImage" />
+    <TextView
+        android:id="@+id/photoPath"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:orientation="vertical"
