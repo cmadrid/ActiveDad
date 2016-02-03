@@ -62,9 +62,9 @@ public class ServiceBackground extends Service {
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
 
-            title="Mantenerte en contacto con tu hijo.";
-            content="Es bueno que de vez en cuando en tus momentos libres " +
-                    "llames a tu hijo un momento, asi sea solo a saludar o a " +
+            title="Mantenerse en contacto con su hijo.";
+            content="De vez en cuando en sus momentos libres " +
+                    "llame a su hijo un momento, asi sea solo a saludar o a " +
                     "preguntar como esta. Es bueno que el note que lo tienes presente.";
             int iUniqueId = (int) (System.currentTimeMillis() & 0xfffffff);
 
@@ -81,7 +81,7 @@ public class ServiceBackground extends Service {
                     .setTicker("DadTime Notification")
                     .setContentTitle("DadTime - "+title)
                     .setContentText(content)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.male)
                     //.setStyle(new Notification.BigTextStyle()
                     //        .bigText("un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo"))
                     .setContentIntent(pIntent).getNotification();

@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private Activity activity;
     private Context context;
     private FloatingActionButton fab;
-    MenuItem mSearchView;
-    SearchView searchView;
     FragmentEntertainments fragmentEntertainments = FragmentEntertainments.newInstance();
     FragmentMemories fragmentMemories = FragmentMemories.newInstance();
 
@@ -54,22 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position)
-        {/*
+        {
             if(position==0) {//fab.show();
                 fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
-                if(searchView!=null)
-                    mSearchView.collapseActionView();
-                if(mSearchView!=null)
-                    mSearchView.setVisible(true);
             }
             else {//fab.hide();
                 fab.animate().translationY(fab.getHeight() + 640).setInterpolator(new AccelerateInterpolator(2)).start();
-                if(searchView!=null)
-                    mSearchView.collapseActionView();
-                if(mSearchView!=null)
-                    mSearchView.setVisible(false);
             }
-*/        }
+        }
 
         @Override
         public void onPageScrollStateChanged(int state) {}
@@ -110,39 +100,6 @@ public class MainActivity extends AppCompatActivity {
         final Menu finalMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        mSearchView = menu.findItem(R.id.search_menu);
-        searchView = (SearchView) MenuItemCompat.getActionView(mSearchView);
-        searchView.setSubmitButtonEnabled(false);
-        //mSearchView.setVisible(false);
-        MenuItemCompat.setOnActionExpandListener(mSearchView, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                finalMenu.findItem(R.id.camera_menu).setVisible(false);
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                finalMenu.findItem(R.id.camera_menu).setVisible(true);
-                return true;
-            }
-        });
-        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                fragmentEntertainments.setTextFilter(newText);
-                fragmentEntertainments.AdapterEntertainments();
-                return false;
-            }
-        });
-
         return true;
     }
 
@@ -153,28 +110,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            new AlertDialog.Builder(activity)
-                    .setTitle("DadTime")
-                    .setMessage("Una recomendacion de actividad para realizar con el hijo... aqui el padre puede indicar si la acepta o no")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                            activity.finish();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
-                            activity.finish();
-                        }
-                    })
-                    .setCancelable(false)
-                    //.setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-            return true;
-        }
-        else if (id == R.id.camera_menu)
+        if (id == R.id.camera_menu)
         {
             startActivity(new Intent(getApplicationContext(), CameraActivity.class));
             return true;
@@ -196,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.collage_setting) {
-
-            startActivity(new Intent(getApplicationContext(), Collage.class));
+            Collage.createNotification(getBaseContext());
+            //startActivity(new Intent(getApplicationContext(), Collage.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

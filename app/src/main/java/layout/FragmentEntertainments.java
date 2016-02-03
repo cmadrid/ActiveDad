@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,6 +87,9 @@ public class FragmentEntertainments extends Fragment {
     boolean filter_my_activities=false;
     private String textFilter = "";
 
+    MenuItem mSearchView;
+    SearchView searchView;
+
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     public FragmentEntertainments() {
@@ -98,7 +103,7 @@ public class FragmentEntertainments extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -435,6 +440,7 @@ public class FragmentEntertainments extends Fragment {
         protected void onPostExecute(Boolean response) {
             progressBar.setVisibility(View.GONE);
             filter.show();
+            mSearchView.setVisible(true);
             if (response)
             {
                 tlDays.setVisibility(View.VISIBLE);
@@ -552,6 +558,72 @@ public class FragmentEntertainments extends Fragment {
 
     public void setTextFilter(String textFilter) {
         this.textFilter = textFilter;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        inflater.inflate(R.menu.menu_fragment_entertaiments, menu);
+
+        final Menu finalMenu = menu;
+
+        //SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        mSearchView = menu.findItem(R.id.search_menu);
+        if(progressBar.getVisibility()==View.VISIBLE)mSearchView.setVisible(false);
+        searchView = (SearchView) MenuItemCompat.getActionView(mSearchView);
+        searchView.setSubmitButtonEnabled(false);
+        //mSearchView.setVisible(false);
+        MenuItemCompat.setOnActionExpandListener(mSearchView, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                finalMenu.findItem(R.id.camera_menu).setVisible(false);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                finalMenu.findItem(R.id.camera_menu).setVisible(true);
+                return true;
+            }
+        });
+        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                textFilter=newText;
+                AdapterEntertainments();
+                return false;
+            }
+        });
+
+
+
+
+
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.camera_menu:
+                // Not implemented here
+                return false;
+            case R.id.search_menu:
+                // Do Fragment menu item stuff here
+                return true;
+            default:
+                break;
+        }
+
+        return false;
     }
 
 }

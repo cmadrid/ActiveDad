@@ -52,7 +52,7 @@ public class AddImageDialog {
         imageCam.setScaleType(ImageView.ScaleType.CENTER_CROP);
         final Pair<String[],String[]> arrays =  getActivities(ctx);
         ArrayAdapter<String> adapter;
-        if(arrays.first!=null && arrays.first.length>0 )
+        if(arrays != null && arrays.first != null && arrays.first.length > 0 )
             adapter = new ArrayAdapter(ctx,android.R.layout.simple_spinner_dropdown_item,arrays.first);
         else
             adapter = new ArrayAdapter(ctx,android.R.layout.simple_spinner_dropdown_item,new String[]{"------------------------------"});

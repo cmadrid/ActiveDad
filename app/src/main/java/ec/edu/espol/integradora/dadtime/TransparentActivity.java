@@ -58,7 +58,7 @@ public class TransparentActivity extends Activity {
                     }
                 })
                 .setCancelable(false)
-                .setIcon(R.mipmap.ic_launcher)
+                .setIcon(R.mipmap.ic_dadtime)
                 .show();
 
     }

@@ -1,5 +1,9 @@
 package ec.edu.espol.integradora.dadtime;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ExifInterface;
@@ -207,6 +211,28 @@ public class Collage extends AppCompatActivity {
 
 
 
+    public static void createNotification(Context ctx){
+
+        Intent intent = new Intent(ctx,Collage.class);
+
+        int iUniqueId = (int) (System.currentTimeMillis() & 0xfffffff);
+
+        //intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent pIntent = PendingIntent.getActivity(ctx, iUniqueId, intent, 0);
+        Notification noti = new Notification.Builder(ctx)
+                .setTicker("DadTime Notification")
+                .setContentTitle("DadTime - Nuevo Collage disponible")
+                .setContentText("Dispone de un nuevo collage de sus actividades realizadas.")
+                .setSmallIcon(R.drawable.male)
+                        //.setStyle(new Notification.BigTextStyle()
+                        //        .bigText("un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo"))
+                .setContentIntent(pIntent).getNotification();
+        noti.flags=Notification.FLAG_AUTO_CANCEL;
+        NotificationManager notificationManager = (NotificationManager) ctx.getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, noti);
+    }
 
 
 

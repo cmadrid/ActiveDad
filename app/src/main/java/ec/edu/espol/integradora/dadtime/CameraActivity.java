@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Pair;
 import android.widget.Toast;
 
 import java.io.File;
@@ -31,6 +32,14 @@ public class CameraActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Pair<String[],String[]> activities=AddImageDialog.getActivities(getApplicationContext());
+        if(activities==null || activities.first==null || activities.first.length<2)
+        {
+            Toast.makeText(getApplicationContext(), "Debe seleccionar una actividad a asistir antes de usar la camara de la aplicación.", Toast.LENGTH_SHORT)
+                    .show();
+            finish();
+            return;
+        }
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String action = intent.getAction();
