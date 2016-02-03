@@ -5,9 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.util.Pair;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import ec.edu.espol.integradora.dadtime.Entertainment;
 
 public class DBActivity {
     public static final String TABLE_NAME = "activity";
@@ -108,6 +114,30 @@ public class DBActivity {
         String[] categoriesArray = new String[categories.size()];
         categoriesArray = categories.toArray(categoriesArray);
         return categoriesArray;
+
+    }
+
+
+    public Entertainment[] consultarActivities(Date date1,Date date2){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd 00:00", Locale.US);
+        String[] campos = new String[] {ID,TITLE};
+        //Cursor c = db.query(NOMBRE_TABLA, campos, "usuario=?(where)", args(para el where), group by, having, order by, num);
+
+        ArrayList<Entertainment> activities = new ArrayList<>();
+        Cursor c = (date1==null || date2==null)
+                ?db.query(TABLE_NAME, campos, null, null, "1", null, null)
+                :db.query(TABLE_NAME, campos,SCHEDULE+" between "+dateFormat.format(date1)+" and "+dateFormat.format(date2), null, "1", null, null);
+        if(c.moveToFirst()){
+            do{
+                Entertainment e = new Entertainment();
+                e.setIdActivity(c.getInt(0));
+                e.setTitle(c.getString(1));
+                activities.add(e);
+            }while(c.moveToNext());
+        }
+        Entertainment[] activitiesArray = new Entertainment[activities.size()];
+        activitiesArray = activities.toArray(activitiesArray);
+        return activitiesArray;
 
     }
 

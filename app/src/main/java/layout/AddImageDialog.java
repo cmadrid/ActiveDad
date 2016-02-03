@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,10 +50,10 @@ public class AddImageDialog {
         ImageView imageCam = (ImageView)view.findViewById(R.id.imageCam);
         imageCam.setImageBitmap(bitmap!=null?bitmap:ImageHandler.getSmallBitmap(CurrentPhotoPath, 360));
         imageCam.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        String[] array =  getActivities(ctx);
+        final Pair<String[],String[]> arrays =  getActivities(ctx);
         ArrayAdapter<String> adapter;
-        if(array!=null && array.length>0 )
-            adapter = new ArrayAdapter(ctx,android.R.layout.simple_spinner_dropdown_item,array);
+        if(arrays.first!=null && arrays.first.length>0 )
+            adapter = new ArrayAdapter(ctx,android.R.layout.simple_spinner_dropdown_item,arrays.first);
         else
             adapter = new ArrayAdapter(ctx,android.R.layout.simple_spinner_dropdown_item,new String[]{"------------------------------"});
         s.setAdapter(adapter);
@@ -62,6 +63,14 @@ public class AddImageDialog {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String tag = s.getSelectedItem().toString();
+                        int index = -1;
+                        for (int i=0;i<arrays.first.length;i++) {
+                            if (arrays.first[i].equals(tag)) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        tag=arrays.second[index];
                         String path=null;
                         boolean fav = cb.isChecked();
                         System.out.println(tag);
@@ -141,8 +150,9 @@ public class AddImageDialog {
 
 
 
-    public static String[] getActivities(Context ctx){
+    public static Pair<String[],String[]> getActivities(Context ctx){
         SharedPreferences preferenceSettings = ctx.getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        Set<String> getSetIdEntertainments = preferenceSettings.getStringSet("idEntertainments", null);
         Set<String> getSetTitleEntertainments = preferenceSettings.getStringSet("titleEntertainments", null);
 //Si es diferente de null tiene actividades seleccionadas, eso debes validar q no puede abrir nuestra camara si no existen actividades....
         if (getSetTitleEntertainments != null)
@@ -152,7 +162,12 @@ public class AddImageDialog {
             titleEntertainments.add(0,"------------------------------");
             String[] titleEntertainmentsArray = new String[titleEntertainments.size()];
             titleEntertainmentsArray = titleEntertainments.toArray(titleEntertainmentsArray);
-            return titleEntertainmentsArray;
+
+            ArrayList<String> idEntertainments = new ArrayList<>(getSetIdEntertainments);
+            idEntertainments.add(0,"------------------------------");
+            String[] idEntertainmentsArray = new String[idEntertainments.size()];
+            idEntertainmentsArray = idEntertainments.toArray(idEntertainmentsArray);
+            return new Pair<>(titleEntertainmentsArray,idEntertainmentsArray);
         }
         return null;
     }

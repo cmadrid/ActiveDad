@@ -187,7 +187,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.stop_service) {
 
-            //startService(new Intent(getBaseContext(),ServiceCollageBackground.class));
+            if(!stopService(new Intent(getBaseContext(),ServiceCollageBackground.class)))
+                startService(new Intent(getBaseContext(),ServiceCollageBackground.class));
             stopService(new Intent(getBaseContext(),ServiceBackground.class));
             //Toast.makeText(this,"termina",Toast.LENGTH_LONG).show();
             return true;
