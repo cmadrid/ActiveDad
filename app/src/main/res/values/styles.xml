@@ -38,7 +38,7 @@
     </style>
 
     <style name="Transparency" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#FFFFFF</item>
+        <item name="sv_backgroundColor">#96FFFFFF</item>
         <item name="sv_showcaseColor">#337AB7</item>
     </style>
 
