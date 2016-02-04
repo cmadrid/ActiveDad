@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +38,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -62,9 +69,9 @@ import ec.edu.espol.integradora.dadtime.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentEntertainments extends Fragment {
+public class FragmentEntertainments extends Fragment implements View.OnClickListener{
 
-    TableLayout tlDays;
+    private TableLayout tlDays;
     private Button btnMonday;
     private Button btnTuesday;
     private Button btnWednesday;
@@ -72,16 +79,21 @@ public class FragmentEntertainments extends Fragment {
     private Button btnFriday;
     private Button btnSaturday;
     private Button btnSunday;
-    TextView tvDate;
-    ListView lvEntertainments;
-    ArrayList<Entertainment> entertainments;
-    ArrayList<Entertainment> entertainmentsSpecificDay;
+    private TextView tvDate;
+    private ListView lvEntertainments;
+    private ArrayList<Entertainment> entertainments;
+    private ArrayList<Entertainment> entertainmentsSpecificDay;
     public Entertainment selectedEntertaiment;//CM
     public static FragmentEntertainments actual;//CM
-    ProgressBar progressBar;
-    Calendar calendar;
-    FloatingActionButton filter;
-    TabLayout.Tab tab;
+    private ProgressBar progressBar;
+    private Calendar calendar;
+    private FloatingActionButton filter;
+    private TabLayout.Tab tab;
+    private ShowcaseView showcaseView;
+    private ViewTarget vtActivities;
+    private ViewTarget vtFilter;
+    private ViewTarget vtMemories;
+    private int tutorial = 0;
 
     ArrayList<String> filters_array;
     boolean filter_my_activities=false;
@@ -119,7 +131,6 @@ public class FragmentEntertainments extends Fragment {
         System.out.println("padre");
         System.out.println(((View) container.getParent()).getParent());
         setFilter();//CM
-
         View view = inflater.inflate(R.layout.fragment_entertainments, container, false);
         tlDays = (TableLayout) view.findViewById(R.id.tlDays);
         btnMonday = (Button) view.findViewById(R.id.btnMonday);
@@ -133,6 +144,9 @@ public class FragmentEntertainments extends Fragment {
         lvEntertainments = (ListView) view.findViewById(R.id.lvEntertainments);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         calendar = Calendar.getInstance();
+        vtActivities = new ViewTarget(((ViewGroup)((TabLayout)((View) container.getParent()).findViewById(R.id.tabs)).getChildAt(0)).getChildAt(0));
+        vtFilter = new ViewTarget(R.id.fabFilterActivity, getActivity());
+        vtMemories = new ViewTarget(((ViewGroup)((TabLayout)((View) container.getParent()).findViewById(R.id.tabs)).getChildAt(0)).getChildAt(1));
         btnMonday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -351,6 +365,7 @@ public class FragmentEntertainments extends Fragment {
                 return "DICIEMBRE";
         }
     }
+
     private class LoadActivities extends AsyncTask<Void, Void, Boolean> {
 
         @Override
@@ -372,8 +387,6 @@ public class FragmentEntertainments extends Fragment {
                 SoapObject response = (SoapObject) envelope.bodyIn;
                 Vector<?> responseVector = (Vector<?>) response.getProperty(0);
                 entertainments = new ArrayList<>();
-
-
                 Set<String> getSetIdEntertainments = preferenceSettings.getStringSet("idEntertainments", new HashSet<String>());
                 Cursor almacenadas = dbActivity.consultar(null);
                 if(almacenadas.moveToFirst())
@@ -446,6 +459,14 @@ public class FragmentEntertainments extends Fragment {
                 tlDays.setVisibility(View.VISIBLE);
                 tvDate.setVisibility(View.VISIBLE);
                 AdapterEntertainments();
+                showcaseView = new ShowcaseView.Builder(getActivity())
+                        .setTarget(Target.NONE)
+                        .setContentTitle("Tutorial")
+                        .setContentText("Bienvenido al tutorial de la aplicación.")
+                        .setOnClickListener(actual)
+                        .setStyle(R.style.Transparency)
+                        .build();
+                showcaseView.setButtonText("Siguiente");
             }
             else
             {
@@ -545,12 +566,12 @@ public class FragmentEntertainments extends Fragment {
         gv_filter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String category = ((TextView)view.findViewById(R.id.item_filter)).getText().toString();
+                String category = ((TextView) view.findViewById(R.id.item_filter)).getText().toString();
                 filters_array = new ArrayList<>();
                 filters_array.add(category.toLowerCase());
                 AdapterEntertainments();
                 if (tab != null)
-                    tab.setText("CATEGORIA: "+category.toUpperCase());
+                    tab.setText("CATEGORIA: " + category.toUpperCase());
                 ad.dismiss();
             }
         });
@@ -565,9 +586,7 @@ public class FragmentEntertainments extends Fragment {
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
         // Do something that differs the Activity's menu here
         inflater.inflate(R.menu.menu_fragment_entertaiments, menu);
-
         final Menu finalMenu = menu;
-
         //SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         mSearchView = menu.findItem(R.id.search_menu);
         if(progressBar.getVisibility()==View.VISIBLE)mSearchView.setVisible(false);
@@ -601,12 +620,6 @@ public class FragmentEntertainments extends Fragment {
                 return false;
             }
         });
-
-
-
-
-
-
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -624,6 +637,33 @@ public class FragmentEntertainments extends Fragment {
         }
 
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (tutorial)
+        {
+            case 0:
+                showcaseView.setShowcase(vtActivities, true);
+                showcaseView.setContentTitle("Actividades");
+                showcaseView.setContentText("Indicará las actividades que existen en la semana.");
+                break;
+            case 1:
+                showcaseView.setShowcase(vtFilter, true);
+                showcaseView.setContentTitle("Filtros");
+                showcaseView.setContentText("Aquí podrá seleccionar si desea visualizar todas las actividades o únicamente las que va a realizar.");
+                break;
+            case 2:
+                showcaseView.setShowcase(vtMemories, true);
+                showcaseView.setContentTitle("Recuerdos");
+                showcaseView.setContentText("Cada fin de semana obtendrá una notificación mostrandole un collage con las fotos de sus actividades.");
+                showcaseView.setButtonText("Finalizar");
+                break;
+            case 3:
+                showcaseView.hide();
+                break;
+        }
+        tutorial++;
     }
 
 }
