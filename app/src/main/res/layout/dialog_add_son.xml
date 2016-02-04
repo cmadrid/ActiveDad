@@ -45,7 +45,6 @@
                 android:layout_height="wrap_content"
                 android:scaleType="centerInside"
                 android:layout_gravity="end|bottom"
-                android:src="@mipmap/ic_mode_edit_white_36dp"
                 app:fabSize="mini"
                 />
         </android.support.design.widget.CoordinatorLayout>
