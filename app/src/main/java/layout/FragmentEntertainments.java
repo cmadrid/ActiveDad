@@ -92,6 +92,8 @@ public class FragmentEntertainments extends Fragment implements View.OnClickList
     private ShowcaseView showcaseView;
     private ViewTarget vtActivities;
     private ViewTarget vtFilter;
+    private ViewTarget vtSearch;
+    private ViewTarget vtCamera;
     private ViewTarget vtMemories;
     private int tutorial = 0;
 
@@ -146,6 +148,8 @@ public class FragmentEntertainments extends Fragment implements View.OnClickList
         calendar = Calendar.getInstance();
         vtActivities = new ViewTarget(((ViewGroup)((TabLayout)((View) container.getParent()).findViewById(R.id.tabs)).getChildAt(0)).getChildAt(0));
         vtFilter = new ViewTarget(R.id.fabFilterActivity, getActivity());
+        vtSearch = new ViewTarget(R.id.search_menu, getActivity());
+        vtCamera = new ViewTarget(R.id.camera_menu, getActivity());
         vtMemories = new ViewTarget(((ViewGroup)((TabLayout)((View) container.getParent()).findViewById(R.id.tabs)).getChildAt(0)).getChildAt(1));
         btnMonday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -460,7 +464,7 @@ public class FragmentEntertainments extends Fragment implements View.OnClickList
                 tvDate.setVisibility(View.VISIBLE);
                 AdapterEntertainments();
                 showcaseView = new ShowcaseView.Builder(getActivity())
-                        .setTarget(Target.NONE)
+                        .setTarget(vtActivities)
                         .setContentTitle("Tutorial")
                         .setContentText("Bienvenido al tutorial de la aplicación.")
                         .setOnClickListener(actual)
@@ -644,22 +648,27 @@ public class FragmentEntertainments extends Fragment implements View.OnClickList
         switch (tutorial)
         {
             case 0:
-                showcaseView.setShowcase(vtActivities, true);
-                showcaseView.setContentTitle("Actividades");
-                showcaseView.setContentText("Indicará las actividades que existen en la semana.");
-                break;
-            case 1:
                 showcaseView.setShowcase(vtFilter, true);
-                showcaseView.setContentTitle("Filtros");
+                showcaseView.setContentTitle("Filtro");
                 showcaseView.setContentText("Aquí podrá seleccionar si desea visualizar todas las actividades o únicamente las que va a realizar.");
                 break;
+            case 1:
+                showcaseView.setShowcase(vtSearch, true);
+                showcaseView.setContentTitle("Buscador");
+                showcaseView.setContentText("A través de este buscador se puede filtrar las actividades por categoría.");
+                break;
             case 2:
+                showcaseView.setShowcase(vtCamera, true);
+                showcaseView.setContentTitle("Cámara");
+                showcaseView.setContentText("Se puede acceder a la cámara desde la aplicación.");
+                break;
+            case 3:
                 showcaseView.setShowcase(vtMemories, true);
                 showcaseView.setContentTitle("Recuerdos");
                 showcaseView.setContentText("Cada fin de semana obtendrá una notificación mostrandole un collage con las fotos de sus actividades.");
                 showcaseView.setButtonText("Finalizar");
                 break;
-            case 3:
+            case 4:
                 showcaseView.hide();
                 break;
         }
