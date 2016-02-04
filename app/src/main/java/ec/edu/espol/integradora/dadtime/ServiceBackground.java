@@ -74,16 +74,16 @@ public class ServiceBackground extends Service {
             intent.putExtra("title",title);
             intent.putExtra("content",content);
             //intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
             PendingIntent pIntent = PendingIntent.getActivity(ServiceBackground.super.getApplication(), iUniqueId, intent, 0);
             Notification noti = new Notification.Builder(ServiceBackground.super.getApplication())
                     .setTicker("DadTime Notification")
                     .setContentTitle("DadTime - "+title)
                     .setContentText(content)
-                    .setSmallIcon(R.drawable.male)
-                    //.setStyle(new Notification.BigTextStyle()
-                    //        .bigText("un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo"))
+                    .setSmallIcon(R.drawable.ic_notification)
+                    .setStyle(new Notification.BigTextStyle()
+                    .bigText(content))
                     .setContentIntent(pIntent).getNotification();
             noti.flags=Notification.FLAG_AUTO_CANCEL;
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

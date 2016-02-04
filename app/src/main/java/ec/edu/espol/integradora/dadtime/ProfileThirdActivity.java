@@ -50,6 +50,7 @@ public class ProfileThirdActivity extends AppCompatActivity {
     private CustomAdapterSon adapterSon;
     ImageView ivSon;
     TextView photoPath;
+    public static String PATH=Environment.getExternalStorageDirectory().getAbsolutePath()+"/DadTime/Perfil/";
 
     private int SELECT_PICTURE = 777;
 
@@ -91,28 +92,22 @@ public class ProfileThirdActivity extends AppCompatActivity {
                             spSex.setSelection(sex.get(position).equalsIgnoreCase("Masculino") ? 1 : 0);
                             etBirthday.setText(birthday.get(position));
                             final FloatingActionButton photoImage = (FloatingActionButton) view.findViewById(R.id.changePhoto);
-                            if (photo.get(position) == null) {
+                            if (photo.get(position) == null)
                                 ivSon.setImageResource(sex.get(position).equalsIgnoreCase("masculino") ? R.drawable.male : R.drawable.female);
-                                photoPath.setText(null);
-                            }else {
+                            else
                                 ivSon.setImageBitmap(ImageHandler.getSmallBitmap(photo.get(position), 360));
-                                photoPath.setText(photo.get(position));
-                            }
+
 
                             photoImage.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    final CharSequence[] items = {"Galeria", "Camara", "Eliminar"};
+                                    final CharSequence[] items = {"Galeria", "Camara"};
                                     new AlertDialog.Builder(activity).setItems(items, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             switch (which) {
                                                 case 0:getFromGallery();break;
                                                 case 1:dispatchTakePictureIntent();break;
-                                                case 2:
-                                                    ivSon.setImageResource(spSex.getSelectedItemPosition() == 1 ? R.drawable.male : R.drawable.female);
-                                                    photoPath.setText(null);
-                                                    break;
                                             }
                                         }
                                     })
@@ -123,10 +118,10 @@ public class ProfileThirdActivity extends AppCompatActivity {
                             spSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    if (photoPath.getText() == null || photoPath.getText().toString().equals(""))
+                                    if (photo.get(positionSon)==null || photo.get(positionSon).equals(""))
                                         ivSon.setImageResource(position==1 ? R.drawable.male : R.drawable.female);
                                     else
-                                        ivSon.setImageBitmap(ImageHandler.getSmallBitmap(photoPath.getText().toString(), 360));
+                                        ivSon.setImageBitmap(ImageHandler.getSmallBitmap(photo.get(positionSon), 360));
                                 }
 
                                 @Override
@@ -152,21 +147,28 @@ public class ProfileThirdActivity extends AppCompatActivity {
                             });
                             new AlertDialog.Builder(activity).setView(view).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    if(photoPath.getText()!=null && !photoPath.getText().toString().equals(""))
+                                        ImageHandler.deleteFile("",photo.get(position));
                                     photo.set(position, photoPath.getText().toString());
                                     name.set(position, etName.getText().toString());
                                     birthday.set(position, etBirthday.getText().toString());
                                     sex.set(position, spSex.getSelectedItem().toString());
+
                                     adapterSon.notifyDataSetChanged();
 
                                 }
                             })
                                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
+                                            if(photoPath.getText()!=null && !photoPath.getText().toString().equals(""))
+                                                ImageHandler.deleteFile("",photoPath.getText().toString());
                                         }
                                     })
                                     .setCancelable(false)
                                     .show();
                         } else {
+                            if(photo.get(positionSon)!=null && !photo.get(positionSon).equals(""))
+                                ImageHandler.deleteFile("",photo.get(positionSon));
                             name.remove(positionSon);
                             birthday.remove(positionSon);
                             sex.remove(positionSon);
@@ -195,17 +197,13 @@ public class ProfileThirdActivity extends AppCompatActivity {
                 photoImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final CharSequence[] items = {"Galeria", "Camara", "Eliminar"};
+                        final CharSequence[] items = {"Galeria", "Camara"};
                         new AlertDialog.Builder(activity).setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:getFromGallery();break;
                                     case 1:dispatchTakePictureIntent();break;
-                                    case 2:
-                                        ivSon.setImageResource(spSex.getSelectedItemPosition() == 1 ? R.drawable.male : R.drawable.female);
-                                        photoPath.setText(null);
-                                        break;
                                 }
                             }
                         })
@@ -254,6 +252,8 @@ public class ProfileThirdActivity extends AppCompatActivity {
                 })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                if(photoPath.getText()!=null && !photoPath.getText().toString().equals(""))
+                                    ImageHandler.deleteFile("",photoPath.getText().toString());
                             }
                         })
                         .setCancelable(false)
@@ -290,7 +290,7 @@ public class ProfileThirdActivity extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
         String imageFileName = "perfil_" + timeStamp + "_";
-        String outputPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DadTime/Perfil/";
+        String outputPath = PATH;
         File storageDir = new File(outputPath);
         if(!storageDir.exists())storageDir.mkdirs();
         File image = File.createTempFile(
@@ -338,14 +338,14 @@ public class ProfileThirdActivity extends AppCompatActivity {
             cursor.close();
             String inputPath = picturePath.substring(0, picturePath.lastIndexOf("/") + 1);
             String inputFile=picturePath.substring(picturePath.lastIndexOf("/"));
-            String outputPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DadTime/Perfil/";
+            String outputPath = PATH;
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
             String outputFile = "perfil_" + timeStamp + ".jpg";
             ImageHandler.copyFile(inputPath, inputFile, outputPath, outputFile);
             String selectedImagePath = outputPath+outputFile;
             ivSon.setImageBitmap(ImageHandler.getSmallBitmap(selectedImagePath, 360));
             if(photoPath.getText()!=null && !photoPath.equals(""))
-                ;//ImageHandler.deleteFile("",photoPath.getText().toString());
+                ImageHandler.deleteFile("",photoPath.getText().toString());
             photoPath.setText(selectedImagePath);
             //ImageView imageView = (ImageView) findViewById(R.id.imgView);
             //imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
@@ -354,7 +354,7 @@ public class ProfileThirdActivity extends AppCompatActivity {
             String selectedImagePath = mCurrentPhotoPath.substring(5);
             ivSon.setImageBitmap(ImageHandler.getSmallBitmap(selectedImagePath, 360));
             if(photoPath.getText()!=null && !photoPath.equals(""))
-                ;//ImageHandler.deleteFile("",photoPath.getText().toString());
+                ImageHandler.deleteFile("",photoPath.getText().toString());
             photoPath.setText(selectedImagePath);
         }
     }

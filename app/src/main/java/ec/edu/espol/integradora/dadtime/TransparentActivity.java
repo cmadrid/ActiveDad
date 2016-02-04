@@ -8,7 +8,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * Created by ces_m on 12/16/2015.
@@ -39,8 +44,14 @@ public class TransparentActivity extends Activity {
         }
         setContentView(R.layout.transparent_activity);
 
+        File file = getImage();
 
-        new AlertDialog.Builder(activity)
+        Drawable d=null;
+        if(file != null && file.exists())
+            d = Drawable.createFromPath(file.getAbsolutePath());
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                 .setTitle("DadTime - " + title)
                 .setMessage(content)
                 .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
@@ -53,13 +64,16 @@ public class TransparentActivity extends Activity {
                 .setNeutralButton(R.string.postpone, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
-                        reactive(title,content);
+                        reactive(title, content);
                         activity.finish();
                     }
                 })
-                .setCancelable(false)
-                .setIcon(R.mipmap.ic_dadtime)
-                .show();
+                .setCancelable(false);
+                if(d!=null)
+                    builder.setIcon(d);
+                else
+                    builder.setIcon(R.mipmap.ic_dadtime);
+                builder.show();
 
     }
 
@@ -71,14 +85,17 @@ public class TransparentActivity extends Activity {
 
         intent.putExtra("title",title);
         intent.putExtra("content",content);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pIntent = PendingIntent.getActivity(activity, iUniqueId, intent, 0);
         Notification noti = new Notification.Builder(activity)
                 .setTicker("DadTime Notification")
-                .setContentTitle("DadTime - "+title)
+                .setContentTitle("DadTime - " + title)
                 .setContentText(content)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText(content))
                 .setContentIntent(pIntent).getNotification();
         noti.flags=Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -88,6 +105,26 @@ public class TransparentActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    public File getImage(){
+        List<File> photos= Collage.getListFiles(new File(ProfileThirdActivity.PATH));
+        if(photos==null || photos.size()==0) {
+            photos = Collage.getListFiles(new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES) + "/DadTime/Collage-DT"));
+            if (photos == null || photos.size() == 0) {
+                photos = Collage.getListFiles(new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES) + "/DadTime"));
+                if (photos == null || photos.size() == 0)
+                    photos = null;
+            }
+        }
+        if(photos==null)
+            return null;
+        else{
+            photos = Collage.shuffleFiles(photos);
+            return photos.get(0);
+        }
     }
 
 }

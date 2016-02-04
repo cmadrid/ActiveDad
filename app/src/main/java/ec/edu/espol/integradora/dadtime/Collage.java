@@ -149,7 +149,7 @@ public class Collage extends AppCompatActivity {
             if (!file.isDirectory() && file.getName().endsWith(".jpg") && file.lastModified()>(date==null?0:date.getTime())) {
                 try {
                     ExifInterface exif = new ExifInterface(file.getAbsolutePath());
-                    if(tag!=null && !exif.getAttribute(ExifInterface.TAG_MODEL).equals(tag))
+                    if(tag!=null && exif.getAttribute(ExifInterface.TAG_MODEL)!=null && !exif.getAttribute(ExifInterface.TAG_MODEL).equals(tag))
                         continue;
 
                     if (exif.getAttribute(ExifInterface.TAG_MAKE)!=null && exif.getAttribute(ExifInterface.TAG_MAKE).equals(AddImageDialog.FAV))
