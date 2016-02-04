@@ -7,7 +7,7 @@
         android:id="@+id/camera_menu"
         android:orderInCategory="100"
         android:title="@string/menu_camera"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@mipmap/ic_photo_camera_white_72dp"
         app:showAsAction="always" />
     <item
         android:id="@+id/shortcut_setting"

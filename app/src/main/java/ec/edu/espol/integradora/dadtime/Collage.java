@@ -225,11 +225,11 @@ public class Collage extends AppCompatActivity {
                 .setTicker("DadTime Notification")
                 .setContentTitle("DadTime - Nuevo Collage disponible")
                 .setContentText("Dispone de un nuevo collage de sus actividades realizadas.")
-                .setSmallIcon(R.drawable.male)
-                        //.setStyle(new Notification.BigTextStyle()
-                        //        .bigText("un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo,un texto muy muy laaaaaargooooooo"))
+                .setSmallIcon(R.drawable.ic_notification)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText("Dispone de un nuevo collage de sus actividades realizadas."))
                 .setContentIntent(pIntent).getNotification();
-        noti.flags=Notification.FLAG_AUTO_CANCEL;
+        noti.flags = Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) ctx.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, noti);
     }

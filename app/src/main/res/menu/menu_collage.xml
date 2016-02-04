@@ -6,12 +6,12 @@
         android:id="@+id/save_collage"
         android:orderInCategory="100"
         android:title="@string/restart"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@mipmap/ic_save_white_48dp"
         app:showAsAction="always" />
     <item
         android:id="@+id/refresh"
         android:orderInCategory="200"
         android:title="@string/restart"
-        android:icon="@android:drawable/ic_menu_revert"
+        android:icon="@mipmap/ic_autorenew_white_48dp"
         app:showAsAction="always" />
 </menu>
