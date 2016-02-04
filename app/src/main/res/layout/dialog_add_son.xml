@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerInside"
+                android:src="@mipmap/ic_mode_edit_white_36dp"
                 android:layout_gravity="end|bottom"
                 app:fabSize="mini"
                 />
